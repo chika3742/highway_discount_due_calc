@@ -42,6 +42,7 @@ class _YearMonthInputState extends State<YearMonthInput> {
               widget.onChanged(date);
             },
             textAlign: TextAlign.end,
+            keyboardType: TextInputType.number,
             inputFormatters: [yearInputFormatter],
             decoration: const InputDecoration(
                 prefixText: "令和",
