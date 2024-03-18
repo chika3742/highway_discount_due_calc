@@ -47,7 +47,7 @@ class _YearMonthInputState extends State<YearMonthInput> {
             decoration: const InputDecoration(
                 prefixText: "令和",
                 suffixText: "年",
-                labelText: "年"
+                labelText: "年",
             ),
           ),
         ),

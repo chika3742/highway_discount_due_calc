@@ -12,6 +12,7 @@ class BirthdayInput extends StatelessWidget {
   final ValueChanged<String>? onYearChanged;
   final ValueChanged<int?>? onMonthChanged;
   final ValueChanged<String>? onDayChanged;
+  final TextEditingController? yearController;
   final TextEditingController? dayController;
 
   const BirthdayInput({
@@ -22,6 +23,7 @@ class BirthdayInput extends StatelessWidget {
     this.onYearChanged,
     this.onMonthChanged,
     this.onDayChanged,
+    this.yearController,
     this.dayController,
   });
 
@@ -34,7 +36,7 @@ class BirthdayInput extends StatelessWidget {
             value: era,
             decoration: const InputDecoration(
               labelText: "元号",
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
             ),
             items: JapaneseEra.values.map((e) {
               return DropdownMenuItem(
@@ -47,6 +49,7 @@ class BirthdayInput extends StatelessWidget {
         ),
         Flexible(
           child: TextFormField(
+            controller: yearController,
             onChanged: onYearChanged,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             textAlign: TextAlign.end,
@@ -54,7 +57,7 @@ class BirthdayInput extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: "年",
               suffixText: "年",
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
             ),
           ),
         ),
@@ -64,7 +67,7 @@ class BirthdayInput extends StatelessWidget {
             value: month,
             decoration: const InputDecoration(
               labelText: "月",
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
             ),
             alignment: Alignment.centerRight,
             items: months.map((e) {
@@ -86,7 +89,7 @@ class BirthdayInput extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: "日",
               suffixText: "日",
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
             ),
           ),
         ),
