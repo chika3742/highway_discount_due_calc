@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kigenkeisann/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,17 +14,10 @@ class HomePageNotifier extends _$HomePageNotifier {
   HomePageState build() {
     return HomePageState(
       procedureType: ProcedureType.update,
-      birthdayInputState: BirthdayInputState(
-        yearController: TextEditingController(),
-        dayController: TextEditingController(),
-      ),
+      birthDate: null,
       hasExpirationDate: false,
-      physicalExpDateInputState: YearMonthInputState(
-        jcYearController: TextEditingController(),
-      ),
-      rehabilitationExpDateInputState: YearMonthInputState(
-        jcYearController: TextEditingController(),
-      ),
+      physicalExpDate: null,
+      rehabilitationExpDate: null,
     );
   }
 
@@ -33,46 +25,28 @@ class HomePageNotifier extends _$HomePageNotifier {
     state = state.copyWith(procedureType: procedureType);
   }
 
-  void setBirthdayInputState(BirthdayInputState birthdayInputState) {
-    state = state.copyWith(birthdayInputState: birthdayInputState);
-    normalizeBirthdayDay();
-  }
-
-  void normalizeBirthdayDay() {
-    final validationResult = state.birthdayInputState.validateDay(state.birthdayInputState.day);
-    if (validationResult != null) {
-      state.birthdayInputState.dayController.text = validationResult.toString();
-    }
+  void setBirthDate(DateTime? birthDate) {
+    state = state.copyWith(birthDate: birthDate);
   }
 
   void setHasExpirationDate(bool hasExpirationDate) {
     state = state.copyWith(hasExpirationDate: hasExpirationDate);
   }
 
-  void setPhysicalExpDateInputState(YearMonthInputState physicalExpDateInputState) {
-    state = state.copyWith(physicalExpDateInputState: physicalExpDateInputState);
+  void setPhysicalExpDate(DateTime? physicalExpDate) {
+    state = state.copyWith(physicalExpDate: physicalExpDate);
   }
 
-  void setRehabilitationExpDateInputState(YearMonthInputState rehabilitationExpDateInputState) {
-    state = state.copyWith(rehabilitationExpDateInputState: rehabilitationExpDateInputState);
+  void setRehabilitationExpDate(DateTime? rehabilitationExpDate) {
+    state = state.copyWith(rehabilitationExpDate: rehabilitationExpDate);
   }
 
   void clear() {
     state = state.copyWith(
-      birthdayInputState: state.birthdayInputState.copyWith(
-        era: null,
-        month: null,
-      ),
-      physicalExpDateInputState: state.physicalExpDateInputState.copyWith(
-        month: null,
-      ),
-      rehabilitationExpDateInputState: state.rehabilitationExpDateInputState.copyWith(
-        month: null,
-      ),
+      birthDate: null,
+      physicalExpDate: null,
+      rehabilitationExpDate: null,
     );
-    state.birthdayInputState.clearText();
-    state.physicalExpDateInputState.clearText();
-    state.rehabilitationExpDateInputState.clearText();
   }
 }
 
@@ -82,13 +56,11 @@ class HomePageState with _$HomePageState {
 
   const factory HomePageState({
     required ProcedureType procedureType,
-    required BirthdayInputState birthdayInputState,
+    required DateTime? birthDate,
     required bool hasExpirationDate,
-    required YearMonthInputState physicalExpDateInputState,
-    required YearMonthInputState rehabilitationExpDateInputState,
+    required DateTime? physicalExpDate,
+    required DateTime? rehabilitationExpDate,
   }) = _HomePageState;
-
-  DateTime? get birthDate => birthdayInputState.date;
 
   DateTime? get expirationDate {
     if (birthDate == null) {
@@ -116,13 +88,13 @@ class HomePageState with _$HomePageState {
     }
 
     if (hasExpirationDate &&
-        (physicalExpDateInputState.date != null ||
-            rehabilitationExpDateInputState.date != null)) {
+        (physicalExpDate != null ||
+            rehabilitationExpDate != null)) {
       result = earlierDate(
         result,
         laterDate(
-          physicalExpDateInputState.date,
-          rehabilitationExpDateInputState.date,
+          physicalExpDate,
+          rehabilitationExpDate,
         ),
       );
     }
@@ -153,85 +125,5 @@ class HomePageState with _$HomePageState {
     }
     result = result.copyWith(month: result.month - 2);
     return DateTime.now().isBefore(result);
-  }
-}
-
-@freezed
-class BirthdayInputState with _$BirthdayInputState {
-  const BirthdayInputState._();
-
-  const factory BirthdayInputState({
-    required TextEditingController yearController,
-    required TextEditingController dayController,
-    JapaneseEra? era,
-    @Deprecated('Unused value (for notifying changes only)')
-    String? mYear,
-    int? month,
-    @Deprecated('Unused value (for notifying changes only)')
-    String? mDay,
-  }) = _BirthdayInputState;
-
-  int? get year => int.tryParse(yearController.text);
-
-  int? get day => int.tryParse(dayController.text);
-
-  JapaneseCalendarYear? get japaneseCalendarYear {
-    if (era == null || year == null) {
-      return null;
-    }
-    return JapaneseCalendarYear(era: era!, year: year!);
-  }
-
-  DateTime? get date {
-    if (japaneseCalendarYear == null || month == null || day == null) {
-      return null;
-    }
-    return DateTime(japaneseCalendarYear!.adYear, month!, day!);
-  }
-
-  /// if no change, return null
-  int? validateDay(int? day) {
-    if (day == null) {
-      return null;
-    }
-    if (japaneseCalendarYear != null && month != null) {
-      var dayLengthOfCurrentMonth = DateTime(japaneseCalendarYear!.adYear, month! + 1, 0).day;
-      if (dayLengthOfCurrentMonth < day) {
-        return dayLengthOfCurrentMonth;
-      }
-    }
-    if (day > 31) {
-      return 31;
-    }
-    return null;
-  }
-
-  void clearText() {
-    yearController.clear();
-    dayController.clear();
-  }
-}
-
-@freezed
-class YearMonthInputState with _$YearMonthInputState {
-  const YearMonthInputState._();
-
-  const factory YearMonthInputState({
-    required TextEditingController jcYearController,
-    @Deprecated("Unused value (for notifying changes only)")
-    String? mJcYear,
-    int? month,
-  }) = _YearMonthInputState;
-
-  DateTime? get date {
-    if (jcYearController.text.isEmpty || month == null) {
-      return null;
-    }
-    final jcYear = int.parse(jcYearController.text);
-    return DateTime(jcYear + JapaneseEra.reiwa.startYear - 1, month! + 1, 0);
-  }
-
-  void clearText() {
-    jcYearController.clear();
   }
 }

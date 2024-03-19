@@ -6,3 +6,5 @@ DateTime laterDate(DateTime? a, DateTime? b) {
   assert(a != null || b != null);
   return a == null ? b! : b == null ? a : a.isAfter(b) ? a : b;
 }
+
+final months = List.generate(12, (index) => index + 1);

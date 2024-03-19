@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kigenkeisann/components/layout.dart';
+import 'package:kigenkeisann/core/japanese_calendar.dart';
 
-class YearMonthInput extends StatelessWidget {
-  final TextEditingController? jcYearController;
-  final ValueChanged<String>? onJcYearChanged;
-  final int? month;
-  final ValueChanged<int?>? onMonthChanged;
-  final VoidCallback? onClear;
+import '../utils.dart';
+
+class YearMonthInput extends StatefulWidget {
+  final ValueChanged<DateTime?>? onChanged;
 
   const YearMonthInput({
     super.key,
-    this.jcYearController,
-    this.onJcYearChanged,
-    this.month,
-    this.onMonthChanged,
-    this.onClear
+    this.onChanged,
   });
+
+  @override
+  State<YearMonthInput> createState() => YearMonthInputState();
+}
+
+class YearMonthInputState extends State<YearMonthInput> {
+  final _yearController = TextEditingController();
+
+  int? _month;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,15 @@ class YearMonthInput extends StatelessWidget {
       children: [
         Flexible(
           child: TextFormField(
-            controller: jcYearController,
-            onChanged: onJcYearChanged,
+            controller: _yearController,
+            onChanged: (value) {
+              widget.onChanged?.call(date);
+            },
             textAlign: TextAlign.end,
             keyboardType: TextInputType.number,
-            inputFormatters: [yearInputFormatter],
-            decoration: const InputDecoration(
-                prefixText: "令和",
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+                prefixText: JapaneseEra.reiwa.text,
                 suffixText: "年",
                 labelText: "年",
             ),
@@ -38,7 +44,7 @@ class YearMonthInput extends StatelessWidget {
         ),
         Flexible(
           child: DropdownButtonFormField<int>(
-            value: month,
+            value: _month,
             items: months.map((e) {
               return DropdownMenuItem(
                 value: e,
@@ -49,7 +55,12 @@ class YearMonthInput extends StatelessWidget {
               border: OutlineInputBorder(),
               hintText: "月",
             ),
-            onChanged: onMonthChanged,
+            onChanged: (value) {
+              setState(() {
+                _month = value;
+              });
+              widget.onChanged?.call(date);
+            },
           ),
         ),
         SizedBox(
@@ -58,26 +69,31 @@ class YearMonthInput extends StatelessWidget {
           child: IconButton(
             padding: const EdgeInsets.all(4),
             icon: const Icon(Icons.clear),
-            onPressed: onClear,
+            onPressed: () {
+              _yearController.clear();
+              setState(() {
+                _month = null;
+              });
+              widget.onChanged?.call(null);
+            },
           ),
         ),
       ],
     );
   }
+
+  DateTime? get date {
+    if (_yearController.text.isEmpty || _month == null) {
+      return null;
+    }
+    final year = int.parse(_yearController.text);
+    return DateTime(year + JapaneseEra.reiwa.startYear - 1, _month! + 1, 0);
+  }
+
+  void clear() {
+    _yearController.clear();
+    setState(() {
+      _month = null;
+    });
+  }
 }
-
-final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) {
-  if (newValue.text.isEmpty) {
-    return newValue;
-  }
-  final number = int.tryParse(newValue.text);
-  if (number == null) {
-    return oldValue;
-  }
-  if (number < 0) {
-    return const TextEditingValue(text: "0");
-  }
-  return newValue;
-});
-
-final months = List.generate(12, (index) => index + 1);

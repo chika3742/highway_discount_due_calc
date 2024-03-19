@@ -8,11 +8,20 @@ import 'package:kigenkeisann/core/japanese_calendar.dart';
 import 'components/birthday_input.dart';
 import 'providers/home_page_notifier.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  final _birthdayInputKey = GlobalKey<BirthdayInputState>();
+  final _physicalExpDateInputKey = GlobalKey<YearMonthInputState>();
+  final _rehabilitationExpDateInputKey = GlobalKey<YearMonthInputState>();
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(homePageNotifierProvider);
 
     return Scaffold(
@@ -57,36 +66,11 @@ class HomePage extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: BirthdayInput(
-                          era: state.birthdayInputState.era,
-                          month: state.birthdayInputState.month,
-                          onEraChanged: (era) {
+                          key: _birthdayInputKey,
+                          onChanged: (date) {
                             ref.read(homePageNotifierProvider.notifier)
-                                .setBirthdayInputState(
-                              state.birthdayInputState.copyWith(era: era),
-                            );
+                              .setBirthDate(date);
                           },
-                          onMonthChanged: (month) {
-                            ref.read(homePageNotifierProvider.notifier)
-                                .setBirthdayInputState(
-                              state.birthdayInputState.copyWith(month: month),
-                            );
-                          },
-                          onYearChanged: (year) {
-                            ref.read(homePageNotifierProvider.notifier)
-                              ..setBirthdayInputState(
-                                state.birthdayInputState.copyWith(mYear: year),
-                              )
-                              ..normalizeBirthdayDay();
-                          },
-                          onDayChanged: (day) {
-                            ref.read(homePageNotifierProvider.notifier)
-                              ..setBirthdayInputState(
-                                state.birthdayInputState.copyWith(mDay: day),
-                              )
-                              ..normalizeBirthdayDay();
-                          },
-                          yearController: state.birthdayInputState.yearController,
-                          dayController: state.birthdayInputState.dayController,
                         ),
                       ),
                     ],
@@ -129,26 +113,10 @@ class HomePage extends ConsumerWidget {
                                         const Text("身体"),
                                         Flexible(
                                           child: YearMonthInput(
-                                            jcYearController: state.physicalExpDateInputState.jcYearController,
-                                            month: state.physicalExpDateInputState.month,
-                                            onJcYearChanged: (year) {
+                                            key: _physicalExpDateInputKey,
+                                            onChanged: (date) {
                                               ref.read(homePageNotifierProvider.notifier)
-                                                  .setPhysicalExpDateInputState(
-                                                state.physicalExpDateInputState.copyWith(mJcYear: year),
-                                              );
-                                            },
-                                            onMonthChanged: (month) {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setPhysicalExpDateInputState(
-                                                state.physicalExpDateInputState.copyWith(month: month),
-                                              );
-                                            },
-                                            onClear: () {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setPhysicalExpDateInputState(
-                                                state.physicalExpDateInputState.copyWith(month: null),
-                                              );
-                                              state.physicalExpDateInputState.clearText();
+                                                  .setPhysicalExpDate(date);
                                             },
                                           ),
                                         ),
@@ -160,26 +128,10 @@ class HomePage extends ConsumerWidget {
                                         const Text("療育\n(A1/A2)"),
                                         Flexible(
                                           child: YearMonthInput(
-                                            jcYearController: state.rehabilitationExpDateInputState.jcYearController,
-                                            month: state.rehabilitationExpDateInputState.month,
-                                            onJcYearChanged: (year) {
+                                            key: _rehabilitationExpDateInputKey,
+                                            onChanged: (date) {
                                               ref.read(homePageNotifierProvider.notifier)
-                                                  .setRehabilitationExpDateInputState(
-                                                state.rehabilitationExpDateInputState.copyWith(mJcYear: year),
-                                              );
-                                            },
-                                            onMonthChanged: (month) {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setRehabilitationExpDateInputState(
-                                                state.rehabilitationExpDateInputState.copyWith(month: month),
-                                              );
-                                            },
-                                            onClear: () {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setRehabilitationExpDateInputState(
-                                                state.rehabilitationExpDateInputState.copyWith(month: null),
-                                              );
-                                              state.rehabilitationExpDateInputState.clearText();
+                                                  .setRehabilitationExpDate(date);
                                             },
                                           ),
                                         ),
@@ -213,6 +165,30 @@ class HomePage extends ConsumerWidget {
                       ),
                     ],
                   ),
+
+                  Section(
+                    children: [
+                      const SectionHeading("車両登録"),
+                      LabeledRadio(
+                        value: false,
+                        groupValue: state.hasExpirationDate,
+                        onChanged: (value) {
+                          ref.read(homePageNotifierProvider.notifier)
+                              .setHasExpirationDate(value!);
+                        },
+                        label: "なし",
+                      ),
+                      LabeledRadio(
+                        value: true,
+                        groupValue: state.hasExpirationDate,
+                        onChanged: (value) {
+                          ref.read(homePageNotifierProvider.notifier)
+                              .setHasExpirationDate(value!);
+                        },
+                        label: "あり",
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -254,6 +230,9 @@ class HomePage extends ConsumerWidget {
                     icon: const Icon(Icons.clear),
                     onPressed: () {
                       ref.read(homePageNotifierProvider.notifier).clear();
+                      _birthdayInputKey.currentState?.clear();
+                      _physicalExpDateInputKey.currentState?.clear();
+                      _rehabilitationExpDateInputKey.currentState?.clear();
                     },
                   ),
                 ],
