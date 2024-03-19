@@ -2,34 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kigenkeisann/components/layout.dart';
 
-class YearMonthInput extends StatefulWidget {
-  final ValueChanged<DateTime?> onChanged;
+class YearMonthInput extends StatelessWidget {
+  final TextEditingController? jcYearController;
+  final ValueChanged<String>? onJcYearChanged;
+  final int? month;
+  final ValueChanged<int?>? onMonthChanged;
+  final VoidCallback? onClear;
 
   const YearMonthInput({
     super.key,
-    required this.onChanged,
+    this.jcYearController,
+    this.onJcYearChanged,
+    this.month,
+    this.onMonthChanged,
+    this.onClear
   });
-
-  @override
-  State<YearMonthInput> createState() => _YearMonthInputState();
-}
-
-class _YearMonthInputState extends State<YearMonthInput> {
-  final _controller = TextEditingController();
-  int? _month;
-
-  DateTime? get date {
-    if (_controller.text.isEmpty || _month == null) {
-      return null;
-    }
-    final jcYear = int.tryParse(_controller.text);
-    if (jcYear == null) {
-      return null;
-    }
-    // 令和元年は2019年
-    return DateTime(jcYear + 2018, _month! + 1)
-        .subtract(const Duration(days: 1)); // 月末日にする
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +24,8 @@ class _YearMonthInputState extends State<YearMonthInput> {
       children: [
         Flexible(
           child: TextFormField(
-            controller: _controller,
-            onChanged: (_) {
-              widget.onChanged(date);
-            },
+            controller: jcYearController,
+            onChanged: onJcYearChanged,
             textAlign: TextAlign.end,
             keyboardType: TextInputType.number,
             inputFormatters: [yearInputFormatter],
@@ -53,7 +38,7 @@ class _YearMonthInputState extends State<YearMonthInput> {
         ),
         Flexible(
           child: DropdownButtonFormField<int>(
-            value: _month,
+            value: month,
             items: months.map((e) {
               return DropdownMenuItem(
                 value: e,
@@ -64,12 +49,7 @@ class _YearMonthInputState extends State<YearMonthInput> {
               border: OutlineInputBorder(),
               hintText: "月",
             ),
-            onChanged: (value) {
-              setState(() {
-                _month = value;
-              });
-              widget.onChanged(date);
-            },
+            onChanged: onMonthChanged,
           ),
         ),
         SizedBox(
@@ -78,11 +58,7 @@ class _YearMonthInputState extends State<YearMonthInput> {
           child: IconButton(
             padding: const EdgeInsets.all(4),
             icon: const Icon(Icons.clear),
-            onPressed: () {
-              _controller.clear();
-              _month = null;
-              widget.onChanged(null);
-            },
+            onPressed: onClear,
           ),
         ),
       ],

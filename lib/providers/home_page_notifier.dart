@@ -20,8 +20,12 @@ class HomePageNotifier extends _$HomePageNotifier {
         dayController: TextEditingController(),
       ),
       hasExpirationDate: false,
-      physicalExpirationDate: null,
-      rehabilitationExpirationDate: null,
+      physicalExpDateInputState: YearMonthInputState(
+        jcYearController: TextEditingController(),
+      ),
+      rehabilitationExpDateInputState: YearMonthInputState(
+        jcYearController: TextEditingController(),
+      ),
     );
   }
 
@@ -45,12 +49,12 @@ class HomePageNotifier extends _$HomePageNotifier {
     state = state.copyWith(hasExpirationDate: hasExpirationDate);
   }
 
-  void setPhysicalExpirationDate(DateTime? physicalExpirationDate) {
-    state = state.copyWith(physicalExpirationDate: physicalExpirationDate);
+  void setPhysicalExpDateInputState(YearMonthInputState physicalExpDateInputState) {
+    state = state.copyWith(physicalExpDateInputState: physicalExpDateInputState);
   }
 
-  void setRehabilitationExpirationDate(DateTime? rehabilitationExpirationDate) {
-    state = state.copyWith(rehabilitationExpirationDate: rehabilitationExpirationDate);
+  void setRehabilitationExpDateInputState(YearMonthInputState rehabilitationExpDateInputState) {
+    state = state.copyWith(rehabilitationExpDateInputState: rehabilitationExpDateInputState);
   }
 
   void clear() {
@@ -59,12 +63,16 @@ class HomePageNotifier extends _$HomePageNotifier {
         era: null,
         month: null,
       ),
-      hasExpirationDate: false,
-      physicalExpirationDate: null,
-      rehabilitationExpirationDate: null,
+      physicalExpDateInputState: state.physicalExpDateInputState.copyWith(
+        month: null,
+      ),
+      rehabilitationExpDateInputState: state.rehabilitationExpDateInputState.copyWith(
+        month: null,
+      ),
     );
-    state.birthdayInputState.yearController.clear();
-    state.birthdayInputState.dayController.clear();
+    state.birthdayInputState.clearText();
+    state.physicalExpDateInputState.clearText();
+    state.rehabilitationExpDateInputState.clearText();
   }
 }
 
@@ -76,8 +84,8 @@ class HomePageState with _$HomePageState {
     required ProcedureType procedureType,
     required BirthdayInputState birthdayInputState,
     required bool hasExpirationDate,
-    required DateTime? physicalExpirationDate,
-    required DateTime? rehabilitationExpirationDate,
+    required YearMonthInputState physicalExpDateInputState,
+    required YearMonthInputState rehabilitationExpDateInputState,
   }) = _HomePageState;
 
   DateTime? get birthDate => birthdayInputState.date;
@@ -108,13 +116,13 @@ class HomePageState with _$HomePageState {
     }
 
     if (hasExpirationDate &&
-        (physicalExpirationDate != null ||
-            rehabilitationExpirationDate != null)) {
+        (physicalExpDateInputState.date != null ||
+            rehabilitationExpDateInputState.date != null)) {
       result = earlierDate(
         result,
         laterDate(
-          physicalExpirationDate,
-          rehabilitationExpirationDate,
+          physicalExpDateInputState.date,
+          rehabilitationExpDateInputState.date,
         ),
       );
     }
@@ -196,5 +204,34 @@ class BirthdayInputState with _$BirthdayInputState {
       return 31;
     }
     return null;
+  }
+
+  void clearText() {
+    yearController.clear();
+    dayController.clear();
+  }
+}
+
+@freezed
+class YearMonthInputState with _$YearMonthInputState {
+  const YearMonthInputState._();
+
+  const factory YearMonthInputState({
+    required TextEditingController jcYearController,
+    @Deprecated("Unused value (for notifying changes only)")
+    String? mJcYear,
+    int? month,
+  }) = _YearMonthInputState;
+
+  DateTime? get date {
+    if (jcYearController.text.isEmpty || month == null) {
+      return null;
+    }
+    final jcYear = int.parse(jcYearController.text);
+    return DateTime(jcYear + JapaneseEra.reiwa.startYear - 1, month! + 1, 0);
+  }
+
+  void clearText() {
+    jcYearController.clear();
   }
 }

@@ -20,8 +20,9 @@ mixin _$HomePageState {
   BirthdayInputState get birthdayInputState =>
       throw _privateConstructorUsedError;
   bool get hasExpirationDate => throw _privateConstructorUsedError;
-  DateTime? get physicalExpirationDate => throw _privateConstructorUsedError;
-  DateTime? get rehabilitationExpirationDate =>
+  YearMonthInputState get physicalExpDateInputState =>
+      throw _privateConstructorUsedError;
+  YearMonthInputState get rehabilitationExpDateInputState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -39,10 +40,12 @@ abstract class $HomePageStateCopyWith<$Res> {
       {ProcedureType procedureType,
       BirthdayInputState birthdayInputState,
       bool hasExpirationDate,
-      DateTime? physicalExpirationDate,
-      DateTime? rehabilitationExpirationDate});
+      YearMonthInputState physicalExpDateInputState,
+      YearMonthInputState rehabilitationExpDateInputState});
 
   $BirthdayInputStateCopyWith<$Res> get birthdayInputState;
+  $YearMonthInputStateCopyWith<$Res> get physicalExpDateInputState;
+  $YearMonthInputStateCopyWith<$Res> get rehabilitationExpDateInputState;
 }
 
 /// @nodoc
@@ -61,8 +64,8 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? procedureType = null,
     Object? birthdayInputState = null,
     Object? hasExpirationDate = null,
-    Object? physicalExpirationDate = freezed,
-    Object? rehabilitationExpirationDate = freezed,
+    Object? physicalExpDateInputState = null,
+    Object? rehabilitationExpDateInputState = null,
   }) {
     return _then(_value.copyWith(
       procedureType: null == procedureType
@@ -77,14 +80,14 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.hasExpirationDate
           : hasExpirationDate // ignore: cast_nullable_to_non_nullable
               as bool,
-      physicalExpirationDate: freezed == physicalExpirationDate
-          ? _value.physicalExpirationDate
-          : physicalExpirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rehabilitationExpirationDate: freezed == rehabilitationExpirationDate
-          ? _value.rehabilitationExpirationDate
-          : rehabilitationExpirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      physicalExpDateInputState: null == physicalExpDateInputState
+          ? _value.physicalExpDateInputState
+          : physicalExpDateInputState // ignore: cast_nullable_to_non_nullable
+              as YearMonthInputState,
+      rehabilitationExpDateInputState: null == rehabilitationExpDateInputState
+          ? _value.rehabilitationExpDateInputState
+          : rehabilitationExpDateInputState // ignore: cast_nullable_to_non_nullable
+              as YearMonthInputState,
     ) as $Val);
   }
 
@@ -94,6 +97,25 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     return $BirthdayInputStateCopyWith<$Res>(_value.birthdayInputState,
         (value) {
       return _then(_value.copyWith(birthdayInputState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $YearMonthInputStateCopyWith<$Res> get physicalExpDateInputState {
+    return $YearMonthInputStateCopyWith<$Res>(_value.physicalExpDateInputState,
+        (value) {
+      return _then(_value.copyWith(physicalExpDateInputState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $YearMonthInputStateCopyWith<$Res> get rehabilitationExpDateInputState {
+    return $YearMonthInputStateCopyWith<$Res>(
+        _value.rehabilitationExpDateInputState, (value) {
+      return _then(
+          _value.copyWith(rehabilitationExpDateInputState: value) as $Val);
     });
   }
 }
@@ -110,11 +132,15 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       {ProcedureType procedureType,
       BirthdayInputState birthdayInputState,
       bool hasExpirationDate,
-      DateTime? physicalExpirationDate,
-      DateTime? rehabilitationExpirationDate});
+      YearMonthInputState physicalExpDateInputState,
+      YearMonthInputState rehabilitationExpDateInputState});
 
   @override
   $BirthdayInputStateCopyWith<$Res> get birthdayInputState;
+  @override
+  $YearMonthInputStateCopyWith<$Res> get physicalExpDateInputState;
+  @override
+  $YearMonthInputStateCopyWith<$Res> get rehabilitationExpDateInputState;
 }
 
 /// @nodoc
@@ -131,8 +157,8 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? procedureType = null,
     Object? birthdayInputState = null,
     Object? hasExpirationDate = null,
-    Object? physicalExpirationDate = freezed,
-    Object? rehabilitationExpirationDate = freezed,
+    Object? physicalExpDateInputState = null,
+    Object? rehabilitationExpDateInputState = null,
   }) {
     return _then(_$HomePageStateImpl(
       procedureType: null == procedureType
@@ -147,14 +173,14 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.hasExpirationDate
           : hasExpirationDate // ignore: cast_nullable_to_non_nullable
               as bool,
-      physicalExpirationDate: freezed == physicalExpirationDate
-          ? _value.physicalExpirationDate
-          : physicalExpirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rehabilitationExpirationDate: freezed == rehabilitationExpirationDate
-          ? _value.rehabilitationExpirationDate
-          : rehabilitationExpirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      physicalExpDateInputState: null == physicalExpDateInputState
+          ? _value.physicalExpDateInputState
+          : physicalExpDateInputState // ignore: cast_nullable_to_non_nullable
+              as YearMonthInputState,
+      rehabilitationExpDateInputState: null == rehabilitationExpDateInputState
+          ? _value.rehabilitationExpDateInputState
+          : rehabilitationExpDateInputState // ignore: cast_nullable_to_non_nullable
+              as YearMonthInputState,
     ));
   }
 }
@@ -166,8 +192,8 @@ class _$HomePageStateImpl extends _HomePageState {
       {required this.procedureType,
       required this.birthdayInputState,
       required this.hasExpirationDate,
-      required this.physicalExpirationDate,
-      required this.rehabilitationExpirationDate})
+      required this.physicalExpDateInputState,
+      required this.rehabilitationExpDateInputState})
       : super._();
 
   @override
@@ -177,13 +203,13 @@ class _$HomePageStateImpl extends _HomePageState {
   @override
   final bool hasExpirationDate;
   @override
-  final DateTime? physicalExpirationDate;
+  final YearMonthInputState physicalExpDateInputState;
   @override
-  final DateTime? rehabilitationExpirationDate;
+  final YearMonthInputState rehabilitationExpDateInputState;
 
   @override
   String toString() {
-    return 'HomePageState(procedureType: $procedureType, birthdayInputState: $birthdayInputState, hasExpirationDate: $hasExpirationDate, physicalExpirationDate: $physicalExpirationDate, rehabilitationExpirationDate: $rehabilitationExpirationDate)';
+    return 'HomePageState(procedureType: $procedureType, birthdayInputState: $birthdayInputState, hasExpirationDate: $hasExpirationDate, physicalExpDateInputState: $physicalExpDateInputState, rehabilitationExpDateInputState: $rehabilitationExpDateInputState)';
   }
 
   @override
@@ -197,12 +223,13 @@ class _$HomePageStateImpl extends _HomePageState {
                 other.birthdayInputState == birthdayInputState) &&
             (identical(other.hasExpirationDate, hasExpirationDate) ||
                 other.hasExpirationDate == hasExpirationDate) &&
-            (identical(other.physicalExpirationDate, physicalExpirationDate) ||
-                other.physicalExpirationDate == physicalExpirationDate) &&
-            (identical(other.rehabilitationExpirationDate,
-                    rehabilitationExpirationDate) ||
-                other.rehabilitationExpirationDate ==
-                    rehabilitationExpirationDate));
+            (identical(other.physicalExpDateInputState,
+                    physicalExpDateInputState) ||
+                other.physicalExpDateInputState == physicalExpDateInputState) &&
+            (identical(other.rehabilitationExpDateInputState,
+                    rehabilitationExpDateInputState) ||
+                other.rehabilitationExpDateInputState ==
+                    rehabilitationExpDateInputState));
   }
 
   @override
@@ -211,8 +238,8 @@ class _$HomePageStateImpl extends _HomePageState {
       procedureType,
       birthdayInputState,
       hasExpirationDate,
-      physicalExpirationDate,
-      rehabilitationExpirationDate);
+      physicalExpDateInputState,
+      rehabilitationExpDateInputState);
 
   @JsonKey(ignore: true)
   @override
@@ -226,8 +253,8 @@ abstract class _HomePageState extends HomePageState {
           {required final ProcedureType procedureType,
           required final BirthdayInputState birthdayInputState,
           required final bool hasExpirationDate,
-          required final DateTime? physicalExpirationDate,
-          required final DateTime? rehabilitationExpirationDate}) =
+          required final YearMonthInputState physicalExpDateInputState,
+          required final YearMonthInputState rehabilitationExpDateInputState}) =
       _$HomePageStateImpl;
   const _HomePageState._() : super._();
 
@@ -238,9 +265,9 @@ abstract class _HomePageState extends HomePageState {
   @override
   bool get hasExpirationDate;
   @override
-  DateTime? get physicalExpirationDate;
+  YearMonthInputState get physicalExpDateInputState;
   @override
-  DateTime? get rehabilitationExpirationDate;
+  YearMonthInputState get rehabilitationExpDateInputState;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>
@@ -480,5 +507,176 @@ abstract class _BirthdayInputState extends BirthdayInputState {
   @override
   @JsonKey(ignore: true)
   _$$BirthdayInputStateImplCopyWith<_$BirthdayInputStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$YearMonthInputState {
+  TextEditingController get jcYearController =>
+      throw _privateConstructorUsedError;
+  @Deprecated("Unused value (for notifying changes only)")
+  String? get mJcYear => throw _privateConstructorUsedError;
+  int? get month => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $YearMonthInputStateCopyWith<YearMonthInputState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $YearMonthInputStateCopyWith<$Res> {
+  factory $YearMonthInputStateCopyWith(
+          YearMonthInputState value, $Res Function(YearMonthInputState) then) =
+      _$YearMonthInputStateCopyWithImpl<$Res, YearMonthInputState>;
+  @useResult
+  $Res call(
+      {TextEditingController jcYearController,
+      @Deprecated("Unused value (for notifying changes only)") String? mJcYear,
+      int? month});
+}
+
+/// @nodoc
+class _$YearMonthInputStateCopyWithImpl<$Res, $Val extends YearMonthInputState>
+    implements $YearMonthInputStateCopyWith<$Res> {
+  _$YearMonthInputStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jcYearController = null,
+    Object? mJcYear = freezed,
+    Object? month = freezed,
+  }) {
+    return _then(_value.copyWith(
+      jcYearController: null == jcYearController
+          ? _value.jcYearController
+          : jcYearController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      mJcYear: freezed == mJcYear
+          ? _value.mJcYear
+          : mJcYear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$YearMonthInputStateImplCopyWith<$Res>
+    implements $YearMonthInputStateCopyWith<$Res> {
+  factory _$$YearMonthInputStateImplCopyWith(_$YearMonthInputStateImpl value,
+          $Res Function(_$YearMonthInputStateImpl) then) =
+      __$$YearMonthInputStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {TextEditingController jcYearController,
+      @Deprecated("Unused value (for notifying changes only)") String? mJcYear,
+      int? month});
+}
+
+/// @nodoc
+class __$$YearMonthInputStateImplCopyWithImpl<$Res>
+    extends _$YearMonthInputStateCopyWithImpl<$Res, _$YearMonthInputStateImpl>
+    implements _$$YearMonthInputStateImplCopyWith<$Res> {
+  __$$YearMonthInputStateImplCopyWithImpl(_$YearMonthInputStateImpl _value,
+      $Res Function(_$YearMonthInputStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jcYearController = null,
+    Object? mJcYear = freezed,
+    Object? month = freezed,
+  }) {
+    return _then(_$YearMonthInputStateImpl(
+      jcYearController: null == jcYearController
+          ? _value.jcYearController
+          : jcYearController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      mJcYear: freezed == mJcYear
+          ? _value.mJcYear
+          : mJcYear // ignore: cast_nullable_to_non_nullable
+              as String?,
+      month: freezed == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$YearMonthInputStateImpl extends _YearMonthInputState {
+  const _$YearMonthInputStateImpl(
+      {required this.jcYearController,
+      @Deprecated("Unused value (for notifying changes only)") this.mJcYear,
+      this.month})
+      : super._();
+
+  @override
+  final TextEditingController jcYearController;
+  @override
+  @Deprecated("Unused value (for notifying changes only)")
+  final String? mJcYear;
+  @override
+  final int? month;
+
+  @override
+  String toString() {
+    return 'YearMonthInputState(jcYearController: $jcYearController, mJcYear: $mJcYear, month: $month)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$YearMonthInputStateImpl &&
+            (identical(other.jcYearController, jcYearController) ||
+                other.jcYearController == jcYearController) &&
+            (identical(other.mJcYear, mJcYear) || other.mJcYear == mJcYear) &&
+            (identical(other.month, month) || other.month == month));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, jcYearController, mJcYear, month);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$YearMonthInputStateImplCopyWith<_$YearMonthInputStateImpl> get copyWith =>
+      __$$YearMonthInputStateImplCopyWithImpl<_$YearMonthInputStateImpl>(
+          this, _$identity);
+}
+
+abstract class _YearMonthInputState extends YearMonthInputState {
+  const factory _YearMonthInputState(
+      {required final TextEditingController jcYearController,
+      @Deprecated("Unused value (for notifying changes only)")
+      final String? mJcYear,
+      final int? month}) = _$YearMonthInputStateImpl;
+  const _YearMonthInputState._() : super._();
+
+  @override
+  TextEditingController get jcYearController;
+  @override
+  @Deprecated("Unused value (for notifying changes only)")
+  String? get mJcYear;
+  @override
+  int? get month;
+  @override
+  @JsonKey(ignore: true)
+  _$$YearMonthInputStateImplCopyWith<_$YearMonthInputStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

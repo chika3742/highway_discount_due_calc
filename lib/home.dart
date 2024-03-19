@@ -129,9 +129,26 @@ class HomePage extends ConsumerWidget {
                                         const Text("身体"),
                                         Flexible(
                                           child: YearMonthInput(
-                                            onChanged: (date) {
+                                            jcYearController: state.physicalExpDateInputState.jcYearController,
+                                            month: state.physicalExpDateInputState.month,
+                                            onJcYearChanged: (year) {
                                               ref.read(homePageNotifierProvider.notifier)
-                                                  .setPhysicalExpirationDate(date);
+                                                  .setPhysicalExpDateInputState(
+                                                state.physicalExpDateInputState.copyWith(mJcYear: year),
+                                              );
+                                            },
+                                            onMonthChanged: (month) {
+                                              ref.read(homePageNotifierProvider.notifier)
+                                                  .setPhysicalExpDateInputState(
+                                                state.physicalExpDateInputState.copyWith(month: month),
+                                              );
+                                            },
+                                            onClear: () {
+                                              ref.read(homePageNotifierProvider.notifier)
+                                                  .setPhysicalExpDateInputState(
+                                                state.physicalExpDateInputState.copyWith(month: null),
+                                              );
+                                              state.physicalExpDateInputState.clearText();
                                             },
                                           ),
                                         ),
@@ -143,9 +160,26 @@ class HomePage extends ConsumerWidget {
                                         const Text("療育\n(A1/A2)"),
                                         Flexible(
                                           child: YearMonthInput(
-                                            onChanged: (date) {
+                                            jcYearController: state.rehabilitationExpDateInputState.jcYearController,
+                                            month: state.rehabilitationExpDateInputState.month,
+                                            onJcYearChanged: (year) {
                                               ref.read(homePageNotifierProvider.notifier)
-                                                  .setRehabilitationExpirationDate(date);
+                                                  .setRehabilitationExpDateInputState(
+                                                state.rehabilitationExpDateInputState.copyWith(mJcYear: year),
+                                              );
+                                            },
+                                            onMonthChanged: (month) {
+                                              ref.read(homePageNotifierProvider.notifier)
+                                                  .setRehabilitationExpDateInputState(
+                                                state.rehabilitationExpDateInputState.copyWith(month: month),
+                                              );
+                                            },
+                                            onClear: () {
+                                              ref.read(homePageNotifierProvider.notifier)
+                                                  .setRehabilitationExpDateInputState(
+                                                state.rehabilitationExpDateInputState.copyWith(month: null),
+                                              );
+                                              state.rehabilitationExpDateInputState.clearText();
                                             },
                                           ),
                                         ),
@@ -179,39 +213,6 @@ class HomePage extends ConsumerWidget {
                       ),
                     ],
                   ),
-
-                  // Card(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(16.0),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         const SectionHeading("計算結果"),
-                  //         const SizedBox(height: 8),
-                  //         buildResult(state.expirationDate),
-                  //         if (state.isTurns18BeforeExpirationDate)
-                  //           const Text(
-                  //             "期限前に18歳になります",
-                  //             style: TextStyle(
-                  //               fontSize: 18,
-                  //               color: Colors.red,
-                  //               fontWeight: FontWeight.bold,
-                  //             ),
-                  //           ),
-                  //         if (state.procedureType == ProcedureType.update
-                  //             && state.isTodayOver2MonthsBeforeBirthday)
-                  //           const Text(
-                  //             "誕生日まで2ヶ月以上あります",
-                  //             style: TextStyle(
-                  //               fontSize: 18,
-                  //               color: Colors.red,
-                  //               fontWeight: FontWeight.bold,
-                  //             ),
-                  //           ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
