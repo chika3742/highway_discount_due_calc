@@ -103,6 +103,9 @@ class HomePageState with _$HomePageState {
         && isTodayOver2MonthsBeforeBirthday) {
       result = result.copyWith(year: result.year - 1);
     }
+    if (birthDate!.isLeapDay && !result.isLeapDay) {
+      result = result.subtract(const Duration(days: 1));
+    }
 
     if (hasExpirationDate &&
         (physicalExpirationDate != null ||
