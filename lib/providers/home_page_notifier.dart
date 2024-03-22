@@ -18,6 +18,10 @@ class HomePageNotifier extends _$HomePageNotifier {
       hasExpirationDate: false,
       physicalExpDate: null,
       rehabilitationExpDate: null,
+      registerVehicle: false,
+      useEtc: false,
+      leaseVehicle: false,
+      isCertType2: false,
     );
   }
 
@@ -41,11 +45,31 @@ class HomePageNotifier extends _$HomePageNotifier {
     state = state.copyWith(rehabilitationExpDate: rehabilitationExpDate);
   }
 
+  void setRegisterVehicle(bool registerVehicle) {
+    state = state.copyWith(registerVehicle: registerVehicle);
+  }
+
+  void setUseEtc(bool useEtc) {
+    state = state.copyWith(useEtc: useEtc);
+  }
+
+  void setLeaseVehicle(bool leaseVehicle) {
+    state = state.copyWith(leaseVehicle: leaseVehicle);
+  }
+
+  void setIsCertType2(bool isCertType2) {
+    state = state.copyWith(isCertType2: isCertType2);
+  }
+
   void clear() {
     state = state.copyWith(
       birthDate: null,
       physicalExpDate: null,
       rehabilitationExpDate: null,
+      isCertType2: false,
+      registerVehicle: false,
+      useEtc: false,
+      leaseVehicle: false,
     );
   }
 }
@@ -60,6 +84,10 @@ class HomePageState with _$HomePageState {
     required bool hasExpirationDate,
     required DateTime? physicalExpDate,
     required DateTime? rehabilitationExpDate,
+    required bool registerVehicle,
+    required bool useEtc,
+    required bool leaseVehicle,
+    required bool isCertType2,
   }) = _HomePageState;
 
   DateTime? get expirationDate {
@@ -131,5 +159,16 @@ class HomePageState with _$HomePageState {
     }
     result = result.copyWith(month: result.month - 2);
     return now.isBefore(result);
+  }
+
+  bool? get is18YearsOld {
+    if (birthDate == null) {
+      return null;
+    }
+
+    final now = clock.now();
+
+    final x18thBirthday = Clock.fixed(birthDate!).yearsFromNow(18);
+    return x18thBirthday.isBefore(now);
   }
 }

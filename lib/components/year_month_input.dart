@@ -52,8 +52,7 @@ class YearMonthInputState extends State<YearMonthInput> {
               );
             }).toList(),
             decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: "月",
+              labelText: "月",
             ),
             onChanged: (value) {
               setState(() {

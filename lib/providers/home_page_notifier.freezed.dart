@@ -21,6 +21,10 @@ mixin _$HomePageState {
   bool get hasExpirationDate => throw _privateConstructorUsedError;
   DateTime? get physicalExpDate => throw _privateConstructorUsedError;
   DateTime? get rehabilitationExpDate => throw _privateConstructorUsedError;
+  bool get registerVehicle => throw _privateConstructorUsedError;
+  bool get useEtc => throw _privateConstructorUsedError;
+  bool get leaseVehicle => throw _privateConstructorUsedError;
+  bool get isCertType2 => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -38,7 +42,11 @@ abstract class $HomePageStateCopyWith<$Res> {
       DateTime? birthDate,
       bool hasExpirationDate,
       DateTime? physicalExpDate,
-      DateTime? rehabilitationExpDate});
+      DateTime? rehabilitationExpDate,
+      bool registerVehicle,
+      bool useEtc,
+      bool leaseVehicle,
+      bool isCertType2});
 }
 
 /// @nodoc
@@ -59,6 +67,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? hasExpirationDate = null,
     Object? physicalExpDate = freezed,
     Object? rehabilitationExpDate = freezed,
+    Object? registerVehicle = null,
+    Object? useEtc = null,
+    Object? leaseVehicle = null,
+    Object? isCertType2 = null,
   }) {
     return _then(_value.copyWith(
       procedureType: null == procedureType
@@ -81,6 +93,22 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.rehabilitationExpDate
           : rehabilitationExpDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      registerVehicle: null == registerVehicle
+          ? _value.registerVehicle
+          : registerVehicle // ignore: cast_nullable_to_non_nullable
+              as bool,
+      useEtc: null == useEtc
+          ? _value.useEtc
+          : useEtc // ignore: cast_nullable_to_non_nullable
+              as bool,
+      leaseVehicle: null == leaseVehicle
+          ? _value.leaseVehicle
+          : leaseVehicle // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCertType2: null == isCertType2
+          ? _value.isCertType2
+          : isCertType2 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -98,7 +126,11 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       DateTime? birthDate,
       bool hasExpirationDate,
       DateTime? physicalExpDate,
-      DateTime? rehabilitationExpDate});
+      DateTime? rehabilitationExpDate,
+      bool registerVehicle,
+      bool useEtc,
+      bool leaseVehicle,
+      bool isCertType2});
 }
 
 /// @nodoc
@@ -117,6 +149,10 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? hasExpirationDate = null,
     Object? physicalExpDate = freezed,
     Object? rehabilitationExpDate = freezed,
+    Object? registerVehicle = null,
+    Object? useEtc = null,
+    Object? leaseVehicle = null,
+    Object? isCertType2 = null,
   }) {
     return _then(_$HomePageStateImpl(
       procedureType: null == procedureType
@@ -139,6 +175,22 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.rehabilitationExpDate
           : rehabilitationExpDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      registerVehicle: null == registerVehicle
+          ? _value.registerVehicle
+          : registerVehicle // ignore: cast_nullable_to_non_nullable
+              as bool,
+      useEtc: null == useEtc
+          ? _value.useEtc
+          : useEtc // ignore: cast_nullable_to_non_nullable
+              as bool,
+      leaseVehicle: null == leaseVehicle
+          ? _value.leaseVehicle
+          : leaseVehicle // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCertType2: null == isCertType2
+          ? _value.isCertType2
+          : isCertType2 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -151,7 +203,11 @@ class _$HomePageStateImpl extends _HomePageState {
       required this.birthDate,
       required this.hasExpirationDate,
       required this.physicalExpDate,
-      required this.rehabilitationExpDate})
+      required this.rehabilitationExpDate,
+      required this.registerVehicle,
+      required this.useEtc,
+      required this.leaseVehicle,
+      required this.isCertType2})
       : super._();
 
   @override
@@ -164,10 +220,18 @@ class _$HomePageStateImpl extends _HomePageState {
   final DateTime? physicalExpDate;
   @override
   final DateTime? rehabilitationExpDate;
+  @override
+  final bool registerVehicle;
+  @override
+  final bool useEtc;
+  @override
+  final bool leaseVehicle;
+  @override
+  final bool isCertType2;
 
   @override
   String toString() {
-    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, hasExpirationDate: $hasExpirationDate, physicalExpDate: $physicalExpDate, rehabilitationExpDate: $rehabilitationExpDate)';
+    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, hasExpirationDate: $hasExpirationDate, physicalExpDate: $physicalExpDate, rehabilitationExpDate: $rehabilitationExpDate, registerVehicle: $registerVehicle, useEtc: $useEtc, leaseVehicle: $leaseVehicle, isCertType2: $isCertType2)';
   }
 
   @override
@@ -184,12 +248,28 @@ class _$HomePageStateImpl extends _HomePageState {
             (identical(other.physicalExpDate, physicalExpDate) ||
                 other.physicalExpDate == physicalExpDate) &&
             (identical(other.rehabilitationExpDate, rehabilitationExpDate) ||
-                other.rehabilitationExpDate == rehabilitationExpDate));
+                other.rehabilitationExpDate == rehabilitationExpDate) &&
+            (identical(other.registerVehicle, registerVehicle) ||
+                other.registerVehicle == registerVehicle) &&
+            (identical(other.useEtc, useEtc) || other.useEtc == useEtc) &&
+            (identical(other.leaseVehicle, leaseVehicle) ||
+                other.leaseVehicle == leaseVehicle) &&
+            (identical(other.isCertType2, isCertType2) ||
+                other.isCertType2 == isCertType2));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, procedureType, birthDate,
-      hasExpirationDate, physicalExpDate, rehabilitationExpDate);
+  int get hashCode => Object.hash(
+      runtimeType,
+      procedureType,
+      birthDate,
+      hasExpirationDate,
+      physicalExpDate,
+      rehabilitationExpDate,
+      registerVehicle,
+      useEtc,
+      leaseVehicle,
+      isCertType2);
 
   @JsonKey(ignore: true)
   @override
@@ -204,7 +284,11 @@ abstract class _HomePageState extends HomePageState {
       required final DateTime? birthDate,
       required final bool hasExpirationDate,
       required final DateTime? physicalExpDate,
-      required final DateTime? rehabilitationExpDate}) = _$HomePageStateImpl;
+      required final DateTime? rehabilitationExpDate,
+      required final bool registerVehicle,
+      required final bool useEtc,
+      required final bool leaseVehicle,
+      required final bool isCertType2}) = _$HomePageStateImpl;
   const _HomePageState._() : super._();
 
   @override
@@ -217,6 +301,14 @@ abstract class _HomePageState extends HomePageState {
   DateTime? get physicalExpDate;
   @override
   DateTime? get rehabilitationExpDate;
+  @override
+  bool get registerVehicle;
+  @override
+  bool get useEtc;
+  @override
+  bool get leaseVehicle;
+  @override
+  bool get isCertType2;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>
