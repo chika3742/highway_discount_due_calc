@@ -188,7 +188,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         label: "あり",
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
