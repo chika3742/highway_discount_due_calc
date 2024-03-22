@@ -42,9 +42,3 @@ extension JapaneseCalendarYearExtension on DateTime {
     throw ArgumentError("Invalid year: $year");
   }
 }
-
-extension LeapYearExtension on DateTime {
-  bool get isLeapDay {
-    return month == 2 && day == 29;
-  }
-}

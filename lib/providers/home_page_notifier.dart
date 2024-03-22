@@ -1,8 +1,8 @@
+import 'package:clock/clock.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kigenkeisann/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../core/japanese_calendar.dart';
 import '../utils.dart';
 
 part 'home_page_notifier.freezed.dart';
@@ -12,7 +12,7 @@ part 'home_page_notifier.g.dart';
 class HomePageNotifier extends _$HomePageNotifier {
   @override
   HomePageState build() {
-    return HomePageState(
+    return const HomePageState(
       procedureType: ProcedureType.update,
       birthDate: null,
       hasExpirationDate: false,
@@ -67,24 +67,25 @@ class HomePageState with _$HomePageState {
       return null;
     }
 
+    final now = clock.now();
+
     var result = DateTime(
-      DateTime.now().year,
+      now.year,
       birthDate!.month,
       birthDate!.day,
     );
-    if (result.isBefore(DateTime.now())) {
-      result = result.copyWith(year: result.year + 1);
+    if (result.isBeforeOrAtSameMomentAs(now)) {
+      result = Clock.fixed(result).yearsFromNow(1);
     }
     // result: 次の誕生日
-    result = result.copyWith(year: result.year
-        + procedureType.birthdaysBeforeExpirationDate - 1,);
+    result = Clock.fixed(result).yearsFromNow(
+      procedureType.birthdaysBeforeExpirationDate - 1,
+    );
     // result: 本来の有効期限日
+    // 手続き日が誕生日より２ヶ月以上前である場合は、手続き日から2回目の誕生日
     if (procedureType == ProcedureType.update
         && isTodayOver2MonthsBeforeBirthday) {
-      result = result.copyWith(year: result.year - 1);
-    }
-    if (birthDate!.isLeapDay && !result.isLeapDay) {
-      result = result.subtract(const Duration(days: 1));
+      result = Clock.fixed(result).yearsFromNow(-1);
     }
 
     if (hasExpirationDate &&
@@ -106,24 +107,29 @@ class HomePageState with _$HomePageState {
     if (birthDate == null) {
       return false;
     }
-    var nthBirthday = birthDate!.copyWith(year: birthDate!.year + 18);
-    return nthBirthday.isAfter(DateTime.now())
-        && nthBirthday.isBefore(expirationDate!);
+    final now = clock.now();
+
+    var x18thBirthday = birthDate!.copyWith(year: birthDate!.year + 18);
+    return x18thBirthday.isAfter(now)
+        && x18thBirthday.isBefore(expirationDate!);
   }
 
   bool get isTodayOver2MonthsBeforeBirthday {
     if (birthDate == null) {
       return false;
     }
+
+    final now = clock.now();
+
     var result = DateTime(
-      DateTime.now().year,
+      now.year,
       birthDate!.month,
       birthDate!.day,
     );
-    if (result.isBefore(DateTime.now())) {
+    if (result.isBeforeOrAtSameMomentAs(now)) {
       result = result.copyWith(year: result.year + 1);
     }
     result = result.copyWith(month: result.month - 2);
-    return DateTime.now().isBefore(result);
+    return now.isBefore(result);
   }
 }
