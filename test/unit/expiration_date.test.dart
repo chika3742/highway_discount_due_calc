@@ -189,4 +189,23 @@ void main() {
       },
     );
   });
+
+  test("誕生日が閏日の場合の処理", () {
+    final container = createContainer();
+
+    container.read(homePageNotifierProvider.notifier)
+      ..setProcedureType(ProcedureType.newAcquisition)
+      ..setBirthDate(DateTime(2004, 2, 29));
+
+    withClock(
+      Clock.fixed(DateTime(2024, 3, 1)),
+          () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.expirationDate,
+          equals(DateTime(2026, 2, 28)),
+        );
+      },
+    );
+  });
 }
