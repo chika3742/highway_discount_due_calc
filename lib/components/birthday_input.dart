@@ -147,6 +147,9 @@ class BirthdayInputState extends State<BirthdayInput> {
     if (day > 31) {
       return 31;
     }
+    if (day < 1) {
+      return 1;
+    }
     return null;
   }
 
