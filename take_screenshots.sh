@@ -16,7 +16,7 @@ function start_android_emu() {
 
 function stop_android_emu() {
   kill %%
-  sleep 3
+  sleep 5
 }
 
 function find_ios_simu_device() {
@@ -48,11 +48,11 @@ function exec_android() {
   stop_android_emu
 }
 
-exec_ios "iPhone 15 Pro Max" "screenshots/ios/iphone-6.7in"
-exec_ios "iPhone 8 Plus" "screenshots/ios/iphone-5.5in"
-exec_ios "iPad Pro (12.9-inch) (6th generation)" "screenshots/ios/ipad-12.9in-gen6"
-exec_ios "iPad Pro (12.9-inch) (2nd generation)" "screenshots/ios/ipad-12.9in-gen2"
+#exec_ios "iPhone 15 Pro Max" "screenshots/ios/iphone-6.7in"
+#exec_ios "iPhone 8 Plus" "screenshots/ios/iphone-5.5in"
+#exec_ios "iPad Pro (12.9-inch) (6th generation)" "screenshots/ios/ipad-12.9in-gen6"
+#exec_ios "iPad Pro (12.9-inch) (2nd generation)" "screenshots/ios/ipad-12.9in-gen2"
 
-exec_android "Pixel 7 API 34" "screenshots/android/mobile"
-exec_android "7-inch Tablet API 33" "screenshots/android/tablet-7in"
-exec_android "10-inch Tablet API 33" "screenshots/android/tablet-10in"
+#exec_android "Pixel_7_API_34" "screenshots/android/mobile"
+exec_android "7-inch_Tablet_API_33" "screenshots/android/tablet-7in"
+exec_android "10-inch_Tablet_API_33" "screenshots/android/tablet-10in"

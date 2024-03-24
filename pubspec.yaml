@@ -2,7 +2,7 @@ name: kigenkeisann
 description: "Highway discount expiration date calculator"
 publish_to: 'none'
 
-version: 0.0.1+2
+version: 1.0.0+4
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -43,6 +43,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
