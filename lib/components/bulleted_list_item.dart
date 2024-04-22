@@ -8,8 +8,12 @@ class BulletedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.brightness_1, size: 8),
+        const Padding(
+          padding: EdgeInsets.only(top: 9.0),
+          child: Icon(Icons.brightness_1, size: 8),
+        ),
         const SizedBox(width: 8.0),
         Expanded(
           child: child,

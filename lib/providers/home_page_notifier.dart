@@ -161,7 +161,7 @@ class HomePageState with _$HomePageState {
     return now.isBefore(result);
   }
 
-  bool? get is18YearsOld {
+  bool? get isOver18YearsOld {
     if (birthDate == null) {
       return null;
     }

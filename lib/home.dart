@@ -244,6 +244,32 @@ class _HomePageState extends ConsumerState<HomePage> {
                           Flexible(
                             child: Section(
                               children: [
+                                const SectionHeading("車のリース・ローン"),
+                                LabeledRadio(
+                                  value: false,
+                                  groupValue: state.leaseVehicle,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setLeaseVehicle(value!);
+                                  },
+                                  label: "なし",
+                                ),
+                                LabeledRadio(
+                                  value: true,
+                                  groupValue: state.leaseVehicle,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setLeaseVehicle(value!);
+                                  },
+                                  label: "あり",
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Flexible(
+                            child: Section(
+                              children: [
                                 const SectionHeading("ETC"),
                                 LabeledRadio(
                                   value: false,
@@ -267,31 +293,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           ),
 
-                          Flexible(
-                            child: Section(
-                              children: [
-                                const SectionHeading("車のリース・ローン"),
-                                LabeledRadio(
-                                  value: false,
-                                  groupValue: state.leaseVehicle,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setLeaseVehicle(value!);
-                                  },
-                                  label: "なし",
-                                ),
-                                LabeledRadio(
-                                  value: true,
-                                  groupValue: state.leaseVehicle,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setLeaseVehicle(value!);
-                                  },
-                                  label: "あり",
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -304,35 +305,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: GappedColumn(
                             children: [
                               const SectionHeading("必要書類"),
-                              const BulletedListItem(
-                                child: Text("障害者手帳（身体・療育）"),
-                              ),
-                              if (state.registerVehicle) const BulletedListItem(
-                                child: Text("車検証"),
-                              ),
-                              if (state.isCertType2) const BulletedListItem(
-                                child: Text("運転免許証"),
-                              ),
-                              if (state.registerVehicle
-                                  && state.useEtc
-                                  && state.is18YearsOld != false)
-                                const BulletedListItem(
-                                  child: Text("ETCカード（本人名義）"),
-                                ),
-                              if (state.registerVehicle
-                                  && state.useEtc
-                                  && state.is18YearsOld == false)
-                                const BulletedListItem(
-                                  child: Text("ETCカード（親権者名義）"),
-                                ),
-                              if (state.registerVehicle && state.useEtc)
-                                const BulletedListItem(
-                                  child: Text("ETCセットアップ証明"),
-                                ),
-                              if (state.registerVehicle && state.leaseVehicle)
-                                const BulletedListItem(
-                                  child: Text("割賦契約書 または リース契約書"),
-                                ),
+                              ..._buildRequiredDocs(state),
                             ],
                           ),
                         ),
@@ -454,6 +427,42 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
     );
   }
+
+  List<Widget> _buildRequiredDocs(HomePageState state) {
+    return [
+      const BulletedListItem(
+        child: Text("障害者手帳（身体・療育）"),
+      ),
+      if (state.registerVehicle) const BulletedListItem(
+        child: Text("車検証"),
+      ),
+      if (state.isCertType2) const BulletedListItem(
+        child: Text("運転免許証"),
+      ),
+      if (state.registerVehicle && state.leaseVehicle)
+        const BulletedListItem(
+          child: Text("割賦契約書 または リース契約書"),
+        ),
+      if (state.registerVehicle && state.useEtc) ...[
+        const SizedBox(),
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: SectionHeading("以下は「新規：常に必要」「更新/変更：変更があった場合のみ」"),
+        ),
+        if (state.isOver18YearsOld == false)
+          const BulletedListItem(
+            child: Text("ETCカード (親権者名義)"),
+          ),
+        if (state.isOver18YearsOld != false) // else
+          const BulletedListItem(
+            child: Text("ETCカード (本人名義)"),
+          ),
+        const BulletedListItem(
+          child: Text("ETCセットアップ証明"),
+        ),
+      ],
+    ];
+  }
 }
 
 enum ProcedureType {
@@ -467,5 +476,3 @@ enum ProcedureType {
     required this.birthdaysBeforeExpirationDate,
   });
 }
-
-
