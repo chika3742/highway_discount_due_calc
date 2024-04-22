@@ -5,7 +5,8 @@ function drive() {
     --driver test_driver/integration_test.dart \
     --target integration_test/take_screenshots.dart \
     --dart-define SCREENSHOT_MODE=true \
-    --dart-define SCREENSHOT_NAME_BASE=$1
+    --dart-define SCREENSHOT_NAME_BASE=$1 \
+    -d "$2"
 }
 
 function start_android_emu() {
@@ -38,13 +39,13 @@ function exec_ios() {
   device_udid=$(find_ios_simu_device "$1")
   echo "Device udid: $device_udid"
   start_ios_simu "$device_udid"
-  drive "$2"
+  drive "$2" "$1"
   stop_ios_simu "$device_udid"
 }
 
 function exec_android() {
   start_android_emu "$1"
-  drive "$2"
+  drive "$2" "emulator-5554"
   stop_android_emu
 }
 

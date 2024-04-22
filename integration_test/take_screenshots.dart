@@ -45,11 +45,12 @@ void main() async {
 
     await binding.takeScreenshot("${ssNameBase}_1");
 
+    await tester.scrollUntilVisible(find.text("必要書類"), 100, scrollable: find.byType(Scrollable).first);
     await tester.tap(find.text("2種"));
     await pump100ms(tester);
     await tester.tap(find.text("あり").at(1));
     await pump100ms(tester);
-    await tester.dragUntilVisible(find.text("必要書類"), find.byType(SingleChildScrollView), const Offset(0, -100));
+    await tester.scrollUntilVisible(find.text("必要書類"), 100, scrollable: find.byType(Scrollable).first);
     await pump100ms(tester);
     await tester.tap(find.text("あり").at(2));
     await pump100ms(tester);
