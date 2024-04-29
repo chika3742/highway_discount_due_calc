@@ -25,6 +25,7 @@ mixin _$HomePageState {
   bool get useEtc => throw _privateConstructorUsedError;
   bool get leaseVehicle => throw _privateConstructorUsedError;
   bool get isCertType2 => throw _privateConstructorUsedError;
+  bool get isAgent => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $HomePageStateCopyWith<$Res> {
       bool registerVehicle,
       bool useEtc,
       bool leaseVehicle,
-      bool isCertType2});
+      bool isCertType2,
+      bool isAgent});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? useEtc = null,
     Object? leaseVehicle = null,
     Object? isCertType2 = null,
+    Object? isAgent = null,
   }) {
     return _then(_value.copyWith(
       procedureType: null == procedureType
@@ -109,6 +112,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.isCertType2
           : isCertType2 // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAgent: null == isAgent
+          ? _value.isAgent
+          : isAgent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -130,7 +137,8 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       bool registerVehicle,
       bool useEtc,
       bool leaseVehicle,
-      bool isCertType2});
+      bool isCertType2,
+      bool isAgent});
 }
 
 /// @nodoc
@@ -153,6 +161,7 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? useEtc = null,
     Object? leaseVehicle = null,
     Object? isCertType2 = null,
+    Object? isAgent = null,
   }) {
     return _then(_$HomePageStateImpl(
       procedureType: null == procedureType
@@ -191,6 +200,10 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.isCertType2
           : isCertType2 // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAgent: null == isAgent
+          ? _value.isAgent
+          : isAgent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$HomePageStateImpl extends _HomePageState {
       required this.registerVehicle,
       required this.useEtc,
       required this.leaseVehicle,
-      required this.isCertType2})
+      required this.isCertType2,
+      required this.isAgent})
       : super._();
 
   @override
@@ -228,10 +242,12 @@ class _$HomePageStateImpl extends _HomePageState {
   final bool leaseVehicle;
   @override
   final bool isCertType2;
+  @override
+  final bool isAgent;
 
   @override
   String toString() {
-    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, hasExpirationDate: $hasExpirationDate, physicalExpDate: $physicalExpDate, rehabilitationExpDate: $rehabilitationExpDate, registerVehicle: $registerVehicle, useEtc: $useEtc, leaseVehicle: $leaseVehicle, isCertType2: $isCertType2)';
+    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, hasExpirationDate: $hasExpirationDate, physicalExpDate: $physicalExpDate, rehabilitationExpDate: $rehabilitationExpDate, registerVehicle: $registerVehicle, useEtc: $useEtc, leaseVehicle: $leaseVehicle, isCertType2: $isCertType2, isAgent: $isAgent)';
   }
 
   @override
@@ -255,7 +271,8 @@ class _$HomePageStateImpl extends _HomePageState {
             (identical(other.leaseVehicle, leaseVehicle) ||
                 other.leaseVehicle == leaseVehicle) &&
             (identical(other.isCertType2, isCertType2) ||
-                other.isCertType2 == isCertType2));
+                other.isCertType2 == isCertType2) &&
+            (identical(other.isAgent, isAgent) || other.isAgent == isAgent));
   }
 
   @override
@@ -269,7 +286,8 @@ class _$HomePageStateImpl extends _HomePageState {
       registerVehicle,
       useEtc,
       leaseVehicle,
-      isCertType2);
+      isCertType2,
+      isAgent);
 
   @JsonKey(ignore: true)
   @override
@@ -288,7 +306,8 @@ abstract class _HomePageState extends HomePageState {
       required final bool registerVehicle,
       required final bool useEtc,
       required final bool leaseVehicle,
-      required final bool isCertType2}) = _$HomePageStateImpl;
+      required final bool isCertType2,
+      required final bool isAgent}) = _$HomePageStateImpl;
   const _HomePageState._() : super._();
 
   @override
@@ -309,6 +328,8 @@ abstract class _HomePageState extends HomePageState {
   bool get leaseVehicle;
   @override
   bool get isCertType2;
+  @override
+  bool get isAgent;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>

@@ -22,6 +22,7 @@ class HomePageNotifier extends _$HomePageNotifier {
       useEtc: false,
       leaseVehicle: false,
       isCertType2: false,
+      isAgent: false,
     );
   }
 
@@ -61,6 +62,10 @@ class HomePageNotifier extends _$HomePageNotifier {
     state = state.copyWith(isCertType2: isCertType2);
   }
 
+  void setIsAgent(bool isAgent) {
+    state = state.copyWith(isAgent: isAgent);
+  }
+
   void clear() {
     state = state.copyWith(
       birthDate: null,
@@ -88,6 +93,7 @@ class HomePageState with _$HomePageState {
     required bool useEtc,
     required bool leaseVehicle,
     required bool isCertType2,
+    required bool isAgent,
   }) = _HomePageState;
 
   DateTime? get expirationDate {

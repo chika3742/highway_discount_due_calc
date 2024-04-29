@@ -1,3 +1,4 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kigenkeisann/components/bulleted_list_item.dart';
@@ -5,6 +6,7 @@ import 'package:kigenkeisann/components/labeled_radio.dart';
 import 'package:kigenkeisann/components/layout.dart';
 import 'package:kigenkeisann/components/year_month_input.dart';
 import 'package:kigenkeisann/core/japanese_calendar.dart';
+import 'package:kigenkeisann/providers/generated_image.dart';
 
 import 'components/birthday_input.dart';
 import 'providers/home_page_notifier.dart';
@@ -26,6 +28,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homePageNotifierProvider);
+    final generatedImage = ref.watch(generatedImageProvider);
 
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
@@ -297,6 +300,30 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
 
+                    Section(
+                      children: [
+                        const SectionHeading("申請者"),
+                        LabeledRadio(
+                          value: false,
+                          groupValue: state.isAgent,
+                          onChanged: (value) {
+                            ref.read(homePageNotifierProvider.notifier)
+                                .setIsAgent(value!);
+                          },
+                          label: "本人",
+                        ),
+                        LabeledRadio(
+                          value: true,
+                          groupValue: state.isAgent,
+                          onChanged: (value) {
+                            ref.read(homePageNotifierProvider.notifier)
+                                .setIsAgent(value!);
+                          },
+                          label: "代理人",
+                        ),
+                      ],
+                    ),
+
                     Card.outlined(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -310,7 +337,32 @@ class _HomePageState extends ConsumerState<HomePage> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+
+                    const SectionHeading("申請書記入欄"),
+
+                    switch (generatedImage) {
+                      AsyncError(:final error) => Text("画像生成に失敗しました: $error"),
+                      AsyncValue(:final value, :final isLoading) => isLoading ? const SizedBox(
+                        height: 550,
+                        child: Center(child: CircularProgressIndicator()),
+                      ) : Column(
+                        children: [
+                          const Text("画像をタップして拡大"),
+                          GestureDetector(
+                            onTap: () {
+                              showImageViewer(
+                                context,
+                                Image.memory(value).image,
+                                immersive: false,
+                                useSafeArea: true,
+                              );
+                            },
+                            child: Image.memory(value!, height: 550),
+                          ),
+                        ],
+                      )
+                    },
                   ],
                 ),
               ),
