@@ -47,7 +47,7 @@ class LabeledCheckbox extends StatelessWidget {
 
   final bool? value;
   final ValueChanged<bool?> onChanged;
-  final String label;
+  final Widget label;
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +61,7 @@ class LabeledCheckbox extends StatelessWidget {
             value: value,
             onChanged: onChanged,
           ),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          label,
         ],
       ),
     );

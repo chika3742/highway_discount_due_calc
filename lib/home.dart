@@ -33,9 +33,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("有料道路割引 期限計算"),
-        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -43,282 +40,280 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: SingleChildScrollView(
                 controller: _scrollController,
                 padding: const EdgeInsets.all(16),
-                child: GappedColumn(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GappedRow(
-                      children: [
-                        LabeledRadio<ProcedureType>(
-                          value: ProcedureType.update,
-                          groupValue: state.procedureType,
-                          onChanged: (value) {
-                            ref.read(homePageNotifierProvider.notifier)
-                                .setProcedureType(value!);
-                          },
-                          label: "更新",
-                        ),
-                        LabeledRadio<ProcedureType>(
-                          value: ProcedureType.newAcquisition,
-                          groupValue: state.procedureType,
-                          onChanged: (value) {
-                            ref.read(homePageNotifierProvider.notifier)
-                                .setProcedureType(value!);
-                          },
-                          label: "新規・変更",
-                        ),
-                      ],
-                    ),
-
-                    Section(
-                      children: [
-                        const SectionHeading("生年月日"),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: BirthdayInput(
-                            key: _birthdayInputKey,
-                            onChanged: (date) {
+                child: SafeArea(
+                  bottom: false,
+                  child: GappedColumn(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GappedRow(
+                        children: [
+                          LabeledRadio<ProcedureType>(
+                            value: ProcedureType.update,
+                            groupValue: state.procedureType,
+                            onChanged: (value) {
                               ref.read(homePageNotifierProvider.notifier)
-                                .setBirthDate(date);
+                                  .setProcedureType(value!);
                             },
+                            label: "更新",
                           ),
-                        ),
-                      ],
-                    ),
+                          LabeledRadio<ProcedureType>(
+                            value: ProcedureType.newAcquisition,
+                            groupValue: state.procedureType,
+                            onChanged: (value) {
+                              ref.read(homePageNotifierProvider.notifier)
+                                  .setProcedureType(value!);
+                            },
+                            label: "新規・変更",
+                          ),
+                        ],
+                      ),
 
-                    Section(
-                      children: [
-                        const SectionHeading("手帳の期限"),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
-                          child: GappedColumn(
+                      Section(
+                        children: [
+                          const SectionHeading("生年月日"),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: BirthdayInput(
+                              key: _birthdayInputKey,
+                              onChanged: (date) {
+                                ref.read(homePageNotifierProvider.notifier)
+                                  .setBirthDate(date);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Section(
+                        children: [
+                          const SectionHeading("手帳の期限"),
+                          Table(
+                            columnWidths: const {
+                              0: FixedColumnWidth(70),
+                            },
+                            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                             children: [
-                              GappedRow(
-                                gap: 16,
+                              TableRow(
                                 children: [
                                   const Text("身体"),
-                                  Flexible(
-                                    child: ExpireMonthInput(
-                                      key: _physicalExpDateInputKey,
-                                      value: state.physicalExpire,
-                                      onChanged: (date) {
-                                        ref.read(homePageNotifierProvider.notifier)
-                                            .setPhysicalExpire(date);
-                                      },
-                                    ),
+                                  ExpireMonthInput(
+                                    key: _physicalExpDateInputKey,
+                                    value: state.physicalExpire,
+                                    onChanged: (date) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setPhysicalExpire(date);
+                                    },
                                   ),
                                 ],
                               ),
-                              GappedRow(
-                                gap: 16,
+                              TableRow(
                                 children: [
                                   const Text("療育\n(A1/A2)"),
-                                  Flexible(
-                                    child: ExpireMonthInput(
-                                      key: _rehabilitationExpDateInputKey,
-                                      value: state.rehabilitationExpire,
-                                      onChanged: (date) {
-                                        ref.read(homePageNotifierProvider.notifier)
-                                            .setRehabilitationExpire(date);
-                                      },
-                                    ),
+                                  ExpireMonthInput(
+                                    key: _rehabilitationExpDateInputKey,
+                                    value: state.rehabilitationExpire,
+                                    onChanged: (date) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setRehabilitationExpire(date);
+                                    },
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Section(
-                            children: [
-                              const SectionHeading("手帳"),
-                              LabeledRadio(
-                                value: false,
-                                groupValue: state.isCertType2,
-                                onChanged: (value) {
-                                  ref.read(homePageNotifierProvider.notifier)
-                                      .setIsCertType2(value!);
-                                },
-                                label: "1種",
-                              ),
-                              LabeledRadio(
-                                value: true,
-                                groupValue: state.isCertType2,
-                                onChanged: (value) {
-                                  ref.read(homePageNotifierProvider.notifier)
-                                      .setIsCertType2(value!);
-                                },
-                                label: "2種",
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Flexible(
-                          child: Section(
-                            children: [
-                              const SectionHeading("車両登録"),
-                              LabeledRadio(
-                                value: false,
-                                groupValue: state.registerVehicle,
-                                onChanged: (value) {
-                                  ref.read(homePageNotifierProvider.notifier)
-                                      .setRegisterVehicle(value!);
-                                },
-                                label: "なし",
-                              ),
-                              LabeledRadio(
-                                value: true,
-                                groupValue: state.registerVehicle,
-                                onChanged: (value) {
-                                  ref.read(homePageNotifierProvider.notifier)
-                                      .setRegisterVehicle(value!);
-                                },
-                                label: "あり",
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    AnimatedCrossFade(
-                      crossFadeState: state.registerVehicle
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: const Duration(milliseconds: 300),
-                      sizeCurve: Curves.easeOutQuint,
-                      firstCurve: Curves.easeInExpo,
-                      secondCurve: Curves.easeOutExpo,
-                      firstChild: Container(),
-                      secondChild: Row(
-                        children: [
-                          Flexible(
-                            child: Section(
-                              children: [
-                                const SectionHeading("車のリース・ローン"),
-                                LabeledRadio(
-                                  value: false,
-                                  groupValue: state.leaseVehicle,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setLeaseVehicle(value!);
-                                  },
-                                  label: "なし",
-                                ),
-                                LabeledRadio(
-                                  value: true,
-                                  groupValue: state.leaseVehicle,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setLeaseVehicle(value!);
-                                  },
-                                  label: "あり",
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          Flexible(
-                            child: Section(
-                              children: [
-                                const SectionHeading("ETC"),
-                                LabeledRadio(
-                                  value: false,
-                                  groupValue: state.useEtc,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setUseEtc(value!);
-                                  },
-                                  label: "なし",
-                                ),
-                                LabeledRadio(
-                                  value: true,
-                                  groupValue: state.useEtc,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setUseEtc(value!);
-                                  },
-                                  label: "あり",
-                                ),
-                              ],
-                            ),
-                          ),
-
                         ],
                       ),
-                    ),
 
-                    Section(
-                      children: [
-                        const SectionHeading("申請者"),
-                        LabeledRadio(
-                          value: false,
-                          groupValue: state.isAgent,
-                          onChanged: (value) {
-                            ref.read(homePageNotifierProvider.notifier)
-                                .setIsAgent(value!);
-                          },
-                          label: "本人",
-                        ),
-                        LabeledRadio(
-                          value: true,
-                          groupValue: state.isAgent,
-                          onChanged: (value) {
-                            ref.read(homePageNotifierProvider.notifier)
-                                .setIsAgent(value!);
-                          },
-                          label: "代理人",
-                        ),
-                      ],
-                    ),
+                      const SizedBox(height: 16),
 
-                    Card.outlined(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: DefaultTextStyle(
-                          style: Theme.of(context).textTheme.bodyLarge!,
-                          child: GappedColumn(
-                            children: [
-                              const SectionHeading("必要書類"),
-                              ..._buildRequiredDocs(state),
-                            ],
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Section(
+                              children: [
+                                const SectionHeading("手帳"),
+                                LabeledRadio(
+                                  value: false,
+                                  groupValue: state.isCertType2,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setIsCertType2(value!);
+                                  },
+                                  label: "1種",
+                                ),
+                                LabeledRadio(
+                                  value: true,
+                                  groupValue: state.isCertType2,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setIsCertType2(value!);
+                                  },
+                                  label: "2種",
+                                ),
+                              ],
+                            ),
                           ),
+
+                          Flexible(
+                            child: Section(
+                              children: [
+                                const SectionHeading("車両登録"),
+                                LabeledRadio(
+                                  value: false,
+                                  groupValue: state.registerVehicle,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setRegisterVehicle(value!);
+                                  },
+                                  label: "なし",
+                                ),
+                                LabeledRadio(
+                                  value: true,
+                                  groupValue: state.registerVehicle,
+                                  onChanged: (value) {
+                                    ref.read(homePageNotifierProvider.notifier)
+                                        .setRegisterVehicle(value!);
+                                  },
+                                  label: "あり",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      AnimatedCrossFade(
+                        crossFadeState: state.registerVehicle
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: const Duration(milliseconds: 300),
+                        sizeCurve: Curves.easeOutQuint,
+                        firstCurve: Curves.easeInExpo,
+                        secondCurve: Curves.easeOutExpo,
+                        firstChild: Container(),
+                        secondChild: Row(
+                          children: [
+                            Flexible(
+                              child: Section(
+                                children: [
+                                  const SectionHeading("車のリース・ローン"),
+                                  LabeledRadio(
+                                    value: false,
+                                    groupValue: state.leaseVehicle,
+                                    onChanged: (value) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setLeaseVehicle(value!);
+                                    },
+                                    label: "なし",
+                                  ),
+                                  LabeledRadio(
+                                    value: true,
+                                    groupValue: state.leaseVehicle,
+                                    onChanged: (value) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setLeaseVehicle(value!);
+                                    },
+                                    label: "あり",
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Flexible(
+                              child: Section(
+                                children: [
+                                  const SectionHeading("ETC"),
+                                  LabeledRadio(
+                                    value: false,
+                                    groupValue: state.useEtc,
+                                    onChanged: (value) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setUseEtc(value!);
+                                    },
+                                    label: "なし",
+                                  ),
+                                  LabeledRadio(
+                                    value: true,
+                                    groupValue: state.useEtc,
+                                    onChanged: (value) {
+                                      ref.read(homePageNotifierProvider.notifier)
+                                          .setUseEtc(value!);
+                                    },
+                                    label: "あり",
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          ],
                         ),
                       ),
-                    ),
 
-                    const SectionHeading("申請書記入欄"),
-
-                    switch (generatedImage) {
-                      AsyncError(:final error) => Text("画像生成に失敗しました: $error"),
-                      AsyncValue(:final value, :final isLoading) => isLoading ? const SizedBox(
-                        height: 550,
-                        child: Center(child: CircularProgressIndicator()),
-                      ) : Column(
+                      Section(
                         children: [
-                          const Text("画像をタップして拡大"),
-                          GestureDetector(
-                            onTap: () {
-                              showImageViewer(
-                                context,
-                                Image.memory(value).image,
-                                immersive: false,
-                                useSafeArea: true,
-                              );
+                          const SectionHeading("申請者"),
+                          LabeledRadio(
+                            value: false,
+                            groupValue: state.isAgent,
+                            onChanged: (value) {
+                              ref.read(homePageNotifierProvider.notifier)
+                                  .setIsAgent(value!);
                             },
-                            child: Image.memory(value!, height: 550),
+                            label: "本人",
+                          ),
+                          LabeledRadio(
+                            value: true,
+                            groupValue: state.isAgent,
+                            onChanged: (value) {
+                              ref.read(homePageNotifierProvider.notifier)
+                                  .setIsAgent(value!);
+                            },
+                            label: "代理人",
                           ),
                         ],
-                      )
-                    },
-                  ],
+                      ),
+
+                      Card.outlined(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: DefaultTextStyle(
+                            style: Theme.of(context).textTheme.bodyLarge!,
+                            child: GappedColumn(
+                              children: [
+                                const SectionHeading("必要書類"),
+                                ..._buildRequiredDocs(state),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SectionHeading("申請書記入欄"),
+
+                      switch (generatedImage) {
+                        AsyncError(:final error) => Text("画像生成に失敗しました: $error"),
+                        AsyncValue(:final value, :final isLoading) => isLoading ? const SizedBox(
+                          height: 550,
+                          child: Center(child: CircularProgressIndicator()),
+                        ) : Column(
+                          children: [
+                            const Text("画像をタップして拡大"),
+                            GestureDetector(
+                              onTap: () {
+                                showImageViewer(
+                                  context,
+                                  Image.memory(value).image,
+                                  immersive: false,
+                                  useSafeArea: true,
+                                );
+                              },
+                              child: Image.memory(value!, height: 550),
+                            ),
+                          ],
+                        )
+                      },
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -327,6 +322,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: SafeArea(
+                top: false,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

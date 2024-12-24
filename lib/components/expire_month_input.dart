@@ -31,72 +31,83 @@ class ExpireMonthInputState extends State<ExpireMonthInput> {
 
   @override
   Widget build(BuildContext context) {
-    return GappedRow(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Flexible(
-          child: TextFormField(
-            controller: _yearController,
-            enabled: widget.value?.noExpirationDate != true,
-            onChanged: (value) {
-              widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
-            },
-            textAlign: TextAlign.end,
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              prefixText: JapaneseEra.reiwa.text,
-              suffixText: "年",
-              labelText: "年",
+        GappedRow(
+          children: [
+            Flexible(
+              child: TextFormField(
+                controller: _yearController,
+                enabled: widget.value?.noExpirationDate != true,
+                onChanged: (value) {
+                  widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
+                },
+                textAlign: TextAlign.end,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  prefixText: JapaneseEra.reiwa.text,
+                  suffixText: "年",
+                  labelText: "年",
+                ),
+              ),
+            ),
+            Flexible(
+              child: DropdownButtonFormField<int>(
+                value: _month,
+                items: months.map((e) {
+                  return DropdownMenuItem(
+                    value: e,
+                    child: Text("$e月"),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  labelText: "月",
+                  enabled: widget.value?.noExpirationDate != true,
+                ),
+                onChanged: widget.value?.noExpirationDate != true ? (value) {
+                  setState(() {
+                    _month = value;
+                  });
+                  widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
+                } : null,
+              ),
+            ),
+            LabeledCheckbox(
+              value: widget.value?.noExpirationDate == true,
+              onChanged: (value) {
+                if (value == true) {
+                  widget.onChanged(const ExpireMonthInputData(noExpirationDate: true));
+                } else {
+                  widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
+                }
+              },
+              label: const Text("期限なし"),
+            ),
+          ],
+        ),
+        AnimatedCrossFade(
+          crossFadeState: date != null || widget.value?.noExpirationDate == true
+              ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 300),
+          sizeCurve: Easing.standard,
+          firstChild: const SizedBox.shrink(),
+          secondChild: Align(
+            alignment: Alignment.centerRight,
+            child: OutlinedButton.icon(
+              icon: const Icon(Icons.clear),
+              label: const Text("クリア"),
+              style: const ButtonStyle(
+                visualDensity: VisualDensity.compact,
+              ),
+              onPressed: () {
+                clear();
+                widget.onChanged(null);
+              },
             ),
           ),
-        ),
-        Flexible(
-          child: DropdownButtonFormField<int>(
-            value: _month,
-            items: months.map((e) {
-              return DropdownMenuItem(
-                value: e,
-                child: Text("$e月"),
-              );
-            }).toList(),
-            decoration: InputDecoration(
-              labelText: "月",
-              enabled: widget.value?.noExpirationDate != true,
-            ),
-            onChanged: widget.value?.noExpirationDate != true ? (value) {
-              setState(() {
-                _month = value;
-              });
-              widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
-            } : null,
-          ),
-        ),
-        LabeledCheckbox(
-          value: widget.value?.noExpirationDate == true,
-          onChanged: (value) {
-            if (value == true) {
-              widget.onChanged(const ExpireMonthInputData(noExpirationDate: true));
-            } else {
-              widget.onChanged(date != null ? ExpireMonthInputData(date: date) : null);
-            }
-          },
-          label: "期限なし",
-        ),
-        SizedBox(
-          width: 32,
-          height: 32,
-          child: IconButton(
-            padding: const EdgeInsets.all(4),
-            icon: const Icon(Icons.clear),
-            onPressed: () {
-              _yearController.clear();
-              setState(() {
-                _month = null;
-              });
-              widget.onChanged(null);
-            },
-          ),
-        ),
+        )
       ],
     );
   }
