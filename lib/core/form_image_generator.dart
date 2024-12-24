@@ -60,8 +60,8 @@ class FormImageGenerator {
       color: Colors.red,
     ),
     FormDecoration( // has certificate expiration date checkmark
-      drawIf: (state) => state.physicalExpire?.noExpirationDate == true
-          || state.rehabilitationExpire?.noExpirationDate == true,
+      drawIf: (state) => (state.physicalExpire != null || state.rehabilitationExpire != null)
+          && state.physicalExpire?.noExpirationDate != true && state.rehabilitationExpire?.noExpirationDate != true,
       type: FormDecorationType.checkmark,
       p1: const Offset(345, 538.5),
       color: Colors.blue,
