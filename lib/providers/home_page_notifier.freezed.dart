@@ -18,9 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomePageState {
   ProcedureType get procedureType => throw _privateConstructorUsedError;
   DateTime? get birthDate => throw _privateConstructorUsedError;
-  bool get hasExpirationDate => throw _privateConstructorUsedError;
-  DateTime? get physicalExpDate => throw _privateConstructorUsedError;
-  DateTime? get rehabilitationExpDate => throw _privateConstructorUsedError;
+  ExpireMonthInputData? get physicalExpire =>
+      throw _privateConstructorUsedError;
+  ExpireMonthInputData? get rehabilitationExpire =>
+      throw _privateConstructorUsedError;
   bool get registerVehicle => throw _privateConstructorUsedError;
   bool get useEtc => throw _privateConstructorUsedError;
   bool get leaseVehicle => throw _privateConstructorUsedError;
@@ -41,14 +42,16 @@ abstract class $HomePageStateCopyWith<$Res> {
   $Res call(
       {ProcedureType procedureType,
       DateTime? birthDate,
-      bool hasExpirationDate,
-      DateTime? physicalExpDate,
-      DateTime? rehabilitationExpDate,
+      ExpireMonthInputData? physicalExpire,
+      ExpireMonthInputData? rehabilitationExpire,
       bool registerVehicle,
       bool useEtc,
       bool leaseVehicle,
       bool isCertType2,
       bool isAgent});
+
+  $ExpireMonthInputDataCopyWith<$Res>? get physicalExpire;
+  $ExpireMonthInputDataCopyWith<$Res>? get rehabilitationExpire;
 }
 
 /// @nodoc
@@ -66,9 +69,8 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   $Res call({
     Object? procedureType = null,
     Object? birthDate = freezed,
-    Object? hasExpirationDate = null,
-    Object? physicalExpDate = freezed,
-    Object? rehabilitationExpDate = freezed,
+    Object? physicalExpire = freezed,
+    Object? rehabilitationExpire = freezed,
     Object? registerVehicle = null,
     Object? useEtc = null,
     Object? leaseVehicle = null,
@@ -84,18 +86,14 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      hasExpirationDate: null == hasExpirationDate
-          ? _value.hasExpirationDate
-          : hasExpirationDate // ignore: cast_nullable_to_non_nullable
-              as bool,
-      physicalExpDate: freezed == physicalExpDate
-          ? _value.physicalExpDate
-          : physicalExpDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rehabilitationExpDate: freezed == rehabilitationExpDate
-          ? _value.rehabilitationExpDate
-          : rehabilitationExpDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      physicalExpire: freezed == physicalExpire
+          ? _value.physicalExpire
+          : physicalExpire // ignore: cast_nullable_to_non_nullable
+              as ExpireMonthInputData?,
+      rehabilitationExpire: freezed == rehabilitationExpire
+          ? _value.rehabilitationExpire
+          : rehabilitationExpire // ignore: cast_nullable_to_non_nullable
+              as ExpireMonthInputData?,
       registerVehicle: null == registerVehicle
           ? _value.registerVehicle
           : registerVehicle // ignore: cast_nullable_to_non_nullable
@@ -118,6 +116,31 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ExpireMonthInputDataCopyWith<$Res>? get physicalExpire {
+    if (_value.physicalExpire == null) {
+      return null;
+    }
+
+    return $ExpireMonthInputDataCopyWith<$Res>(_value.physicalExpire!, (value) {
+      return _then(_value.copyWith(physicalExpire: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ExpireMonthInputDataCopyWith<$Res>? get rehabilitationExpire {
+    if (_value.rehabilitationExpire == null) {
+      return null;
+    }
+
+    return $ExpireMonthInputDataCopyWith<$Res>(_value.rehabilitationExpire!,
+        (value) {
+      return _then(_value.copyWith(rehabilitationExpire: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -131,14 +154,18 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
   $Res call(
       {ProcedureType procedureType,
       DateTime? birthDate,
-      bool hasExpirationDate,
-      DateTime? physicalExpDate,
-      DateTime? rehabilitationExpDate,
+      ExpireMonthInputData? physicalExpire,
+      ExpireMonthInputData? rehabilitationExpire,
       bool registerVehicle,
       bool useEtc,
       bool leaseVehicle,
       bool isCertType2,
       bool isAgent});
+
+  @override
+  $ExpireMonthInputDataCopyWith<$Res>? get physicalExpire;
+  @override
+  $ExpireMonthInputDataCopyWith<$Res>? get rehabilitationExpire;
 }
 
 /// @nodoc
@@ -154,9 +181,8 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? procedureType = null,
     Object? birthDate = freezed,
-    Object? hasExpirationDate = null,
-    Object? physicalExpDate = freezed,
-    Object? rehabilitationExpDate = freezed,
+    Object? physicalExpire = freezed,
+    Object? rehabilitationExpire = freezed,
     Object? registerVehicle = null,
     Object? useEtc = null,
     Object? leaseVehicle = null,
@@ -172,18 +198,14 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.birthDate
           : birthDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      hasExpirationDate: null == hasExpirationDate
-          ? _value.hasExpirationDate
-          : hasExpirationDate // ignore: cast_nullable_to_non_nullable
-              as bool,
-      physicalExpDate: freezed == physicalExpDate
-          ? _value.physicalExpDate
-          : physicalExpDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      rehabilitationExpDate: freezed == rehabilitationExpDate
-          ? _value.rehabilitationExpDate
-          : rehabilitationExpDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      physicalExpire: freezed == physicalExpire
+          ? _value.physicalExpire
+          : physicalExpire // ignore: cast_nullable_to_non_nullable
+              as ExpireMonthInputData?,
+      rehabilitationExpire: freezed == rehabilitationExpire
+          ? _value.rehabilitationExpire
+          : rehabilitationExpire // ignore: cast_nullable_to_non_nullable
+              as ExpireMonthInputData?,
       registerVehicle: null == registerVehicle
           ? _value.registerVehicle
           : registerVehicle // ignore: cast_nullable_to_non_nullable
@@ -214,9 +236,8 @@ class _$HomePageStateImpl extends _HomePageState {
   const _$HomePageStateImpl(
       {required this.procedureType,
       required this.birthDate,
-      required this.hasExpirationDate,
-      required this.physicalExpDate,
-      required this.rehabilitationExpDate,
+      required this.physicalExpire,
+      required this.rehabilitationExpire,
       required this.registerVehicle,
       required this.useEtc,
       required this.leaseVehicle,
@@ -229,11 +250,9 @@ class _$HomePageStateImpl extends _HomePageState {
   @override
   final DateTime? birthDate;
   @override
-  final bool hasExpirationDate;
+  final ExpireMonthInputData? physicalExpire;
   @override
-  final DateTime? physicalExpDate;
-  @override
-  final DateTime? rehabilitationExpDate;
+  final ExpireMonthInputData? rehabilitationExpire;
   @override
   final bool registerVehicle;
   @override
@@ -247,7 +266,7 @@ class _$HomePageStateImpl extends _HomePageState {
 
   @override
   String toString() {
-    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, hasExpirationDate: $hasExpirationDate, physicalExpDate: $physicalExpDate, rehabilitationExpDate: $rehabilitationExpDate, registerVehicle: $registerVehicle, useEtc: $useEtc, leaseVehicle: $leaseVehicle, isCertType2: $isCertType2, isAgent: $isAgent)';
+    return 'HomePageState(procedureType: $procedureType, birthDate: $birthDate, physicalExpire: $physicalExpire, rehabilitationExpire: $rehabilitationExpire, registerVehicle: $registerVehicle, useEtc: $useEtc, leaseVehicle: $leaseVehicle, isCertType2: $isCertType2, isAgent: $isAgent)';
   }
 
   @override
@@ -259,12 +278,10 @@ class _$HomePageStateImpl extends _HomePageState {
                 other.procedureType == procedureType) &&
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate) &&
-            (identical(other.hasExpirationDate, hasExpirationDate) ||
-                other.hasExpirationDate == hasExpirationDate) &&
-            (identical(other.physicalExpDate, physicalExpDate) ||
-                other.physicalExpDate == physicalExpDate) &&
-            (identical(other.rehabilitationExpDate, rehabilitationExpDate) ||
-                other.rehabilitationExpDate == rehabilitationExpDate) &&
+            (identical(other.physicalExpire, physicalExpire) ||
+                other.physicalExpire == physicalExpire) &&
+            (identical(other.rehabilitationExpire, rehabilitationExpire) ||
+                other.rehabilitationExpire == rehabilitationExpire) &&
             (identical(other.registerVehicle, registerVehicle) ||
                 other.registerVehicle == registerVehicle) &&
             (identical(other.useEtc, useEtc) || other.useEtc == useEtc) &&
@@ -280,9 +297,8 @@ class _$HomePageStateImpl extends _HomePageState {
       runtimeType,
       procedureType,
       birthDate,
-      hasExpirationDate,
-      physicalExpDate,
-      rehabilitationExpDate,
+      physicalExpire,
+      rehabilitationExpire,
       registerVehicle,
       useEtc,
       leaseVehicle,
@@ -300,9 +316,8 @@ abstract class _HomePageState extends HomePageState {
   const factory _HomePageState(
       {required final ProcedureType procedureType,
       required final DateTime? birthDate,
-      required final bool hasExpirationDate,
-      required final DateTime? physicalExpDate,
-      required final DateTime? rehabilitationExpDate,
+      required final ExpireMonthInputData? physicalExpire,
+      required final ExpireMonthInputData? rehabilitationExpire,
       required final bool registerVehicle,
       required final bool useEtc,
       required final bool leaseVehicle,
@@ -315,11 +330,9 @@ abstract class _HomePageState extends HomePageState {
   @override
   DateTime? get birthDate;
   @override
-  bool get hasExpirationDate;
+  ExpireMonthInputData? get physicalExpire;
   @override
-  DateTime? get physicalExpDate;
-  @override
-  DateTime? get rehabilitationExpDate;
+  ExpireMonthInputData? get rehabilitationExpire;
   @override
   bool get registerVehicle;
   @override

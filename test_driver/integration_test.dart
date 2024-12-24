@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:integration_test/integration_test_driver_extended.dart';
 
 void main() async {
   try {
     await integrationDriver(
-      onScreenshot: (String screenshotName, List<int> screenshotBytes,
-          [Map<String, Object?>? args]) async {
+      onScreenshot: (
+        String screenshotName,
+        List<int> screenshotBytes, [
+        Map<String, Object?>? args,
+      ]) async {
         final File image = await File('$screenshotName.png')
             .create(recursive: true);
         image.writeAsBytesSync(screenshotBytes);
@@ -14,6 +18,8 @@ void main() async {
       },
     );
   } catch (e) {
-    print("Error occurred: $e");
+    if (kDebugMode) {
+      print("Error occurred: $e");
+    }
   }
 }

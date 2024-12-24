@@ -1,5 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kigenkeisann/components/expire_month_input.dart';
 import 'package:kigenkeisann/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,9 +16,8 @@ class HomePageNotifier extends _$HomePageNotifier {
     return const HomePageState(
       procedureType: ProcedureType.update,
       birthDate: null,
-      hasExpirationDate: false,
-      physicalExpDate: null,
-      rehabilitationExpDate: null,
+      physicalExpire: null,
+      rehabilitationExpire: null,
       registerVehicle: false,
       useEtc: false,
       leaseVehicle: false,
@@ -34,16 +34,12 @@ class HomePageNotifier extends _$HomePageNotifier {
     state = state.copyWith(birthDate: birthDate);
   }
 
-  void setHasExpirationDate(bool hasExpirationDate) {
-    state = state.copyWith(hasExpirationDate: hasExpirationDate);
+  void setPhysicalExpire(ExpireMonthInputData? physicalExpDate) {
+    state = state.copyWith(physicalExpire: physicalExpDate);
   }
 
-  void setPhysicalExpDate(DateTime? physicalExpDate) {
-    state = state.copyWith(physicalExpDate: physicalExpDate);
-  }
-
-  void setRehabilitationExpDate(DateTime? rehabilitationExpDate) {
-    state = state.copyWith(rehabilitationExpDate: rehabilitationExpDate);
+  void setRehabilitationExpire(ExpireMonthInputData? rehabilitationExpDate) {
+    state = state.copyWith(rehabilitationExpire: rehabilitationExpDate);
   }
 
   void setRegisterVehicle(bool registerVehicle) {
@@ -69,8 +65,8 @@ class HomePageNotifier extends _$HomePageNotifier {
   void clear() {
     state = state.copyWith(
       birthDate: null,
-      physicalExpDate: null,
-      rehabilitationExpDate: null,
+      physicalExpire: const ExpireMonthInputData(),
+      rehabilitationExpire: const ExpireMonthInputData(),
       isCertType2: false,
       registerVehicle: false,
       useEtc: false,
@@ -86,9 +82,8 @@ class HomePageState with _$HomePageState {
   const factory HomePageState({
     required ProcedureType procedureType,
     required DateTime? birthDate,
-    required bool hasExpirationDate,
-    required DateTime? physicalExpDate,
-    required DateTime? rehabilitationExpDate,
+    required ExpireMonthInputData? physicalExpire,
+    required ExpireMonthInputData? rehabilitationExpire,
     required bool registerVehicle,
     required bool useEtc,
     required bool leaseVehicle,
@@ -122,14 +117,13 @@ class HomePageState with _$HomePageState {
       result = Clock.fixed(result).yearsFromNow(-1);
     }
 
-    if (hasExpirationDate &&
-        (physicalExpDate != null ||
-            rehabilitationExpDate != null)) {
+    if ((physicalExpire != null || rehabilitationExpire != null)
+        && physicalExpire?.noExpirationDate != true && rehabilitationExpire?.noExpirationDate != true) {
       result = earlierDate(
         result,
         laterDate(
-          physicalExpDate,
-          rehabilitationExpDate,
+          physicalExpire?.date,
+          rehabilitationExpire?.date,
         ),
       );
     }

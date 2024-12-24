@@ -1,5 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kigenkeisann/components/expire_month_input.dart';
 import 'package:kigenkeisann/home.dart';
 import 'package:kigenkeisann/providers/home_page_notifier.dart';
 
@@ -83,25 +84,13 @@ void main() {
     );
   });
 
-  test("どちらか片方の手帳の期限がある場合、本来の期限と早い方が期限", () {
+  test("どちらか片方の手帳を所持していて期限がある場合、本来の期限と早い方が期限", () {
     final container = createContainer();
 
     container.read(homePageNotifierProvider.notifier)
       ..setProcedureType(ProcedureType.newAcquisition)
       ..setBirthDate(DateTime(2000, 2, 1))
-      ..setHasExpirationDate(true)
-      ..setPhysicalExpDate(DateTime(2020, 8, 1));
-
-    withClock(
-      Clock.fixed(DateTime(2020, 1, 1)),
-      () {
-        var state = container.read(homePageNotifierProvider);
-        expect(
-          state.expirationDate,
-          equals(DateTime(2020, 8, 1)),
-        );
-      },
-    );
+      ..setPhysicalExpire(ExpireMonthInputData(date: DateTime(2020, 8, 1))); // 身体手帳の期限は2020年8月1日
 
     withClock(
       Clock.fixed(DateTime(2019, 1, 1)),
@@ -113,6 +102,17 @@ void main() {
         );
       },
     );
+
+    withClock(
+      Clock.fixed(DateTime(2020, 1, 1)),
+      () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.expirationDate,
+          equals(DateTime(2020, 8, 1)),
+        );
+      },
+    );
   });
 
   test("両方の手帳の期限がある場合、2つの手帳の期限で遅い方と、本来の期限で早い方が期限", () {
@@ -121,9 +121,8 @@ void main() {
     container.read(homePageNotifierProvider.notifier)
       ..setProcedureType(ProcedureType.newAcquisition)
       ..setBirthDate(DateTime(2000, 2, 1))
-      ..setHasExpirationDate(true)
-      ..setPhysicalExpDate(DateTime(2020, 8, 1))
-      ..setRehabilitationExpDate(DateTime(2020, 12, 1));
+      ..setPhysicalExpire(ExpireMonthInputData(date: DateTime(2020, 8, 1)))
+      ..setRehabilitationExpire(ExpireMonthInputData(date: DateTime(2020, 12, 1)));
 
     withClock(
       Clock.fixed(DateTime(2020, 1, 1)),
@@ -143,6 +142,54 @@ void main() {
         expect(
           state.expirationDate,
           equals(DateTime(2020, 2, 1)),
+        );
+      },
+    );
+  });
+
+  test("両方の手帳を所持していて、1個以上の手帳が無期限の場合、通常の期限と同じ", () {
+    final container = createContainer();
+
+    container.read(homePageNotifierProvider.notifier)
+      ..setProcedureType(ProcedureType.newAcquisition)
+      ..setBirthDate(DateTime(2000, 2, 1))
+      ..setPhysicalExpire(ExpireMonthInputData(date: DateTime(2020, 8, 1)))
+      ..setRehabilitationExpire(const ExpireMonthInputData(noExpirationDate: true));
+    withClock(
+      Clock.fixed(DateTime(2020, 1, 1)),
+      () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.expirationDate,
+          equals(DateTime(2021, 2, 1)),
+        );
+      },
+    );
+
+    container.read(homePageNotifierProvider.notifier)
+      ..setPhysicalExpire(const ExpireMonthInputData(noExpirationDate: true))
+      ..setRehabilitationExpire(ExpireMonthInputData(date: DateTime(2020, 12, 1)));
+    withClock(
+      Clock.fixed(DateTime(2020, 1, 1)),
+      () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.expirationDate,
+          equals(DateTime(2021, 2, 1)),
+        );
+      },
+    );
+
+    container.read(homePageNotifierProvider.notifier)
+      ..setPhysicalExpire(const ExpireMonthInputData(noExpirationDate: true))
+      ..setRehabilitationExpire(const ExpireMonthInputData(noExpirationDate: true));
+    withClock(
+      Clock.fixed(DateTime(2020, 1, 1)),
+      () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.expirationDate,
+          equals(DateTime(2021, 2, 1)),
         );
       },
     );

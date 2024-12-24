@@ -9,72 +9,73 @@ class FormImageGenerator {
   static final List<FormDecoration> decorations = [
     FormDecoration( // primary form outline
       drawIf: (state) => true, // always
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(92, 108),
       p2: const Offset(503, 257),
       color: Colors.red,
     ),
     FormDecoration( // vehicle registration form outline
       drawIf: (state) => state.registerVehicle,
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(91.5, 305.5),
       p2: const Offset(503.5, 336.5),
       color: Colors.red,
     ),
     FormDecoration( // ETC registration form outline
       drawIf: (state) => state.registerVehicle && state.useEtc,
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(91.5, 377.5),
       p2: const Offset(503.5, 471.5),
       color: Colors.red,
     ),
     FormDecoration( // agent form outline
       drawIf: (state) => state.isAgent,
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(91.5, 482.5),
       p2: const Offset(503.5, 515.5),
       color: Colors.red,
     ),
     FormDecoration( // certificate type 1 checkmark
       drawIf: (state) => !state.isCertType2,
-      type: _FormDecorationType.checkmark,
+      type: FormDecorationType.checkmark,
       p1: const Offset(215, 274),
       color: Colors.blue,
     ),
     FormDecoration( // certificate type 2 checkmark
       drawIf: (state) => state.isCertType2,
-      type: _FormDecorationType.checkmark,
+      type: FormDecorationType.checkmark,
       p1: const Offset(215, 267.5),
       color: Colors.blue,
     ),
     FormDecoration( // no ETC checkmark
       drawIf: (state) => state.registerVehicle && !state.useEtc,
-      type: _FormDecorationType.checkmark,
+      type: FormDecorationType.checkmark,
       p1: const Offset(168, 348),
       color: Colors.red,
     ),
     FormDecoration( // no vehicle registration checkmark
       drawIf: (state) => !state.registerVehicle,
-      type: _FormDecorationType.checkmark,
+      type: FormDecorationType.checkmark,
       p1: const Offset(172, 288),
       color: Colors.red,
     ),
     FormDecoration( // has certificate expiration date checkmark
-      drawIf: (state) => state.hasExpirationDate,
-      type: _FormDecorationType.checkmark,
+      drawIf: (state) => state.physicalExpire?.noExpirationDate == true
+          || state.rehabilitationExpire?.noExpirationDate == true,
+      type: FormDecorationType.checkmark,
       p1: const Offset(345, 538.5),
       color: Colors.blue,
     ),
     FormDecoration( // ETC expiration date form outline
       drawIf: (state) => state.registerVehicle && state.useEtc,
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(91.5, 527.5),
       p2: const Offset(284.5, 544.5),
       color: Colors.blue,
     ),
     FormDecoration( // expiration date form outline
       drawIf: (state) => true,
-      type: _FormDecorationType.outline,
+      type: FormDecorationType.outline,
       p1: const Offset(91.5, 544.5),
       p2: const Offset(503.5, 561),
       color: Colors.blue,
@@ -100,10 +101,10 @@ class FormImageGenerator {
     for (final decoration in decorations) {
       if (decoration.drawIf(state)) {
         switch (decoration.type) {
-          case _FormDecorationType.outline:
+          case FormDecorationType.outline:
             _drawFormOutline(decoration.p1, decoration.p2!, decoration.color);
             break;
-          case _FormDecorationType.checkmark:
+          case FormDecorationType.checkmark:
             _drawCheckmark(decoration.p1, decoration.color);
             break;
         }
@@ -143,7 +144,7 @@ class FormImageGenerator {
 
 class FormDecoration {
   final bool Function(HomePageState state) drawIf;
-  final _FormDecorationType type;
+  final FormDecorationType type;
   final Offset p1;
   final Offset? p2;
   final Color color;
@@ -157,7 +158,7 @@ class FormDecoration {
   });
 }
 
-enum _FormDecorationType {
+enum FormDecorationType {
   outline,
   checkmark,
 }
