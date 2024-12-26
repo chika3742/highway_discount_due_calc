@@ -19,51 +19,52 @@ void main() async {
       await binding.convertFlutterSurfaceToImage();
     }
 
-    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text("新規・変更"));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text("元号"));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
     await tester.tap(find.text("平成"));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
 
-    await tester.enterText(find.byType(TextFormField).at(0), "15");
-    await pump100ms(tester);
+    await tester.enterText(find.ancestor(
+      of: find.text("年").at(0),
+      matching: find.byType(TextField),
+    ), "15");
+    await tester.pump(const Duration(milliseconds: 100));
 
-    await tester.tap(find.text("月").first);
-    await pump100ms(tester);
+    await tester.tap(find.text("月").at(0));
+    await tester.pumpAndSettle();
     await tester.tap(find.text("1月"));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
 
-    await tester.enterText(find.byType(TextFormField).at(1), "1");
-    await pump100ms(tester);
+    await tester.enterText(find.ancestor(
+      of: find.text("日").at(0),
+      matching: find.byType(TextField),
+    ), "1");
+    await tester.pump(const Duration(milliseconds: 100));
 
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pump(const Duration(seconds: 1));
 
     await binding.takeScreenshot("${ssNameBase}_1");
 
-    await tester.scrollUntilVisible(find.text("必要書類"), 100, scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(find.text("手帳"), 10, scrollable: find.byType(Scrollable).first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text("2種"));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("あり").at(0));
+    await tester.pumpAndSettle();
     await tester.tap(find.text("あり").at(1));
-    await pump100ms(tester);
-    await tester.scrollUntilVisible(find.text("必要書類"), 100, scrollable: find.byType(Scrollable).first);
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
     await tester.tap(find.text("あり").at(2));
-    await pump100ms(tester);
-    await tester.tap(find.text("あり").at(3));
-    await pump100ms(tester);
+    await tester.pumpAndSettle();
 
-    await tester.dragUntilVisible(find.text("必要書類"), find.byType(SingleChildScrollView), const Offset(0, -100));
-    await pump100ms(tester);
+    await tester.dragUntilVisible(find.text("申請者"), find.byType(SingleChildScrollView), const Offset(0, -100));
+    await tester.pumpAndSettle();
 
     await binding.takeScreenshot("${ssNameBase}_2");
   });
-}
-
-Future<void> pump100ms(WidgetTester tester) async {
-  await tester.pump(const Duration(milliseconds: 100));
 }

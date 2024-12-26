@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function drive() {
-  flutter drive \
+  fvm flutter drive \
     --driver test_driver/integration_test.dart \
     --target integration_test/take_screenshots.dart \
     --dart-define SCREENSHOT_MODE=true \
@@ -49,11 +49,11 @@ function exec_android() {
   stop_android_emu
 }
 
-#exec_ios "iPhone 15 Pro Max" "screenshots/ios/iphone-6.7in"
+exec_ios "iPhone 16 Pro Max" "screenshots/ios/iphone-6.7in"
 #exec_ios "iPhone 8 Plus" "screenshots/ios/iphone-5.5in"
-#exec_ios "iPad Pro (12.9-inch) (6th generation)" "screenshots/ios/ipad-12.9in-gen6"
+exec_ios "iPad Pro 13-inch (M4)" "screenshots/ios/ipad-13in-m4"
 #exec_ios "iPad Pro (12.9-inch) (2nd generation)" "screenshots/ios/ipad-12.9in-gen2"
 
-#exec_android "Pixel_7_API_34" "screenshots/android/mobile"
-exec_android "7-inch_Tablet_API_33" "screenshots/android/tablet-7in"
-exec_android "10-inch_Tablet_API_33" "screenshots/android/tablet-10in"
+#exec_android "Pixel_7" "screenshots/android/mobile"
+#exec_android "7-inch_Tablet" "screenshots/android/tablet-7in"
+#exec_android "10-inch_Tablet" "screenshots/android/tablet-10in"
