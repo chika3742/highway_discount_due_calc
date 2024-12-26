@@ -87,39 +87,42 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Section(
                         children: [
                           const SectionHeading("手帳の期限"),
-                          Table(
-                            columnWidths: const {
-                              0: FixedColumnWidth(70),
-                            },
-                            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                            children: [
-                              TableRow(
-                                children: [
-                                  const Text("身体"),
-                                  ExpireMonthInput(
-                                    key: _physicalExpDateInputKey,
-                                    value: state.physicalExpire,
-                                    onChanged: (date) {
-                                      ref.read(homePageNotifierProvider.notifier)
-                                          .setPhysicalExpire(date);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  const Text("療育\n(A1/A2)"),
-                                  ExpireMonthInput(
-                                    key: _rehabilitationExpDateInputKey,
-                                    value: state.rehabilitationExpire,
-                                    onChanged: (date) {
-                                      ref.read(homePageNotifierProvider.notifier)
-                                          .setRehabilitationExpire(date);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Table(
+                              columnWidths: const {
+                                0: FixedColumnWidth(70),
+                              },
+                              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                              children: [
+                                TableRow(
+                                  children: [
+                                    const Text("身体"),
+                                    ExpireMonthInput(
+                                      key: _physicalExpDateInputKey,
+                                      value: state.physicalExpire,
+                                      onChanged: (date) {
+                                        ref.read(homePageNotifierProvider.notifier)
+                                            .setPhysicalExpire(date);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    const Text("療育\n(A1/A2)"),
+                                    ExpireMonthInput(
+                                      key: _rehabilitationExpDateInputKey,
+                                      value: state.rehabilitationExpire,
+                                      onChanged: (date) {
+                                        ref.read(homePageNotifierProvider.notifier)
+                                            .setRehabilitationExpire(date);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
