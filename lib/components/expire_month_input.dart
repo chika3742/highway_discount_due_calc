@@ -45,7 +45,7 @@ class ExpireMonthInputState extends State<ExpireMonthInput> {
                 },
                 textAlign: TextAlign.end,
                 keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly, yearInputFormatter],
                 decoration: InputDecoration(
                   prefixText: JapaneseEra.reiwa.text,
                   suffixText: "年",

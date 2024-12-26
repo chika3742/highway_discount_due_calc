@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 DateTime earlierDate(DateTime a, DateTime b) {
   return a.isBefore(b) ? a : b;
 }
@@ -18,3 +20,18 @@ extension DateTimeExtension on DateTime {
     return isBefore(other) || isAtSameMomentAs(other);
   }
 }
+
+final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) {
+  if (newValue.text.isEmpty) {
+    return newValue;
+  }
+
+  var newValueInt = int.tryParse(newValue.text);
+  if (newValueInt == null) {
+    return oldValue;
+  }
+  if (newValueInt > 100) {
+    return const TextEditingValue(text: "100");
+  }
+  return newValue;
+});

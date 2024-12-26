@@ -32,13 +32,13 @@ enum JapaneseEra {
 }
 
 extension JapaneseCalendarYearExtension on DateTime {
-  JapaneseCalendarYear get japaneseCalendarYear {
+  JapaneseCalendarYear? get japaneseCalendarYear {
     for (var value in [...JapaneseEra.values]
       ..sort((a, b) => b.startYear.compareTo(a.startYear))) {
       if (year >= value.startYear) {
         return JapaneseCalendarYear(era: value, year: year - value.startYear + 1);
       }
     }
-    throw ArgumentError("Invalid year: $year");
+    return null;
   }
 }

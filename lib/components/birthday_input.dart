@@ -56,7 +56,7 @@ class BirthdayInputState extends State<BirthdayInput> {
               normalizeBirthdayDay();
               widget.onChanged?.call(date);
             },
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly, yearInputFormatter],
             textAlign: TextAlign.end,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
