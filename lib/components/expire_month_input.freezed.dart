@@ -103,8 +103,9 @@ class __$$ExpireMonthInputDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ExpireMonthInputDataImpl implements _ExpireMonthInputData {
-  const _$ExpireMonthInputDataImpl({this.date, this.noExpirationDate = false});
+class _$ExpireMonthInputDataImpl extends _ExpireMonthInputData {
+  const _$ExpireMonthInputDataImpl({this.date, this.noExpirationDate = false})
+      : super._();
 
   @override
   final DateTime? date;
@@ -139,10 +140,11 @@ class _$ExpireMonthInputDataImpl implements _ExpireMonthInputData {
               this, _$identity);
 }
 
-abstract class _ExpireMonthInputData implements ExpireMonthInputData {
+abstract class _ExpireMonthInputData extends ExpireMonthInputData {
   const factory _ExpireMonthInputData(
       {final DateTime? date,
       final bool noExpirationDate}) = _$ExpireMonthInputDataImpl;
+  const _ExpireMonthInputData._() : super._();
 
   @override
   DateTime? get date;

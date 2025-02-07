@@ -96,37 +96,25 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 const SectionHeading("手帳の期限"),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Table(
-                                    columnWidths: const {
-                                      0: FixedColumnWidth(70),
-                                    },
-                                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                  child: Column(
                                     children: [
-                                      TableRow(
-                                        children: [
-                                          const Text("身体"),
-                                          ExpireMonthInput(
-                                            key: _physicalExpDateInputKey,
-                                            value: state.physicalExpire,
-                                            onChanged: (date) {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setPhysicalExpire(date);
-                                            },
-                                          ),
-                                        ],
+                                      ExpireMonthInput(
+                                        key: _physicalExpDateInputKey,
+                                        value: state.physicalExpire,
+                                        onChanged: (date) {
+                                          ref.read(homePageNotifierProvider.notifier)
+                                              .setPhysicalExpire(date);
+                                        },
+                                        label: const Text("身体"),
                                       ),
-                                      TableRow(
-                                        children: [
-                                          const Text("療育\n(A1/A2)"),
-                                          ExpireMonthInput(
-                                            key: _rehabilitationExpDateInputKey,
-                                            value: state.rehabilitationExpire,
-                                            onChanged: (date) {
-                                              ref.read(homePageNotifierProvider.notifier)
-                                                  .setRehabilitationExpire(date);
-                                            },
-                                          ),
-                                        ],
+                                      ExpireMonthInput(
+                                        key: _rehabilitationExpDateInputKey,
+                                        value: state.rehabilitationExpire,
+                                        onChanged: (date) {
+                                          ref.read(homePageNotifierProvider.notifier)
+                                              .setRehabilitationExpire(date);
+                                        },
+                                        label: const Text("療育\n(A1/A2)"),
                                       ),
                                     ],
                                   ),

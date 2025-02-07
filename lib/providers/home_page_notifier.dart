@@ -65,8 +65,8 @@ class HomePageNotifier extends _$HomePageNotifier {
   void clear() {
     state = state.copyWith(
       birthDate: null,
-      physicalExpire: const ExpireMonthInputData(),
-      rehabilitationExpire: const ExpireMonthInputData(),
+      physicalExpire: null,
+      rehabilitationExpire: null,
       isCertType2: false,
       registerVehicle: false,
       useEtc: false,
@@ -91,8 +91,12 @@ class HomePageState with _$HomePageState {
     required bool isAgent,
   }) = _HomePageState;
 
+  bool get isInputValid => birthDate != null &&
+      physicalExpire?.isValid != false &&
+      rehabilitationExpire?.isValid != false;
+
   DateTime? get expirationDate {
-    if (birthDate == null) {
+    if (!isInputValid) {
       return null;
     }
 
@@ -132,7 +136,7 @@ class HomePageState with _$HomePageState {
   }
   
   bool get isTurns18BeforeExpirationDate {
-    if (birthDate == null) {
+    if (!isInputValid) {
       return false;
     }
     final now = clock.now();
@@ -143,7 +147,7 @@ class HomePageState with _$HomePageState {
   }
 
   bool get isTodayOver2MonthsBeforeBirthday {
-    if (birthDate == null) {
+    if (!isInputValid) {
       return false;
     }
 
@@ -162,7 +166,7 @@ class HomePageState with _$HomePageState {
   }
 
   bool? get isOver18YearsOld {
-    if (birthDate == null) {
+    if (!isInputValid) {
       return null;
     }
 
