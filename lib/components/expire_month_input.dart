@@ -133,7 +133,7 @@ class ExpireMonthInputState extends State<ExpireMonthInput> {
                         ),
                       ),
                     OutlinedButton.icon(
-                      icon: const Icon(Icons.clear),
+                      icon: const Icon(Icons.delete),
                       label: const Text("削除"),
                       style: const ButtonStyle(
                         visualDensity: VisualDensity.compact,

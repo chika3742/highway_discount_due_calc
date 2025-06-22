@@ -354,7 +354,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
 
             Container(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: SafeArea(
                 top: false,
