@@ -120,7 +120,7 @@ class FormImageGenerator {
         .buffer.asUint8List();
   }
 
-  _drawFormOutline(Offset p1, Offset p2, Color color) {
+  void _drawFormOutline(Offset p1, Offset p2, Color color) {
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
@@ -132,7 +132,7 @@ class FormImageGenerator {
     );
   }
 
-  _drawCheckmark(Offset offset, Color color) {
+  void _drawCheckmark(Offset offset, Color color) {
     final paint = Paint()
         ..color = color
         ..strokeWidth = 3;

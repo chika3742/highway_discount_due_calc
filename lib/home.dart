@@ -288,26 +288,60 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                             const SectionHeading("申請書記入欄"),
 
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Column(
+                                spacing: 8,
+                                children: [
+                                  Row(
+                                    spacing: 8,
+                                    children: [
+                                      CustomPaint(
+                                        size: const Size(20, 20),
+                                        painter: _LegendCirclePainter(color: Colors.red),
+                                      ),
+                                      Text("申請者による記入"),
+                                    ],
+                                  ),
+                                  Row(
+                                    spacing: 8,
+                                    children: [
+                                      CustomPaint(
+                                        size: const Size(20, 20),
+                                        painter: _LegendCirclePainter(color: Colors.blue),
+                                      ),
+                                      Text("担当者による記入"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+
                             switch (generatedImage) {
                               AsyncError(:final error) => Text("画像生成に失敗しました: $error"),
                               AsyncValue(:final value, :final isLoading) => isLoading ? const SizedBox(
                                 height: 550,
                                 child: Center(child: CircularProgressIndicator()),
-                              ) : Column(
-                                children: [
-                                  const Text("画像をタップして拡大"),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showImageViewer(
-                                        context,
-                                        Image.memory(value).image,
-                                        immersive: false,
-                                        useSafeArea: true,
-                                      );
-                                    },
-                                    child: Image.memory(value!, height: 550),
-                                  ),
-                                ],
+                              ) : SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  spacing: 8,
+                                  children: [
+                                    const Text("画像をタップして拡大"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showImageViewer(
+                                          context,
+                                          MemoryImage(value),
+                                          immersive: false,
+                                          useSafeArea: true,
+                                          doubleTapZoomable: true,
+                                        );
+                                      },
+                                      child: Image.memory(value!),
+                                    ),
+                                  ],
+                                ),
                               )
                             },
                           ],
@@ -315,7 +349,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                   ),
-                ]
+                ],
               ),
             ),
 
@@ -467,6 +501,37 @@ class _HomePageState extends ConsumerState<HomePage> {
       ],
     ];
   }
+}
+
+class _LegendCirclePainter extends CustomPainter {
+  const _LegendCirclePainter({required this.color});
+
+  final Color color;
+
+  static const outlineWidth = 2.0;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = outlineWidth
+      ..style = PaintingStyle.stroke;
+
+    final radius = size.width / 2 - outlineWidth;
+    final center = Offset(radius + outlineWidth, radius + outlineWidth);
+    canvas.drawCircle(
+      center, radius + outlineWidth / 2, paint,
+    );
+
+    paint
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(center, radius, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 enum ProcedureType {
