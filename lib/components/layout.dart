@@ -62,14 +62,17 @@ class Section extends StatelessWidget {
 
 class SectionHeading extends StatelessWidget {
   final String text;
+  final bool bold;
 
-  const SectionHeading(this.text, {super.key});
+  const SectionHeading(this.text, {super.key, this.bold = false});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.titleMedium,
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      ),
     );
   }
 }

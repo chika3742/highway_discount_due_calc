@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kigenkeisann/components/bulleted_list_item.dart';
 import 'package:kigenkeisann/components/expire_month_input.dart';
-import 'package:kigenkeisann/components/labeled_radio.dart';
 import 'package:kigenkeisann/components/layout.dart';
 import 'package:kigenkeisann/core/japanese_calendar.dart';
 import 'package:kigenkeisann/providers/generated_image.dart';
@@ -19,6 +18,8 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  static const _segmentedButtonWidth = 200.0;
+
   final _birthdayInputKey = GlobalKey<BirthdayInputState>();
   final _physicalExpDateInputKey = GlobalKey<ExpireMonthInputState>();
   final _rehabilitationExpDateInputKey = GlobalKey<ExpireMonthInputState>();
@@ -50,27 +51,30 @@ class _HomePageState extends ConsumerState<HomePage> {
                       bottom: false,
                       sliver: SliverToBoxAdapter(
                         child: GappedColumn(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            GappedRow(
-                              children: [
-                                LabeledRadio<ProcedureType>(
-                                  value: ProcedureType.update,
-                                  groupValue: state.procedureType,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setProcedureType(value!);
-                                  },
-                                  label: "更新",
-                                ),
-                                LabeledRadio<ProcedureType>(
+                            SectionHeading("手続きの種類"),
+                            SegmentedButton<ProcedureType>(
+                              selected: {state.procedureType},
+                              onSelectionChanged: (value) {
+                                ref.read(homePageNotifierProvider.notifier)
+                                    .setProcedureType(value.first);
+                              },
+                              segments: [
+                                ButtonSegment(
+                                  icon: Icon(Icons.add),
                                   value: ProcedureType.newAcquisition,
-                                  groupValue: state.procedureType,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setProcedureType(value!);
-                                  },
-                                  label: "新規・変更",
+                                  label: Text("新規"),
+                                ),
+                                ButtonSegment(
+                                  icon: Icon(Icons.update),
+                                  value: ProcedureType.update,
+                                  label: Text("更新"),
+                                ),
+                                ButtonSegment(
+                                  icon: Icon(Icons.edit),
+                                  value: ProcedureType.change,
+                                  label: Text("変更"),
                                 ),
                               ],
                             ),
@@ -122,151 +126,158 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ],
                             ),
 
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 8),
 
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Flexible(
-                                  child: Section(
+                                Section(
+                                  children: [
+                                    const SectionHeading("手帳"),
+                                    SizedBox(
+                                      width: _segmentedButtonWidth,
+                                      child: SegmentedButton<bool>(
+                                        selected: {state.isCertType2},
+                                        onSelectionChanged: (value) {
+                                          ref.read(homePageNotifierProvider.notifier)
+                                              .setIsCertType2(value.first);
+                                        },
+                                        segments: [
+                                          ButtonSegment(
+                                            label: Text("1種"),
+                                            value: false,
+                                          ),
+                                          ButtonSegment(
+                                            label: Text("2種"),
+                                            value: true,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8),
+
+                                Section(
+                                  children: [
+                                    const SectionHeading("車両登録"),
+                                    SizedBox(
+                                      width: _segmentedButtonWidth,
+                                      child: SegmentedButton<bool>(
+                                        selected: {state.registerVehicle},
+                                        onSelectionChanged: (value) {
+                                          ref.read(homePageNotifierProvider.notifier)
+                                              .setRegisterVehicle(value.first);
+                                        },
+                                        segments: [
+                                          ButtonSegment(
+                                            label: Text("なし"),
+                                            value: false,
+                                          ),
+                                          ButtonSegment(
+                                            label: Text("あり"),
+                                            value: true,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8),
+
+                                AnimatedCrossFade(
+                                  crossFadeState: state.registerVehicle
+                                      ? CrossFadeState.showSecond
+                                      : CrossFadeState.showFirst,
+                                  duration: const Duration(milliseconds: 300),
+                                  sizeCurve: Curves.easeOutQuint,
+                                  firstCurve: Curves.easeInExpo,
+                                  secondCurve: Curves.easeOutExpo,
+                                  firstChild: Container(),
+                                  secondChild: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      const SectionHeading("手帳"),
-                                      LabeledRadio(
-                                        value: false,
-                                        groupValue: state.isCertType2,
-                                        onChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
-                                              .setIsCertType2(value!);
-                                        },
-                                        label: "1種",
+                                      Section(
+                                        children: [
+                                          const SectionHeading("車のリース・ローン"),
+                                          SizedBox(
+                                            width: _segmentedButtonWidth,
+                                            child: SegmentedButton<bool>(
+                                              selected: {state.leaseVehicle},
+                                              onSelectionChanged: (value) {
+                                                ref.read(homePageNotifierProvider.notifier)
+                                                    .setLeaseVehicle(value.first);
+                                              },
+                                              segments: [
+                                                ButtonSegment(
+                                                  label: Text("なし"),
+                                                  value: false,
+                                                ),
+                                                ButtonSegment(
+                                                  label: Text("あり"),
+                                                  value: true,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      LabeledRadio(
-                                        value: true,
-                                        groupValue: state.isCertType2,
-                                        onChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
-                                              .setIsCertType2(value!);
-                                        },
-                                        label: "2種",
+                                      SizedBox(height: 8),
+
+                                      Section(
+                                        children: [
+                                          const SectionHeading("ETC"),
+                                          SizedBox(
+                                            width: _segmentedButtonWidth,
+                                            child: SegmentedButton<bool>(
+                                              selected: {state.useEtc},
+                                              onSelectionChanged: (value) {
+                                                ref.read(homePageNotifierProvider.notifier)
+                                                    .setUseEtc(value.first);
+                                              },
+                                              segments: [
+                                                ButtonSegment(
+                                                  label: Text("なし"),
+                                                  value: false,
+                                                ),
+                                                ButtonSegment(
+                                                  label: Text("あり"),
+                                                  value: true,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      SizedBox(height: 8),
                                     ],
                                   ),
                                 ),
 
-                                Flexible(
-                                  child: Section(
-                                    children: [
-                                      const SectionHeading("車両登録"),
-                                      LabeledRadio(
-                                        value: false,
-                                        groupValue: state.registerVehicle,
-                                        onChanged: (value) {
+                                Section(
+                                  children: [
+                                    SectionHeading("申請者"),
+                                    SizedBox(
+                                      width: _segmentedButtonWidth,
+                                      child: SegmentedButton<bool>(
+                                        selected: {state.isAgent},
+                                        onSelectionChanged: (value) {
                                           ref.read(homePageNotifierProvider.notifier)
-                                              .setRegisterVehicle(value!);
+                                              .setIsAgent(value.first);
                                         },
-                                        label: "なし",
+                                        segments: [
+                                          ButtonSegment(
+                                            label: Text("本人"),
+                                            value: false,
+                                          ),
+                                          ButtonSegment(
+                                            label: Text("代理人"),
+                                            value: true,
+                                          ),
+                                        ],
                                       ),
-                                      LabeledRadio(
-                                        value: true,
-                                        groupValue: state.registerVehicle,
-                                        onChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
-                                              .setRegisterVehicle(value!);
-                                        },
-                                        label: "あり",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            AnimatedCrossFade(
-                              crossFadeState: state.registerVehicle
-                                  ? CrossFadeState.showSecond
-                                  : CrossFadeState.showFirst,
-                              duration: const Duration(milliseconds: 300),
-                              sizeCurve: Curves.easeOutQuint,
-                              firstCurve: Curves.easeInExpo,
-                              secondCurve: Curves.easeOutExpo,
-                              firstChild: Container(),
-                              secondChild: Row(
-                                children: [
-                                  Flexible(
-                                    child: Section(
-                                      children: [
-                                        const SectionHeading("車のリース・ローン"),
-                                        LabeledRadio(
-                                          value: false,
-                                          groupValue: state.leaseVehicle,
-                                          onChanged: (value) {
-                                            ref.read(homePageNotifierProvider.notifier)
-                                                .setLeaseVehicle(value!);
-                                          },
-                                          label: "なし",
-                                        ),
-                                        LabeledRadio(
-                                          value: true,
-                                          groupValue: state.leaseVehicle,
-                                          onChanged: (value) {
-                                            ref.read(homePageNotifierProvider.notifier)
-                                                .setLeaseVehicle(value!);
-                                          },
-                                          label: "あり",
-                                        ),
-                                      ],
                                     ),
-                                  ),
-
-                                  Flexible(
-                                    child: Section(
-                                      children: [
-                                        const SectionHeading("ETC"),
-                                        LabeledRadio(
-                                          value: false,
-                                          groupValue: state.useEtc,
-                                          onChanged: (value) {
-                                            ref.read(homePageNotifierProvider.notifier)
-                                                .setUseEtc(value!);
-                                          },
-                                          label: "なし",
-                                        ),
-                                        LabeledRadio(
-                                          value: true,
-                                          groupValue: state.useEtc,
-                                          onChanged: (value) {
-                                            ref.read(homePageNotifierProvider.notifier)
-                                                .setUseEtc(value!);
-                                          },
-                                          label: "あり",
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-                            Section(
-                              children: [
-                                const SectionHeading("申請者"),
-                                LabeledRadio(
-                                  value: false,
-                                  groupValue: state.isAgent,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setIsAgent(value!);
-                                  },
-                                  label: "本人",
-                                ),
-                                LabeledRadio(
-                                  value: true,
-                                  groupValue: state.isAgent,
-                                  onChanged: (value) {
-                                    ref.read(homePageNotifierProvider.notifier)
-                                        .setIsAgent(value!);
-                                  },
-                                  label: "代理人",
+                                  ],
                                 ),
                               ],
                             ),
@@ -482,11 +493,13 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Text("割賦契約書 または リース契約書"),
         ),
       if (state.registerVehicle && state.useEtc) ...[
-        const SizedBox(),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: SectionHeading("以下は「新規：常に必要」「更新/変更：変更があった場合のみ」"),
-        ),
+        if (state.procedureType != ProcedureType.newAcquisition) ...[
+          const SizedBox(),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SectionHeading("以下は変更があった場合のみ必要", bold: true),
+          ),
+        ],
         if (state.isOver18YearsOld == false)
           const BulletedListItem(
             child: Text("ETCカード (親権者名義)"),
@@ -537,6 +550,7 @@ class _LegendCirclePainter extends CustomPainter {
 enum ProcedureType {
   update(birthdaysBeforeExpirationDate: 3),
   newAcquisition(birthdaysBeforeExpirationDate: 2),
+  change(birthdaysBeforeExpirationDate: 2),
   ;
 
   final int birthdaysBeforeExpirationDate;
