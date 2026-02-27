@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part "japanese_calendar.freezed.dart";
 
 @freezed
-class JapaneseCalendarYear with _$JapaneseCalendarYear {
+sealed class JapaneseCalendarYear with _$JapaneseCalendarYear {
   const JapaneseCalendarYear._();
 
   const factory JapaneseCalendarYear({

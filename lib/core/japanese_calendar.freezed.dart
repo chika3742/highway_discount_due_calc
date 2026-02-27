@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,92 +10,67 @@ part of 'japanese_calendar.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$JapaneseCalendarYear {
-  JapaneseEra get era => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
+  JapaneseEra get era;
+  int get year;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of JapaneseCalendarYear
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $JapaneseCalendarYearCopyWith<JapaneseCalendarYear> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+      _$JapaneseCalendarYearCopyWithImpl<JapaneseCalendarYear>(
+          this as JapaneseCalendarYear, _$identity);
 
-/// @nodoc
-abstract class $JapaneseCalendarYearCopyWith<$Res> {
-  factory $JapaneseCalendarYearCopyWith(JapaneseCalendarYear value,
-          $Res Function(JapaneseCalendarYear) then) =
-      _$JapaneseCalendarYearCopyWithImpl<$Res, JapaneseCalendarYear>;
-  @useResult
-  $Res call({JapaneseEra era, int year});
-}
-
-/// @nodoc
-class _$JapaneseCalendarYearCopyWithImpl<$Res,
-        $Val extends JapaneseCalendarYear>
-    implements $JapaneseCalendarYearCopyWith<$Res> {
-  _$JapaneseCalendarYearCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? era = null,
-    Object? year = null,
-  }) {
-    return _then(_value.copyWith(
-      era: null == era
-          ? _value.era
-          : era // ignore: cast_nullable_to_non_nullable
-              as JapaneseEra,
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is JapaneseCalendarYear &&
+            (identical(other.era, era) || other.era == era) &&
+            (identical(other.year, year) || other.year == year));
   }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, era, year);
 }
 
 /// @nodoc
-abstract class _$$JapaneseCalendarYearImplCopyWith<$Res>
-    implements $JapaneseCalendarYearCopyWith<$Res> {
-  factory _$$JapaneseCalendarYearImplCopyWith(_$JapaneseCalendarYearImpl value,
-          $Res Function(_$JapaneseCalendarYearImpl) then) =
-      __$$JapaneseCalendarYearImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $JapaneseCalendarYearCopyWith<$Res> {
+  factory $JapaneseCalendarYearCopyWith(JapaneseCalendarYear value,
+          $Res Function(JapaneseCalendarYear) _then) =
+      _$JapaneseCalendarYearCopyWithImpl;
   @useResult
   $Res call({JapaneseEra era, int year});
 }
 
 /// @nodoc
-class __$$JapaneseCalendarYearImplCopyWithImpl<$Res>
-    extends _$JapaneseCalendarYearCopyWithImpl<$Res, _$JapaneseCalendarYearImpl>
-    implements _$$JapaneseCalendarYearImplCopyWith<$Res> {
-  __$$JapaneseCalendarYearImplCopyWithImpl(_$JapaneseCalendarYearImpl _value,
-      $Res Function(_$JapaneseCalendarYearImpl) _then)
-      : super(_value, _then);
+class _$JapaneseCalendarYearCopyWithImpl<$Res>
+    implements $JapaneseCalendarYearCopyWith<$Res> {
+  _$JapaneseCalendarYearCopyWithImpl(this._self, this._then);
 
+  final JapaneseCalendarYear _self;
+  final $Res Function(JapaneseCalendarYear) _then;
+
+  /// Create a copy of JapaneseCalendarYear
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? era = null,
     Object? year = null,
   }) {
-    return _then(_$JapaneseCalendarYearImpl(
+    return _then(_self.copyWith(
       era: null == era
-          ? _value.era
+          ? _self.era
           : era // ignore: cast_nullable_to_non_nullable
               as JapaneseEra,
       year: null == year
-          ? _value.year
+          ? _self.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
     ));
@@ -103,8 +79,8 @@ class __$$JapaneseCalendarYearImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$JapaneseCalendarYearImpl extends _JapaneseCalendarYear {
-  const _$JapaneseCalendarYearImpl({required this.era, required this.year})
+class _JapaneseCalendarYear extends JapaneseCalendarYear {
+  const _JapaneseCalendarYear({required this.era, required this.year})
       : super._();
 
   @override
@@ -112,39 +88,66 @@ class _$JapaneseCalendarYearImpl extends _JapaneseCalendarYear {
   @override
   final int year;
 
+  /// Create a copy of JapaneseCalendarYear
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$JapaneseCalendarYearCopyWith<_JapaneseCalendarYear> get copyWith =>
+      __$JapaneseCalendarYearCopyWithImpl<_JapaneseCalendarYear>(
+          this, _$identity);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$JapaneseCalendarYearImpl &&
+            other is _JapaneseCalendarYear &&
             (identical(other.era, era) || other.era == era) &&
             (identical(other.year, year) || other.year == year));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, era, year);
+}
 
-  @JsonKey(ignore: true)
+/// @nodoc
+abstract mixin class _$JapaneseCalendarYearCopyWith<$Res>
+    implements $JapaneseCalendarYearCopyWith<$Res> {
+  factory _$JapaneseCalendarYearCopyWith(_JapaneseCalendarYear value,
+          $Res Function(_JapaneseCalendarYear) _then) =
+      __$JapaneseCalendarYearCopyWithImpl;
+  @override
+  @useResult
+  $Res call({JapaneseEra era, int year});
+}
+
+/// @nodoc
+class __$JapaneseCalendarYearCopyWithImpl<$Res>
+    implements _$JapaneseCalendarYearCopyWith<$Res> {
+  __$JapaneseCalendarYearCopyWithImpl(this._self, this._then);
+
+  final _JapaneseCalendarYear _self;
+  final $Res Function(_JapaneseCalendarYear) _then;
+
+  /// Create a copy of JapaneseCalendarYear
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$JapaneseCalendarYearImplCopyWith<_$JapaneseCalendarYearImpl>
-      get copyWith =>
-          __$$JapaneseCalendarYearImplCopyWithImpl<_$JapaneseCalendarYearImpl>(
-              this, _$identity);
+  $Res call({
+    Object? era = null,
+    Object? year = null,
+  }) {
+    return _then(_JapaneseCalendarYear(
+      era: null == era
+          ? _self.era
+          : era // ignore: cast_nullable_to_non_nullable
+              as JapaneseEra,
+      year: null == year
+          ? _self.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
-abstract class _JapaneseCalendarYear extends JapaneseCalendarYear {
-  const factory _JapaneseCalendarYear(
-      {required final JapaneseEra era,
-      required final int year}) = _$JapaneseCalendarYearImpl;
-  const _JapaneseCalendarYear._() : super._();
-
-  @override
-  JapaneseEra get era;
-  @override
-  int get year;
-  @override
-  @JsonKey(ignore: true)
-  _$$JapaneseCalendarYearImplCopyWith<_$JapaneseCalendarYearImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

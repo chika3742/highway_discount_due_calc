@@ -6,7 +6,7 @@ part of 'home_page_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homePageNotifierHash() => r'f48b139e0a3122f099780d6697a0da1ed116a3fa';
+String _$homePageNotifierHash() => r'5cc22028035143bb035668723dd871e6d5d6cab5';
 
 /// See also [HomePageNotifier].
 @ProviderFor(HomePageNotifier)
@@ -23,4 +23,4 @@ final homePageNotifierProvider =
 
 typedef _$HomePageNotifier = AutoDisposeNotifier<HomePageState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

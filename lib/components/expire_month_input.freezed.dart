@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,120 +10,27 @@ part of 'expire_month_input.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ExpireMonthInputData {
-  DateTime? get date => throw _privateConstructorUsedError;
-  bool get noExpirationDate => throw _privateConstructorUsedError;
+  DateTime? get date;
+  bool get noExpirationDate;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ExpireMonthInputData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $ExpireMonthInputDataCopyWith<ExpireMonthInputData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ExpireMonthInputDataCopyWith<$Res> {
-  factory $ExpireMonthInputDataCopyWith(ExpireMonthInputData value,
-          $Res Function(ExpireMonthInputData) then) =
-      _$ExpireMonthInputDataCopyWithImpl<$Res, ExpireMonthInputData>;
-  @useResult
-  $Res call({DateTime? date, bool noExpirationDate});
-}
-
-/// @nodoc
-class _$ExpireMonthInputDataCopyWithImpl<$Res,
-        $Val extends ExpireMonthInputData>
-    implements $ExpireMonthInputDataCopyWith<$Res> {
-  _$ExpireMonthInputDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? date = freezed,
-    Object? noExpirationDate = null,
-  }) {
-    return _then(_value.copyWith(
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      noExpirationDate: null == noExpirationDate
-          ? _value.noExpirationDate
-          : noExpirationDate // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ExpireMonthInputDataImplCopyWith<$Res>
-    implements $ExpireMonthInputDataCopyWith<$Res> {
-  factory _$$ExpireMonthInputDataImplCopyWith(_$ExpireMonthInputDataImpl value,
-          $Res Function(_$ExpireMonthInputDataImpl) then) =
-      __$$ExpireMonthInputDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({DateTime? date, bool noExpirationDate});
-}
-
-/// @nodoc
-class __$$ExpireMonthInputDataImplCopyWithImpl<$Res>
-    extends _$ExpireMonthInputDataCopyWithImpl<$Res, _$ExpireMonthInputDataImpl>
-    implements _$$ExpireMonthInputDataImplCopyWith<$Res> {
-  __$$ExpireMonthInputDataImplCopyWithImpl(_$ExpireMonthInputDataImpl _value,
-      $Res Function(_$ExpireMonthInputDataImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? date = freezed,
-    Object? noExpirationDate = null,
-  }) {
-    return _then(_$ExpireMonthInputDataImpl(
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      noExpirationDate: null == noExpirationDate
-          ? _value.noExpirationDate
-          : noExpirationDate // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ExpireMonthInputDataImpl extends _ExpireMonthInputData {
-  const _$ExpireMonthInputDataImpl({this.date, this.noExpirationDate = false})
-      : super._();
-
-  @override
-  final DateTime? date;
-  @override
-  @JsonKey()
-  final bool noExpirationDate;
-
-  @override
-  String toString() {
-    return 'ExpireMonthInputData(date: $date, noExpirationDate: $noExpirationDate)';
-  }
+      _$ExpireMonthInputDataCopyWithImpl<ExpireMonthInputData>(
+          this as ExpireMonthInputData, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExpireMonthInputDataImpl &&
+            other is ExpireMonthInputData &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.noExpirationDate, noExpirationDate) ||
                 other.noExpirationDate == noExpirationDate));
@@ -131,27 +39,128 @@ class _$ExpireMonthInputDataImpl extends _ExpireMonthInputData {
   @override
   int get hashCode => Object.hash(runtimeType, date, noExpirationDate);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'ExpireMonthInputData(date: $date, noExpirationDate: $noExpirationDate)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ExpireMonthInputDataCopyWith<$Res> {
+  factory $ExpireMonthInputDataCopyWith(ExpireMonthInputData value,
+          $Res Function(ExpireMonthInputData) _then) =
+      _$ExpireMonthInputDataCopyWithImpl;
+  @useResult
+  $Res call({DateTime? date, bool noExpirationDate});
+}
+
+/// @nodoc
+class _$ExpireMonthInputDataCopyWithImpl<$Res>
+    implements $ExpireMonthInputDataCopyWith<$Res> {
+  _$ExpireMonthInputDataCopyWithImpl(this._self, this._then);
+
+  final ExpireMonthInputData _self;
+  final $Res Function(ExpireMonthInputData) _then;
+
+  /// Create a copy of ExpireMonthInputData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = freezed,
+    Object? noExpirationDate = null,
+  }) {
+    return _then(_self.copyWith(
+      date: freezed == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      noExpirationDate: null == noExpirationDate
+          ? _self.noExpirationDate
+          : noExpirationDate // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _ExpireMonthInputData extends ExpireMonthInputData {
+  const _ExpireMonthInputData({this.date, this.noExpirationDate = false})
+      : super._();
+
+  @override
+  final DateTime? date;
+  @override
+  @JsonKey()
+  final bool noExpirationDate;
+
+  /// Create a copy of ExpireMonthInputData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ExpireMonthInputDataCopyWith<_ExpireMonthInputData> get copyWith =>
+      __$ExpireMonthInputDataCopyWithImpl<_ExpireMonthInputData>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ExpireMonthInputData &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.noExpirationDate, noExpirationDate) ||
+                other.noExpirationDate == noExpirationDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date, noExpirationDate);
+
+  @override
+  String toString() {
+    return 'ExpireMonthInputData(date: $date, noExpirationDate: $noExpirationDate)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ExpireMonthInputDataCopyWith<$Res>
+    implements $ExpireMonthInputDataCopyWith<$Res> {
+  factory _$ExpireMonthInputDataCopyWith(_ExpireMonthInputData value,
+          $Res Function(_ExpireMonthInputData) _then) =
+      __$ExpireMonthInputDataCopyWithImpl;
+  @override
+  @useResult
+  $Res call({DateTime? date, bool noExpirationDate});
+}
+
+/// @nodoc
+class __$ExpireMonthInputDataCopyWithImpl<$Res>
+    implements _$ExpireMonthInputDataCopyWith<$Res> {
+  __$ExpireMonthInputDataCopyWithImpl(this._self, this._then);
+
+  final _ExpireMonthInputData _self;
+  final $Res Function(_ExpireMonthInputData) _then;
+
+  /// Create a copy of ExpireMonthInputData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$ExpireMonthInputDataImplCopyWith<_$ExpireMonthInputDataImpl>
-      get copyWith =>
-          __$$ExpireMonthInputDataImplCopyWithImpl<_$ExpireMonthInputDataImpl>(
-              this, _$identity);
+  $Res call({
+    Object? date = freezed,
+    Object? noExpirationDate = null,
+  }) {
+    return _then(_ExpireMonthInputData(
+      date: freezed == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      noExpirationDate: null == noExpirationDate
+          ? _self.noExpirationDate
+          : noExpirationDate // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
-abstract class _ExpireMonthInputData extends ExpireMonthInputData {
-  const factory _ExpireMonthInputData(
-      {final DateTime? date,
-      final bool noExpirationDate}) = _$ExpireMonthInputDataImpl;
-  const _ExpireMonthInputData._() : super._();
-
-  @override
-  DateTime? get date;
-  @override
-  bool get noExpirationDate;
-  @override
-  @JsonKey(ignore: true)
-  _$$ExpireMonthInputDataImplCopyWith<_$ExpireMonthInputDataImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

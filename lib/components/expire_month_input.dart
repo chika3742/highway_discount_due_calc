@@ -170,7 +170,7 @@ class ExpireMonthInputState extends State<ExpireMonthInput> {
 }
 
 @freezed
-class ExpireMonthInputData with _$ExpireMonthInputData {
+sealed class ExpireMonthInputData with _$ExpireMonthInputData {
   const ExpireMonthInputData._();
 
   const factory ExpireMonthInputData({
