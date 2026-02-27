@@ -63,15 +63,7 @@ class HomePageNotifier extends _$HomePageNotifier {
   }
 
   void clear() {
-    state = state.copyWith(
-      birthDate: null,
-      physicalExpire: null,
-      rehabilitationExpire: null,
-      isCertType2: false,
-      registerVehicle: false,
-      useEtc: false,
-      leaseVehicle: false,
-    );
+    ref.invalidateSelf();
   }
 }
 
