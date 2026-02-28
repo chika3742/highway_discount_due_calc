@@ -1,8 +1,8 @@
 import 'package:clock/clock.dart';
-import 'package:kigenkeisann/home.dart';
 
 import '../components/expire_month_input.dart';
 import '../utils.dart';
+import 'procedure_type.dart';
 
 DateTime? calculateExpirationDate(
   ProcedureType procedureType,
@@ -10,8 +10,8 @@ DateTime? calculateExpirationDate(
   ExpireMonthInputData? physicalExpire,
   ExpireMonthInputData? rehabilitationExpire,
 ) {
-  if (physicalExpire?.isValid != false ||
-      rehabilitationExpire?.isValid != false) {
+  if (physicalExpire?.isValid == false ||
+      rehabilitationExpire?.isValid == false) {
     return null;
   }
 

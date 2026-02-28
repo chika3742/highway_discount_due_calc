@@ -8,6 +8,7 @@ import 'package:kigenkeisann/core/japanese_calendar.dart';
 import 'package:kigenkeisann/providers/generated_image.dart';
 
 import 'components/birthday_input.dart';
+import 'core/procedure_type.dart';
 import 'providers/home_page_notifier.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -545,17 +546,4 @@ class _LegendCirclePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-enum ProcedureType {
-  update(birthdaysBeforeExpirationDate: 3),
-  newAcquisition(birthdaysBeforeExpirationDate: 2),
-  change(birthdaysBeforeExpirationDate: 2),
-  ;
-
-  final int birthdaysBeforeExpirationDate;
-
-  const ProcedureType({
-    required this.birthdaysBeforeExpirationDate,
-  });
 }
