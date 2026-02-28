@@ -1,7 +1,7 @@
 import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kigenkeisann/components/expire_month_input.dart';
-import 'package:kigenkeisann/home.dart';
+import 'package:kigenkeisann/core/procedure_type.dart';
 import 'package:kigenkeisann/providers/home_page_notifier.dart';
 
 import '../utils.dart';
@@ -69,12 +69,27 @@ void main() {
       ..setBirthDate(DateTime(2000, 2, 1));
 
     withClock(
-      Clock.fixed(DateTime(2020, 2, 1)),
+      Clock.fixed(DateTime(2020, 2, 1, 0, 0)),
       () {
         var state = container.read(homePageNotifierProvider);
         expect(
           state.isTodayOver2MonthsBeforeBirthday,
-          equals(true),
+          isTrue,
+        );
+        expect(
+          state.expirationDate,
+          equals(DateTime(2022, 2, 1)),
+        );
+      },
+    );
+
+    withClock(
+      Clock.fixed(DateTime(2020, 2, 1, 7, 30)),
+      () {
+        var state = container.read(homePageNotifierProvider);
+        expect(
+          state.isTodayOver2MonthsBeforeBirthday,
+          isTrue,
         );
         expect(
           state.expirationDate,
@@ -230,7 +245,7 @@ void main() {
           () {
         var state = container.read(homePageNotifierProvider);
         expect(
-          state.isTurns18BeforeExpirationDate,
+          state.becomesAdultBeforeExpirationDate,
           true,
         );
       },

@@ -378,7 +378,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       children: [
                         const SectionHeading("計算結果"),
                         buildResult(state.expirationDate),
-                        if (state.isTurns18BeforeExpirationDate)
+                        if (state.becomesAdultBeforeExpirationDate)
                           const Text(
                             "期限前に18歳になります",
                             style: TextStyle(
@@ -501,11 +501,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: SectionHeading("以下は変更があった場合のみ必要", bold: true),
           ),
         ],
-        if (state.isOver18YearsOld == false)
+        if (state.isAdult == false)
           const BulletedListItem(
-            child: Text("ETCカード (親権者名義)"),
+            child: Text("ETCカード (本人名義または親権者名義)"),
           ),
-        if (state.isOver18YearsOld != false) // else
+        if (state.isAdult != false) // else
           const BulletedListItem(
             child: Text("ETCカード (本人名義)"),
           ),

@@ -33,7 +33,7 @@ DateTime? calculateExpirationDate(
   // result: 本来の有効期限日
   // 手続き日が誕生日より２ヶ月以上前である場合は、手続き日から2回目の誕生日
   if (procedureType == ProcedureType.update
-      && _isTodayOver2MonthsBefore(birthDate)) {
+      && isTodayOver2MonthsBeforeDate(birthDate.month, birthDate.day)) {
     result = Clock.fixed(result).yearsFromNow(-1);
   }
 
@@ -49,19 +49,4 @@ DateTime? calculateExpirationDate(
   }
 
   return result;
-}
-
-bool _isTodayOver2MonthsBefore(DateTime dateTime) {
-  final now = clock.now();
-
-  var result = DateTime(
-    now.year,
-    dateTime.month,
-    dateTime.day,
-  );
-  if (result.isBeforeOrAtSameMomentAs(now)) {
-    result = result.copyWith(year: result.year + 1);
-  }
-  result = result.copyWith(month: result.month - 2);
-  return now.isBefore(result);
 }

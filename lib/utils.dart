@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/services.dart';
 
 DateTime earlierDate(DateTime a, DateTime b) {
@@ -35,3 +36,13 @@ final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) 
   }
   return newValue;
 });
+
+bool isTodayOver2MonthsBeforeDate(int month, int day) {
+  final now = clock.now();
+
+  var nextOccurrence = DateTime(now.year, month, day);
+  if (nextOccurrence.isBeforeOrAtSameMomentAs(now)) {
+    nextOccurrence = nextOccurrence.copyWith(year: nextOccurrence.year + 1);
+  }
+  return now.isBefore(nextOccurrence.copyWith(month: nextOccurrence.month - 2));
+}

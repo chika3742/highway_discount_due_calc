@@ -5,6 +5,8 @@ import 'package:kigenkeisann/core/expiration_date_calculator.dart';
 import 'package:kigenkeisann/core/procedure_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../utils.dart';
+
 part 'home_page_notifier.freezed.dart';
 part 'home_page_notifier.g.dart';
 
@@ -91,79 +93,40 @@ sealed class HomePageState with _$HomePageState {
       return null;
     }
 
-    final now = clock.now();
-
-    var result = DateTime(
-      now.year,
-      birthDate!.month,
-      birthDate!.day,
+    return calculateExpirationDate(
+      procedureType,
+      birthDate!,
+      physicalExpire,
+      rehabilitationExpire,
     );
-    if (result.isBeforeOrAtSameMomentAs(now)) {
-      result = Clock.fixed(result).yearsFromNow(1);
-    }
-    // result: 次の誕生日
-    result = Clock.fixed(result).yearsFromNow(
-      procedureType.birthdaysBeforeExpirationDate - 1,
-    );
-    // result: 本来の有効期限日
-    // 手続き日が誕生日より２ヶ月以上前である場合は、手続き日から2回目の誕生日
-    if (procedureType == ProcedureType.update
-        && isTodayOver2MonthsBeforeBirthday) {
-      result = Clock.fixed(result).yearsFromNow(-1);
-    }
-
-    if ((physicalExpire != null || rehabilitationExpire != null)
-        && physicalExpire?.noExpirationDate != true && rehabilitationExpire?.noExpirationDate != true) {
-      result = earlierDate(
-        result,
-        laterDate(
-          physicalExpire?.date,
-          rehabilitationExpire?.date,
-        ),
-      );
-    }
-
-    return result;
   }
-  
-  bool get isTurns18BeforeExpirationDate {
+
+  bool get becomesAdultBeforeExpirationDate {
     if (!isInputValid) {
       return false;
     }
     final now = clock.now();
 
-    var x18thBirthday = birthDate!.copyWith(year: birthDate!.year + 18);
-    return x18thBirthday.isAfter(now)
-        && x18thBirthday.isBefore(expirationDate!);
+    var adultBorderBirthday = birthDate!.copyWith(year: birthDate!.year + 18);
+    return adultBorderBirthday.isAfter(now)
+        && adultBorderBirthday.isBefore(expirationDate!);
   }
 
-  bool get isTodayOver2MonthsBeforeBirthday {
-    if (!isInputValid) {
-      return false;
-    }
-
-    final now = clock.now();
-
-    var result = DateTime(
-      now.year,
-      birthDate!.month,
-      birthDate!.day,
-    );
-    if (result.isBeforeOrAtSameMomentAs(now)) {
-      result = result.copyWith(year: result.year + 1);
-    }
-    result = result.copyWith(month: result.month - 2);
-    return now.isBefore(result);
-  }
-
-  bool? get isOver18YearsOld {
+  bool? get isAdult {
     if (!isInputValid) {
       return null;
     }
 
     final now = clock.now();
 
-    final x18thBirthday = Clock.fixed(birthDate!).yearsFromNow(18);
-    return x18thBirthday.isBefore(now);
+    final adultBorderBirthday = Clock.fixed(birthDate!).yearsFromNow(18);
+    return adultBorderBirthday.isBefore(now);
+  }
+
+  bool get isTodayOver2MonthsBeforeBirthday {
+    if (!isInputValid) {
+      return false;
+    }
+    return isTodayOver2MonthsBeforeDate(birthDate!.month, birthDate!.day);
   }
 }
