@@ -22,7 +22,8 @@ DateTime? calculateExpirationDate(
     birthDate.month,
     birthDate.day,
   );
-  if (result.isBeforeOrAtSameMomentAs(now)) {
+  // 過去の日付になっている場合は、次の年に設定
+  if (!result.isAfter(now)) {
     result = Clock.fixed(result).yearsFromNow(1);
   }
 
@@ -33,7 +34,7 @@ DateTime? calculateExpirationDate(
   // result: 本来の有効期限日
   // 手続き日が誕生日より２ヶ月以上前である場合は、手続き日から2回目の誕生日
   if (procedureType == ProcedureType.update
-      && isTodayOver2MonthsBeforeDate(birthDate.month, birthDate.day)) {
+      && isMoreThanTwoMonthsAhead(birthDate.month, birthDate.day)) {
     result = Clock.fixed(result).yearsFromNow(-1);
   }
 

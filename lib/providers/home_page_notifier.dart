@@ -127,6 +127,6 @@ sealed class HomePageState with _$HomePageState {
     if (!isInputValid) {
       return false;
     }
-    return isTodayOver2MonthsBeforeDate(birthDate!.month, birthDate!.day);
+    return isMoreThanTwoMonthsAhead(birthDate!.month, birthDate!.day);
   }
 }

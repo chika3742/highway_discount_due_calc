@@ -67,24 +67,4 @@ void main() {
       expect(DateTime(2400, 2, 29).isLeapDay, true);
     });
   });
-
-  group('isBeforeOrAtSameMomentAs', () {
-    test('a が b より前のとき true', () {
-      final a = DateTime(2024, 1, 1);
-      final b = DateTime(2024, 6, 1);
-      expect(a.isBeforeOrAtSameMomentAs(b), true);
-    });
-
-    test('a と b が同日時のとき true', () {
-      final a = DateTime(2024, 3, 15);
-      final b = DateTime(2024, 3, 15);
-      expect(a.isBeforeOrAtSameMomentAs(b), true);
-    });
-
-    test('a が b より後のとき false', () {
-      final a = DateTime(2024, 6, 1);
-      final b = DateTime(2024, 1, 1);
-      expect(a.isBeforeOrAtSameMomentAs(b), false);
-    });
-  });
 }

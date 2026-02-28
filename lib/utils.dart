@@ -16,10 +16,6 @@ extension DateTimeExtension on DateTime {
   bool get isLeapDay {
     return month == 2 && day == 29;
   }
-
-  bool isBeforeOrAtSameMomentAs(DateTime other) {
-    return isBefore(other) || isAtSameMomentAs(other);
-  }
 }
 
 final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) {
@@ -37,12 +33,15 @@ final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) 
   return newValue;
 });
 
-bool isTodayOver2MonthsBeforeDate(int month, int day) {
+/// 今日から、指定した月日が2ヶ月以上後であるかどうかを返します。
+bool isMoreThanTwoMonthsAhead(int month, int day) {
   final now = clock.now();
 
-  var nextOccurrence = DateTime(now.year, month, day);
-  if (nextOccurrence.isBeforeOrAtSameMomentAs(now)) {
-    nextOccurrence = nextOccurrence.copyWith(year: nextOccurrence.year + 1);
+  var target = DateTime(now.year, month, day);
+  // 指定月日が今日より過去（または今日）なら、来年の同月日を対象にする
+  if (!target.isAfter(now)) {
+    target = target.copyWith(year: target.year + 1);
   }
-  return now.isBefore(nextOccurrence.copyWith(month: nextOccurrence.month - 2));
+  return target.copyWith(month: target.month - 2).isAfter(now);
 }
+
