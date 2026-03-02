@@ -87,7 +87,7 @@ class ExpireMonthInputState extends State<ExpireMonthInput> {
                     ),
                     Flexible(
                       child: DropdownButtonFormField<int>(
-                        value: _month,
+                        initialValue: _month,
                         items: months.map((e) {
                           return DropdownMenuItem(
                             value: e,

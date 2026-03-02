@@ -30,7 +30,7 @@ class BirthdayInputState extends State<BirthdayInput> {
       children: [
         Flexible(
           child: DropdownButtonFormField<JapaneseEra>(
-            value: _era,
+            initialValue: _era,
             decoration: const InputDecoration(
               labelText: "元号",
             ),
@@ -68,7 +68,7 @@ class BirthdayInputState extends State<BirthdayInput> {
         const SizedBox(width: 8),
         Flexible(
           child: DropdownButtonFormField<int>(
-            value: _month,
+            initialValue: _month,
             decoration: const InputDecoration(
               labelText: "月",
             ),
