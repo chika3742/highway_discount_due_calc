@@ -17,6 +17,7 @@ void main() async {
       },
     );
   } catch (e) {
+    // ignore: avoid_print
     print("Error occurred: $e");
   }
 }
