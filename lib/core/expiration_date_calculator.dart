@@ -4,6 +4,11 @@ import '../components/expire_month_input.dart';
 import '../utils.dart';
 import 'procedure_type.dart';
 
+int get adultAge {
+  final now = clock.now();
+  return !now.isBefore(DateTime(2026, 4, 1)) ? 20 : 18;
+}
+
 DateTime? calculateExpirationDate(
   ProcedureType procedureType,
   DateTime birthDate,

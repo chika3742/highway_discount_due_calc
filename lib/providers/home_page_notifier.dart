@@ -107,7 +107,7 @@ sealed class HomePageState with _$HomePageState {
     }
     final now = clock.now();
 
-    var adultBorderBirthday = birthDate!.copyWith(year: birthDate!.year + 18);
+    var adultBorderBirthday = birthDate!.copyWith(year: birthDate!.year + adultAge);
     return adultBorderBirthday.isAfter(now)
         && adultBorderBirthday.isBefore(expirationDate!);
   }
@@ -119,8 +119,8 @@ sealed class HomePageState with _$HomePageState {
 
     final now = clock.now();
 
-    final adultBorderBirthday = Clock.fixed(birthDate!).yearsFromNow(18);
-    return adultBorderBirthday.isBefore(now);
+    final adultBorderBirthday = Clock.fixed(birthDate!).yearsFromNow(adultAge);
+    return !adultBorderBirthday.isAfter(now);
   }
 
   bool get isTodayOver2MonthsBeforeBirthday {
