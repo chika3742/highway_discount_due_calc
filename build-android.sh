@@ -1,3 +1,3 @@
 #!/bin/bash
 
-flutter build appbundle
+fvm flutter build appbundle
