@@ -13,6 +13,7 @@ function start_android_emu() {
   device_name=$1
   ~/Library/Android/sdk/emulator/emulator @"$device_name" -netdelay none -netspeed full &
   adb wait-for-device
+  sleep 5
 }
 
 function stop_android_emu() {
@@ -49,11 +50,9 @@ function exec_android() {
   stop_android_emu
 }
 
-exec_ios "iPhone 16 Pro Max" "screenshots/ios/iphone-6.7in"
-#exec_ios "iPhone 8 Plus" "screenshots/ios/iphone-5.5in"
-exec_ios "iPad Pro 13-inch (M4)" "screenshots/ios/ipad-13in-m4"
-#exec_ios "iPad Pro (12.9-inch) (2nd generation)" "screenshots/ios/ipad-12.9in-gen2"
+exec_ios "iPhone Air" "screenshots/ios/iphone-6.9in"
+exec_ios "iPad Pro 13-inch (M5)" "screenshots/ios/ipad-13in"
 
-#exec_android "Pixel_7" "screenshots/android/mobile"
+#exec_android "Pixel_9_API_36" "screenshots/android/mobile"
 #exec_android "7-inch_Tablet" "screenshots/android/tablet-7in"
 #exec_android "10-inch_Tablet" "screenshots/android/tablet-10in"

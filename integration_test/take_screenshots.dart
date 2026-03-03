@@ -21,7 +21,7 @@ void main() async {
 
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text("新規・変更"));
+    await tester.tap(find.text("新規"));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text("元号"));

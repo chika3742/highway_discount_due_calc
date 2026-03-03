@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:image/image.dart' as img;
 import 'package:integration_test/integration_test_driver_extended.dart';
 
 void main() async {
@@ -10,9 +11,11 @@ void main() async {
         List<int> screenshotBytes, [
         Map<String, Object?>? args,
       ]) async {
-        final File image = await File('$screenshotName.png')
-            .create(recursive: true);
-        image.writeAsBytesSync(screenshotBytes);
+        final cmd = img.Command()
+          ..decodePng(Uint8List.fromList(screenshotBytes))
+          ..convert(numChannels: 3)
+          ..writeToFile('$screenshotName.png');
+        await cmd.execute();
         return true;
       },
     );
