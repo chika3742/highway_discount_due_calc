@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kigenkeisann/components/bulleted_list_item.dart';
 import 'package:kigenkeisann/components/expire_month_input.dart';
 import 'package:kigenkeisann/components/layout.dart';
+import 'package:kigenkeisann/core/expiration_date_calculator.dart';
 import 'package:kigenkeisann/core/japanese_calendar.dart';
 import 'package:kigenkeisann/providers/generated_image.dart';
 
@@ -379,8 +380,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         const SectionHeading("計算結果"),
                         buildResult(state.expirationDate),
                         if (state.becomesAdultBeforeExpirationDate)
-                          const Text(
-                            "期限前に18歳になります",
+                          Text(
+                            "期限前に$adultAge歳になります",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.red,
