@@ -6,6 +6,7 @@ import 'package:kigenkeisann/components/expire_month_input.dart';
 import 'package:kigenkeisann/components/layout.dart';
 import 'package:kigenkeisann/core/expiration_date_calculator.dart';
 import 'package:kigenkeisann/core/japanese_calendar.dart';
+import 'package:kigenkeisann/core/ui_image_provider.dart';
 import 'package:kigenkeisann/providers/generated_image.dart';
 
 import 'components/birthday_input.dart';
@@ -345,13 +346,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       onTap: () {
                                         showImageViewer(
                                           context,
-                                          MemoryImage(value),
+                                          UiImageProvider(value),
                                           immersive: false,
                                           useSafeArea: true,
                                           doubleTapZoomable: true,
                                         );
                                       },
-                                      child: Image.memory(value!),
+                                      child: RawImage(image: value!),
                                     ),
                                   ],
                                 ),

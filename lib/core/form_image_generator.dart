@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart' hide Image;
 
 import '../providers/home_page_notifier.dart';
 
@@ -88,7 +87,7 @@ class FormImageGenerator {
 
   Canvas? _canvas;
 
-  Future<Uint8List> generate() async {
+  Future<Image> generate() async {
     final buffer = await ImmutableBuffer.fromAsset("assets/img/form_base.jpg");
     final descriptor = await ImageDescriptor.encoded(buffer);
     final codec = await descriptor.instantiateCodec();
@@ -114,10 +113,7 @@ class FormImageGenerator {
     _canvas = null;
 
     final picture = recorder.endRecording();
-    final generatedImage = await picture.toImage(595, 841);
-
-    return (await generatedImage.toByteData(format: ImageByteFormat.png))!
-        .buffer.asUint8List();
+    return await picture.toImage(2400, 3437);
   }
 
   void _drawFormOutline(Offset p1, Offset p2, Color color) {
