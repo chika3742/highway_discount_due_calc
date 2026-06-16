@@ -338,6 +338,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 child: Center(child: CircularProgressIndicator()),
                               ) : SizedBox(
                                 width: double.infinity,
+                                height: 560,
                                 child: Column(
                                   spacing: 8,
                                   children: [

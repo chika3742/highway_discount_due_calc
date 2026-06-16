@@ -9,74 +9,74 @@ class FormImageGenerator {
     FormDecoration( // primary form outline
       drawIf: (state) => true, // always
       type: FormDecorationType.outline,
-      p1: const Offset(92, 108),
-      p2: const Offset(503, 257),
+      p1: const Offset(181, 354),
+      p2: const Offset(2255, 1108),
       color: Colors.red,
     ),
     FormDecoration( // vehicle registration form outline
       drawIf: (state) => state.registerVehicle,
       type: FormDecorationType.outline,
-      p1: const Offset(91.5, 305.5),
-      p2: const Offset(503.5, 336.5),
+      p1: const Offset(185, 1354),
+      p2: const Offset(2255, 1512),
       color: Colors.red,
     ),
     FormDecoration( // ETC registration form outline
       drawIf: (state) => state.registerVehicle && state.useEtc,
       type: FormDecorationType.outline,
-      p1: const Offset(91.5, 377.5),
-      p2: const Offset(503.5, 471.5),
+      p1: const Offset(186, 1713),
+      p2: const Offset(2257, 2191),
       color: Colors.red,
     ),
     FormDecoration( // agent form outline
       drawIf: (state) => state.isAgent,
       type: FormDecorationType.outline,
-      p1: const Offset(91.5, 482.5),
-      p2: const Offset(503.5, 515.5),
+      p1: const Offset(185, 2246),
+      p2: const Offset(2255, 2413),
       color: Colors.red,
     ),
     FormDecoration( // certificate type 1 checkmark
       drawIf: (state) => !state.isCertType2,
       type: FormDecorationType.checkmark,
-      p1: const Offset(215, 274),
-      color: Colors.blue,
+      p1: const Offset(803, 1189),
+      color: Colors.blueAccent,
     ),
     FormDecoration( // certificate type 2 checkmark
       drawIf: (state) => state.isCertType2,
       type: FormDecorationType.checkmark,
-      p1: const Offset(215, 267.5),
-      color: Colors.blue,
+      p1: const Offset(803, 1153),
+      color: Colors.blueAccent,
     ),
     FormDecoration( // no ETC checkmark
       drawIf: (state) => state.registerVehicle && !state.useEtc,
       type: FormDecorationType.checkmark,
-      p1: const Offset(168, 348),
+      p1: const Offset(570, 1557),
       color: Colors.red,
     ),
     FormDecoration( // no vehicle registration checkmark
       drawIf: (state) => !state.registerVehicle,
       type: FormDecorationType.checkmark,
-      p1: const Offset(172, 288),
+      p1: const Offset(585, 1259),
       color: Colors.red,
     ),
     FormDecoration( // has certificate expiration date checkmark
       drawIf: (state) => (state.physicalExpire != null || state.rehabilitationExpire != null)
           && state.physicalExpire?.noExpirationDate != true && state.rehabilitationExpire?.noExpirationDate != true,
       type: FormDecorationType.checkmark,
-      p1: const Offset(345, 538.5),
+      p1: const Offset(1460, 2520),
       color: Colors.blue,
     ),
     FormDecoration( // ETC expiration date form outline
       drawIf: (state) => state.registerVehicle && state.useEtc,
       type: FormDecorationType.outline,
-      p1: const Offset(91.5, 527.5),
-      p2: const Offset(284.5, 544.5),
+      p1: const Offset(187, 2471),
+      p2: const Offset(1152, 2556),
       color: Colors.blue,
     ),
     FormDecoration( // expiration date form outline
       drawIf: (state) => true,
       type: FormDecorationType.outline,
-      p1: const Offset(91.5, 544.5),
-      p2: const Offset(503.5, 561),
+      p1: const Offset(187, 2555),
+      p2: const Offset(2255, 2639),
       color: Colors.blue,
     ),
   ];
@@ -119,7 +119,7 @@ class FormImageGenerator {
   void _drawFormOutline(Offset p1, Offset p2, Color color) {
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 4
+      ..strokeWidth = 20
       ..color = color;
 
     _canvas?.drawRect(
@@ -131,10 +131,17 @@ class FormImageGenerator {
   void _drawCheckmark(Offset offset, Color color) {
     final paint = Paint()
         ..color = color
-        ..strokeWidth = 3;
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 20;
 
-    _canvas?.drawLine(offset, offset.translate(-4, -6), paint);
-    _canvas?.drawLine(offset, offset.translate(8, -10), paint);
+    const markSize = 70;
+
+    final path = Path()
+      ..moveTo(offset.dx - markSize * 0.25, offset.dy - markSize * 0.35)
+      ..lineTo(offset.dx, offset.dy)
+      ..relativeLineTo(markSize * 0.65, -markSize * 0.55);
+
+    _canvas?.drawPath(path, paint);
   }
 }
 
