@@ -1,8 +1,8 @@
 import 'package:clock/clock.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kigenkeisann/components/expire_month_input.dart';
-import 'package:kigenkeisann/core/expiration_date_calculator.dart';
-import 'package:kigenkeisann/core/procedure_type.dart';
+import 'package:highway_discount_due_calc/components/expire_month_input.dart';
+import 'package:highway_discount_due_calc/core/expiration_date_calculator.dart';
+import 'package:highway_discount_due_calc/core/procedure_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../utils.dart';

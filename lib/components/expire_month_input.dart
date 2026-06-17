@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kigenkeisann/components/labeled_radio.dart';
-import 'package:kigenkeisann/components/layout.dart';
-import 'package:kigenkeisann/core/japanese_calendar.dart';
+import 'package:highway_discount_due_calc/components/labeled_radio.dart';
+import 'package:highway_discount_due_calc/components/layout.dart';
+import 'package:highway_discount_due_calc/core/japanese_calendar.dart';
 
 import '../utils.dart';
 

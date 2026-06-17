@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kigenkeisann/utils.dart';
+import 'package:highway_discount_due_calc/utils.dart';
 
 void main() {
   group('earlierDate', () {

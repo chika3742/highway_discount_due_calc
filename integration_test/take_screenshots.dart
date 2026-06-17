@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:highway_discount_due_calc/main.dart' as app;
 import 'package:integration_test/integration_test.dart';
-import 'package:kigenkeisann/main.dart' as app;
 
 void main() async {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();

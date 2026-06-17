@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kigenkeisann/core/form_image_generator.dart';
-import 'package:kigenkeisann/providers/home_page_notifier.dart';
+import 'package:highway_discount_due_calc/core/form_image_generator.dart';
+import 'package:highway_discount_due_calc/providers/home_page_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated_image.g.dart';

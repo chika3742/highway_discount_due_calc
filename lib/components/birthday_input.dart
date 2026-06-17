@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kigenkeisann/components/layout.dart';
+import 'package:highway_discount_due_calc/components/layout.dart';
 
 import '../core/japanese_calendar.dart';
 import '../utils.dart';

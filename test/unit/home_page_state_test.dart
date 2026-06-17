@@ -1,8 +1,8 @@
 import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kigenkeisann/components/expire_month_input.dart';
-import 'package:kigenkeisann/core/procedure_type.dart';
-import 'package:kigenkeisann/providers/home_page_notifier.dart';
+import 'package:highway_discount_due_calc/components/expire_month_input.dart';
+import 'package:highway_discount_due_calc/core/procedure_type.dart';
+import 'package:highway_discount_due_calc/providers/home_page_notifier.dart';
 
 import '../utils.dart';
 

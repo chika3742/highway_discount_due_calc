@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kigenkeisann/core/japanese_calendar.dart';
+import 'package:highway_discount_due_calc/core/japanese_calendar.dart';
 
 void main() {
   group('DateTime.japaneseCalendarYear（令和）', () {

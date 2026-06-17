@@ -1,13 +1,13 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kigenkeisann/components/bulleted_list_item.dart';
-import 'package:kigenkeisann/components/expire_month_input.dart';
-import 'package:kigenkeisann/components/layout.dart';
-import 'package:kigenkeisann/core/expiration_date_calculator.dart';
-import 'package:kigenkeisann/core/japanese_calendar.dart';
-import 'package:kigenkeisann/core/ui_image_provider.dart';
-import 'package:kigenkeisann/providers/generated_image.dart';
+import 'package:highway_discount_due_calc/components/bulleted_list_item.dart';
+import 'package:highway_discount_due_calc/components/expire_month_input.dart';
+import 'package:highway_discount_due_calc/components/layout.dart';
+import 'package:highway_discount_due_calc/core/expiration_date_calculator.dart';
+import 'package:highway_discount_due_calc/core/japanese_calendar.dart';
+import 'package:highway_discount_due_calc/core/ui_image_provider.dart';
+import 'package:highway_discount_due_calc/providers/generated_image.dart';
 
 import 'components/birthday_input.dart';
 import 'core/procedure_type.dart';

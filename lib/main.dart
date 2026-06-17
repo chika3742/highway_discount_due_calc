@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kigenkeisann/home.dart';
+import 'package:highway_discount_due_calc/home.dart';
 
 void main() {
   LicenseRegistry.addLicense(() async* {
