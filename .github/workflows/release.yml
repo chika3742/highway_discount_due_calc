@@ -47,6 +47,7 @@ jobs:
     with:
       build-name: ${{ needs.prepare.outputs.build-name }}
       build-number: ${{ needs.prepare.outputs.build-number }}
+      wif-audience: https://github.com/chika3742
     secrets:
       keystore_base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       key_properties_base64: ${{ secrets.ANDROID_KEY_PROPERTIES_BASE64 }}
