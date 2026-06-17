@@ -1,16 +1,36 @@
-# highway_discount_due_calc
+# 高速道路障害者割引期限計算アプリ
 
-A new Flutter project.
+申請者の情報を入力するだけで、新しい有効期限とフォームの記入が必要な事項を確認できます。
 
-## Getting Started
+## 機能
 
-This project is a starting point for a Flutter application.
+- 手続きの種類（新規・更新・変更）、生年月日、手帳（身体／療育）の期限などから、新しい有効期限を自動計算
+- 西暦と和暦の両方で結果を表示
+- 入力内容に応じて必要書類を自動で一覧表示
+- 申請書記入欄を画像として生成し、申請者欄（赤）と担当者欄（青）を色分け表示
+- 生成された画像はタップで拡大表示が可能
+- 期限前に成人を迎える場合や、更新で誕生日まで2ヶ月以上ある場合などの注意点を警告表示
+- 1タップで入力内容をクリアして最初からやり直し可能
 
-A few resources to get you started if this is your first Flutter project:
+## ダウンロード
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Android
+https://play.google.com/store/apps/details?id=net.chikach.kigenkeisann
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### iOS/iPadOS
+https://apps.apple.com/jp/app/id6479892250
+
+## セットアップ
+
+```bash
+flutter pub get
+dart run build_runner build
+flutter run
+```
+
+## ビルド
+
+```bash
+./build-android.sh
+./build-ios.sh
+```
