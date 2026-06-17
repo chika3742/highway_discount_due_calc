@@ -60,6 +60,7 @@ jobs:
     with:
       build-name: ${{ needs.prepare.outputs.build-name }}
       build-number: ${{ needs.prepare.outputs.build-number }}
+      xcode-version: '26.5'
     secrets:
       match_passphrase: ${{ secrets.IOS_MATCH_PASSPHRASE }}
       match_git_basic_auth: ${{ secrets.IOS_MATCH_GITHUB_KEY }}
