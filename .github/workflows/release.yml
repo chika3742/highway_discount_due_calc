@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version name (e.g. 1.5.0)."
+        required: false
+
+env:
+  # Offset to keep CI build numbers ahead of historical manual builds.
+  BUILD_NUMBER_OFFSET: 11
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      build-name: ${{ steps.v.outputs.name }}
+      build-number: ${{ steps.bn.outputs.number }}
+    steps:
+      - id: v
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            NAME="${{ inputs.version }}"
+          else
+            NAME="${GITHUB_REF_NAME#v}"
+          fi
+          if [ -z "$NAME" ]; then
+            echo "::error::build-name could not be resolved"
+            exit 1
+          fi
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+      - id: bn
+        run: echo "number=$(( ${{ github.run_number }} + ${{ env.BUILD_NUMBER_OFFSET }} ))" >> "$GITHUB_OUTPUT"
+
+  android:
+    needs: prepare
+    permissions:
+      contents: read
+      id-token: write
+    uses: chika3742/flutter-app-deploy/.github/workflows/android.yml@main
+    with:
+      build-name: ${{ needs.prepare.outputs.build-name }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+    secrets:
+      keystore_base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      key_properties_base64: ${{ secrets.ANDROID_KEY_PROPERTIES_BASE64 }}
+      wif_provider: ${{ secrets.WIF_PROVIDER }}
+      wif_service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+  ios:
+    needs: prepare
+    uses: chika3742/flutter-app-deploy/.github/workflows/ios.yml@main
+    with:
+      build-name: ${{ needs.prepare.outputs.build-name }}
+      build-number: ${{ needs.prepare.outputs.build-number }}
+    secrets:
+      provisioning_profile_1_base64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+      codesign_cert_base64: ${{ secrets.IOS_CODESIGN_CERT_BASE64 }}
+      codesign_cert_pw: ${{ secrets.IOS_CODESIGN_CERT_PW }}
+      asc_key_id: ${{ secrets.ASC_KEY_ID }}
+      asc_issuer_id: ${{ secrets.ASC_ISSUER_ID }}
+      asc_key_base64: ${{ secrets.ASC_KEY_BASE64 }}

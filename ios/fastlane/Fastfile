@@ -1,0 +1,20 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Upload signed IPA to TestFlight"
+  lane :upload do
+    app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_filepath: ENV["ASC_KEY_FILEPATH"],
+    )
+
+    ipa_path = Dir.glob("../build/ios/ipa/*.ipa").first
+    UI.user_error!("IPA not found under ../build/ios/ipa/") if ipa_path.nil?
+
+    upload_to_testflight(
+      ipa: ipa_path,
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

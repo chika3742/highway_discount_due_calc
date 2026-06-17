@@ -46,3 +46,15 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Signing / secrets (kept locally, never committed)
+/android/key.properties
+/android/*.keystore
+/android/*.jks
+/ios/secrets/
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots/*.png
+**/fastlane/test_output

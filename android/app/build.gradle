@@ -43,13 +43,21 @@ android {
         versionName flutterVersionName
     }
 
+    def keyProperties = new Properties()
+    def keyPropertiesFile = rootProject.file('key.properties')
+    if (keyPropertiesFile.exists()) {
+        keyPropertiesFile.withReader('UTF-8') { reader ->
+            keyProperties.load(reader)
+        }
+    }
+
     signingConfigs {
         release {
-            if (localProperties.getProperty("keystorePath") != null) {
-                storeFile file(localProperties.getProperty("keystorePath"))
-                storePassword localProperties.getProperty('keystorePassword')
-                keyAlias localProperties.getProperty('keyAlias')
-                keyPassword localProperties.getProperty('keyPassword')
+            if (keyProperties.getProperty("storeFile") != null) {
+                storeFile rootProject.file(keyProperties.getProperty("storeFile"))
+                storePassword keyProperties.getProperty('storePassword')
+                keyAlias keyProperties.getProperty('keyAlias')
+                keyPassword keyProperties.getProperty('keyPassword')
             }
         }
     }
