@@ -9,7 +9,7 @@ int get adultAge {
   return !now.isBefore(DateTime(2026, 4, 1)) ? 20 : 18;
 }
 
-DateTime? calculateExpirationDate(
+(DateTime result, bool isDueToExpiration)? calculateExpirationDate(
   ProcedureType procedureType,
   DateTime birthDate,
   ExpireMonthInputData? physicalExpire,
@@ -43,16 +43,21 @@ DateTime? calculateExpirationDate(
     result = Clock.fixed(result).yearsFromNow(-1);
   }
 
+  bool isDueToExpiration = false;
   if ((physicalExpire != null || rehabilitationExpire != null)
       && physicalExpire?.noExpirationDate != true && rehabilitationExpire?.noExpirationDate != true) {
-    result = earlierDate(
+    final newResult = earlierDate(
       result,
       laterDate(
         physicalExpire?.date,
         rehabilitationExpire?.date,
       ),
     );
+    if (result != newResult) {
+      isDueToExpiration = true;
+    }
+    result = newResult;
   }
 
-  return result;
+  return (result, isDueToExpiration);
 }

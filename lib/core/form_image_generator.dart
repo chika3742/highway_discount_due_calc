@@ -60,24 +60,31 @@ class FormImageGenerator {
     ),
     FormDecoration( // has certificate expiration date checkmark
       drawIf: (state) => (state.physicalExpire != null || state.rehabilitationExpire != null)
-          && state.physicalExpire?.noExpirationDate != true && state.rehabilitationExpire?.noExpirationDate != true,
+          && (state.physicalExpire?.noExpirationDate != true || state.rehabilitationExpire?.noExpirationDate != true),
       type: FormDecorationType.checkmark,
       p1: const Offset(1460, 2520),
-      color: Colors.blue,
+      color: Colors.blueAccent,
     ),
     FormDecoration( // ETC expiration date form outline
       drawIf: (state) => state.registerVehicle && state.useEtc,
       type: FormDecorationType.outline,
       p1: const Offset(187, 2471),
       p2: const Offset(1152, 2556),
-      color: Colors.blue,
+      color: Colors.blueAccent,
     ),
     FormDecoration( // expiration date form outline
       drawIf: (state) => true,
       type: FormDecorationType.outline,
       p1: const Offset(187, 2555),
       p2: const Offset(2255, 2639),
-      color: Colors.blue,
+      color: Colors.blueAccent,
+    ),
+    FormDecoration(
+      drawIf: (state) => state.isDueToExpiration == true,
+      type: FormDecorationType.text,
+      p1: const Offset(625, 2407),
+      color: Colors.blueAccent,
+      text: "判定日のため",
     ),
   ];
 
@@ -102,10 +109,10 @@ class FormImageGenerator {
         switch (decoration.type) {
           case FormDecorationType.outline:
             _drawFormOutline(decoration.p1, decoration.p2!, decoration.color);
-            break;
           case FormDecorationType.checkmark:
             _drawCheckmark(decoration.p1, decoration.color);
-            break;
+          case FormDecorationType.text:
+            _drawText(decoration.p1, decoration.text!, decoration.color);
         }
       }
     }
@@ -143,6 +150,24 @@ class FormImageGenerator {
 
     _canvas?.drawPath(path, paint);
   }
+
+  void _drawText(Offset offset, String text, Color color) {
+    if (_canvas case final canvas?) {
+      TextPainter(
+        text: TextSpan(
+          text: text,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+            fontSize: 48,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )
+        ..layout()
+        ..paint(canvas, offset);
+    }
+  }
 }
 
 class FormDecoration {
@@ -151,6 +176,7 @@ class FormDecoration {
   final Offset p1;
   final Offset? p2;
   final Color color;
+  final String? text;
 
   const FormDecoration({
     required this.drawIf,
@@ -158,10 +184,12 @@ class FormDecoration {
     required this.p1,
     this.p2,
     required this.color,
+    this.text,
   });
 }
 
 enum FormDecorationType {
   outline,
   checkmark,
+  text,
 }

@@ -88,7 +88,7 @@ sealed class HomePageState with _$HomePageState {
       physicalExpire?.isValid != false &&
       rehabilitationExpire?.isValid != false;
 
-  DateTime? get expirationDate {
+  (DateTime, bool)? get _calcResult {
     if (!isInputValid) {
       return null;
     }
@@ -100,6 +100,10 @@ sealed class HomePageState with _$HomePageState {
       rehabilitationExpire,
     );
   }
+
+  DateTime? get expirationDate => _calcResult?.$1;
+
+  bool? get isDueToExpiration => _calcResult?.$2;
 
   bool get becomesAdultBeforeExpirationDate {
     if (!isInputValid) {
