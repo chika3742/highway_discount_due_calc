@@ -25,7 +25,7 @@ if (flutterVersionName == null) {
 android {
     namespace "net.chikach.kigenkeisann"
     compileSdk flutter.compileSdkVersion
-    ndkVersion "28.0.12674087"
+    ndkVersion flutter.ndkVersion
 
     kotlinOptions {
         jvmTarget = '21'
