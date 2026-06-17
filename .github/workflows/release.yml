@@ -55,14 +55,13 @@ jobs:
 
   ios:
     needs: prepare
-    uses: chika3742/flutter-app-deploy/.github/workflows/ios.yml@main
+    uses: chika3742/flutter-app-deploy/.github/workflows/ios-match.yml@main
     with:
       build-name: ${{ needs.prepare.outputs.build-name }}
       build-number: ${{ needs.prepare.outputs.build-number }}
     secrets:
-      provisioning_profile_1_base64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
-      codesign_cert_base64: ${{ secrets.IOS_CODESIGN_CERT_BASE64 }}
-      codesign_cert_pw: ${{ secrets.IOS_CODESIGN_CERT_PW }}
+      match_passphrase: ${{ secrets.IOS_MATCH_PASSPHRASE }}
+      match_git_basic_auth: ${{ secrets.IOS_MATCH_GITHUB_KEY }}
       asc_key_id: ${{ secrets.ASC_KEY_ID }}
       asc_issuer_id: ${{ secrets.ASC_ISSUER_ID }}
       asc_key_base64: ${{ secrets.ASC_KEY_BASE64 }}
