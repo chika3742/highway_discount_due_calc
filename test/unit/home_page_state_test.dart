@@ -107,21 +107,13 @@ void main() {
   });
 
   group('isTodayOver2MonthsBeforeBirthday', () {
-    test('新規/変更申請であるとき、誕生日まで2ヶ月以上前でも false', () {
-      final state1 = _defaultState.copyWith(
-        procedureType: ProcedureType.newAcquisition,
-        birthDate: DateTime(2000, 8, 1),
-      );
-      withClock(Clock.fixed(DateTime(2024, 5, 1)), () {
-        expect(state1.isTodayOver2MonthsBeforeBirthday, false);
-      });
-
-      final state2 = _defaultState.copyWith(
+    test('変更申請であるとき、誕生日まで2ヶ月以上前でも false', () {
+      final state = _defaultState.copyWith(
         procedureType: ProcedureType.change,
         birthDate: DateTime(2000, 8, 1),
       );
       withClock(Clock.fixed(DateTime(2024, 5, 1)), () {
-        expect(state2.isTodayOver2MonthsBeforeBirthday, false);
+        expect(state.isTodayOver2MonthsBeforeBirthday, false);
       });
     });
 

@@ -389,8 +389,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        if (state.procedureType == ProcedureType.update
-                            && state.isTodayOver2MonthsBeforeBirthday)
+                        if (state.isTodayOver2MonthsBeforeBirthday)
                           const Text(
                             "今日から誕生日まで2ヶ月以上あります",
                             style: TextStyle(

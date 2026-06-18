@@ -131,6 +131,9 @@ sealed class HomePageState with _$HomePageState {
     if (!isInputValid) {
       return false;
     }
+    if (procedureType != ProcedureType.update) {
+      return false;
+    }
     return isMoreThanTwoMonthsAhead(birthDate!.month, birthDate!.day);
   }
 }
