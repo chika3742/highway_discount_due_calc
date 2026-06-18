@@ -8,9 +8,6 @@ on:
       version:
         description: "Version name (e.g. 1.5.0)."
         required: false
-  pull_request: # TODO: REMOVE
-    branches:
-      - main
 
 env:
   # Offset to keep CI build numbers ahead of historical manual builds.
