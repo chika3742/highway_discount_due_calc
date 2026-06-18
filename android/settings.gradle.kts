@@ -22,7 +22,7 @@ plugins {
     id("com.android.library") version "9.2.1" apply false
     // Required on the buildscript classpath: Flutter's Gradle plugin auto-applies
     // kotlin-android to Android subprojects (e.g. integration_test) on Flutter 3.44.x.
-    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
+    id("org.jetbrains.kotlin.android") version "2.2.20" apply false
 }
 
 include(":app")
