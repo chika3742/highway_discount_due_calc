@@ -1,8 +1,9 @@
-name: kigenkeisann
+name: highway_discount_due_calc
 description: "Highway discount expiration date calculator"
 publish_to: 'none'
 
-version: 1.5.0+11
+# Version will be populated in CI from the tag name.
+version: 0.0.0
 
 environment:
   sdk: '>=3.3.1 <4.0.0'

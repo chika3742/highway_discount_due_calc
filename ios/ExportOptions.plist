@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>net.chikach.kigenkeisann</key>
-		<string>net.chikach.kigenkeisann</string>
+		<string>match AppStore net.chikach.kigenkeisann</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution</string>
