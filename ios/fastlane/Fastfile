@@ -9,7 +9,7 @@ platform :ios do
       key_filepath: ENV["ASC_KEY_FILEPATH"],
     )
 
-    ipa_path = Dir.glob("../build/ios/ipa/*.ipa").first
+    ipa_path = Dir.glob("../../build/ios/ipa/*.ipa").first
     UI.user_error!("IPA not found under ../build/ios/ipa/") if ipa_path.nil?
 
     upload_to_testflight(
