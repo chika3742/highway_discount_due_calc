@@ -17,4 +17,14 @@ platform :ios do
       skip_waiting_for_build_processing: true,
     )
   end
+
+  desc "Install Codesign and a Provisioning Profile"
+  lane :setup do
+    setup_ci
+
+    match(
+      type: "appstore",
+      readonly: true,
+    )
+  end
 end
