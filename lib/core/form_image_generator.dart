@@ -7,6 +7,7 @@ import "../providers/home_page_notifier.dart";
 class FormImageGenerator {
   static final List<FormDecoration> decorations = [
     FormDecoration( // primary form outline
+      testId: "primaryOutline",
       drawIf: (state) => true, // always
       type: FormDecorationType.outline,
       p1: const Offset(181, 354),
@@ -14,6 +15,7 @@ class FormImageGenerator {
       color: Colors.red,
     ),
     FormDecoration( // vehicle registration form outline
+      testId: "vehicleOutline",
       drawIf: (state) => state.registerVehicle,
       type: FormDecorationType.outline,
       p1: const Offset(185, 1354),
@@ -21,6 +23,7 @@ class FormImageGenerator {
       color: Colors.red,
     ),
     FormDecoration( // ETC registration form outline
+      testId: "etcOutline",
       drawIf: (state) => state.registerVehicle && state.useEtc,
       type: FormDecorationType.outline,
       p1: const Offset(186, 1713),
@@ -28,6 +31,7 @@ class FormImageGenerator {
       color: Colors.red,
     ),
     FormDecoration( // agent form outline
+      testId: "agentOutline",
       drawIf: (state) => state.isAgent,
       type: FormDecorationType.outline,
       p1: const Offset(185, 2246),
@@ -35,30 +39,35 @@ class FormImageGenerator {
       color: Colors.red,
     ),
     FormDecoration( // certificate type 1 checkmark
+      testId: "certType1Checkmark",
       drawIf: (state) => !state.isCertType2,
       type: FormDecorationType.checkmark,
       p1: const Offset(803, 1189),
       color: Colors.blueAccent,
     ),
     FormDecoration( // certificate type 2 checkmark
+      testId: "certType2Checkmark",
       drawIf: (state) => state.isCertType2,
       type: FormDecorationType.checkmark,
       p1: const Offset(803, 1153),
       color: Colors.blueAccent,
     ),
     FormDecoration( // no ETC checkmark
+      testId: "noEtcCheckmark",
       drawIf: (state) => state.registerVehicle && !state.useEtc,
       type: FormDecorationType.checkmark,
       p1: const Offset(570, 1557),
       color: Colors.red,
     ),
     FormDecoration( // no vehicle registration checkmark
+      testId: "noVehicleCheckmark",
       drawIf: (state) => !state.registerVehicle,
       type: FormDecorationType.checkmark,
       p1: const Offset(585, 1259),
       color: Colors.red,
     ),
     FormDecoration( // has certificate expiration date checkmark
+      testId: "certExpirationCheckmark",
       drawIf: (state) => (state.physicalExpire != null || state.rehabilitationExpire != null)
           && (state.physicalExpire?.noExpirationDate != true || state.rehabilitationExpire?.noExpirationDate != true),
       type: FormDecorationType.checkmark,
@@ -66,6 +75,7 @@ class FormImageGenerator {
       color: Colors.blueAccent,
     ),
     FormDecoration( // ETC expiration date form outline
+      testId: "etcExpirationOutline",
       drawIf: (state) => state.registerVehicle && state.useEtc,
       type: FormDecorationType.outline,
       p1: const Offset(187, 2471),
@@ -73,6 +83,7 @@ class FormImageGenerator {
       color: Colors.blueAccent,
     ),
     FormDecoration( // expiration date form outline
+      testId: "expirationOutline",
       drawIf: (state) => true,
       type: FormDecorationType.outline,
       p1: const Offset(187, 2555),
@@ -80,6 +91,7 @@ class FormImageGenerator {
       color: Colors.blueAccent,
     ),
     FormDecoration(
+      testId: "dueToExpirationText",
       drawIf: (state) => state.isDueToExpiration == true,
       type: FormDecorationType.text,
       p1: const Offset(625, 2407),
@@ -171,6 +183,9 @@ class FormImageGenerator {
 }
 
 class FormDecoration {
+  /// テストから個々の装飾を一意に識別するための識別子。
+  /// アプリの実行（描画）には影響しない、テスト専用のメタデータ。
+  final String testId;
   final bool Function(HomePageState state) drawIf;
   final FormDecorationType type;
   final Offset p1;
@@ -179,6 +194,7 @@ class FormDecoration {
   final String? text;
 
   const FormDecoration({
+    required this.testId,
     required this.drawIf,
     required this.type,
     required this.p1,
