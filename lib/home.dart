@@ -1,17 +1,17 @@
-import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:highway_discount_due_calc/components/bulleted_list_item.dart';
-import 'package:highway_discount_due_calc/components/expire_month_input.dart';
-import 'package:highway_discount_due_calc/components/layout.dart';
-import 'package:highway_discount_due_calc/core/expiration_date_calculator.dart';
-import 'package:highway_discount_due_calc/core/japanese_calendar.dart';
-import 'package:highway_discount_due_calc/core/ui_image_provider.dart';
-import 'package:highway_discount_due_calc/providers/generated_image.dart';
+import "package:easy_image_viewer/easy_image_viewer.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import 'components/birthday_input.dart';
-import 'core/procedure_type.dart';
-import 'providers/home_page_notifier.dart';
+import "components/birthday_input.dart";
+import "components/bulleted_list_item.dart";
+import "components/expire_month_input.dart";
+import "components/layout.dart";
+import "core/expiration_date_calculator.dart";
+import "core/japanese_calendar.dart";
+import "core/procedure_type.dart";
+import "core/ui_image_provider.dart";
+import "providers/generated_image.dart";
+import "providers/home_page_notifier.dart";
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -31,7 +31,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(homePageNotifierProvider);
+    final state = ref.watch(homePageProvider);
     final generatedImage = ref.watch(generatedImageProvider);
 
     return GestureDetector(
@@ -60,7 +60,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             SegmentedButton<ProcedureType>(
                               selected: {state.procedureType},
                               onSelectionChanged: (value) {
-                                ref.read(homePageNotifierProvider.notifier)
+                                ref.read(homePageProvider.notifier)
                                     .setProcedureType(value.first);
                               },
                               segments: [
@@ -90,7 +90,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   child: BirthdayInput(
                                     key: _birthdayInputKey,
                                     onChanged: (date) {
-                                      ref.read(homePageNotifierProvider.notifier)
+                                      ref.read(homePageProvider.notifier)
                                           .setBirthDate(date);
                                     },
                                   ),
@@ -109,7 +109,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         key: _physicalExpDateInputKey,
                                         value: state.physicalExpire,
                                         onChanged: (date) {
-                                          ref.read(homePageNotifierProvider.notifier)
+                                          ref.read(homePageProvider.notifier)
                                               .setPhysicalExpire(date);
                                         },
                                         label: const Text("身体"),
@@ -118,7 +118,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         key: _rehabilitationExpDateInputKey,
                                         value: state.rehabilitationExpire,
                                         onChanged: (date) {
-                                          ref.read(homePageNotifierProvider.notifier)
+                                          ref.read(homePageProvider.notifier)
                                               .setRehabilitationExpire(date);
                                         },
                                         label: const Text("療育\n(A1/A2)"),
@@ -142,7 +142,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       child: SegmentedButton<bool>(
                                         selected: {state.isCertType2},
                                         onSelectionChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
+                                          ref.read(homePageProvider.notifier)
                                               .setIsCertType2(value.first);
                                         },
                                         segments: [
@@ -169,7 +169,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       child: SegmentedButton<bool>(
                                         selected: {state.registerVehicle},
                                         onSelectionChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
+                                          ref.read(homePageProvider.notifier)
                                               .setRegisterVehicle(value.first);
                                         },
                                         segments: [
@@ -208,7 +208,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             child: SegmentedButton<bool>(
                                               selected: {state.leaseVehicle},
                                               onSelectionChanged: (value) {
-                                                ref.read(homePageNotifierProvider.notifier)
+                                                ref.read(homePageProvider.notifier)
                                                     .setLeaseVehicle(value.first);
                                               },
                                               segments: [
@@ -235,7 +235,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             child: SegmentedButton<bool>(
                                               selected: {state.useEtc},
                                               onSelectionChanged: (value) {
-                                                ref.read(homePageNotifierProvider.notifier)
+                                                ref.read(homePageProvider.notifier)
                                                     .setUseEtc(value.first);
                                               },
                                               segments: [
@@ -265,7 +265,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       child: SegmentedButton<bool>(
                                         selected: {state.isAgent},
                                         onSelectionChanged: (value) {
-                                          ref.read(homePageNotifierProvider.notifier)
+                                          ref.read(homePageProvider.notifier)
                                               .setIsAgent(value.first);
                                         },
                                         segments: [
@@ -338,7 +338,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 child: Center(child: CircularProgressIndicator()),
                               ) : SizedBox(
                                 width: double.infinity,
-                                height: 560,
                                 child: Column(
                                   spacing: 8,
                                   children: [
@@ -353,11 +352,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           doubleTapZoomable: true,
                                         );
                                       },
-                                      child: RawImage(image: value!),
+                                      child: RawImage(image: value!, height: 560),
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             },
                           ],
                         ),
@@ -390,8 +389,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        if (state.procedureType == ProcedureType.update
-                            && state.isTodayOver2MonthsBeforeBirthday)
+                        if (state.isTodayOver2MonthsBeforeBirthday)
                           const Text(
                             "今日から誕生日まで2ヶ月以上あります",
                             style: TextStyle(
@@ -408,7 +406,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         icon: const Icon(Icons.clear),
                         label: const Text("クリア"),
                         onPressed: () {
-                          ref.read(homePageNotifierProvider.notifier).clear();
+                          ref.read(homePageProvider.notifier).clear();
                           _birthdayInputKey.currentState?.clear();
                           _physicalExpDateInputKey.currentState?.clear();
                           _rehabilitationExpDateInputKey.currentState?.clear();

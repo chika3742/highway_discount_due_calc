@@ -1,15 +1,15 @@
-import 'dart:ui';
+import "dart:ui";
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:highway_discount_due_calc/core/form_image_generator.dart';
-import 'package:highway_discount_due_calc/providers/home_page_notifier.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part 'generated_image.g.dart';
+import "../core/form_image_generator.dart";
+import "home_page_notifier.dart";
+
+part "generated_image.g.dart";
 
 @riverpod
 Future<Image> generatedImage(Ref ref) async {
-  ref.listen(homePageNotifierProvider, (previous, next) {
+  ref.listen(homePageProvider, (previous, next) {
     if (previous == null) return;
 
     final shouldInvalidate = FormImageGenerator.decorations.any((decoration) {
@@ -19,6 +19,6 @@ Future<Image> generatedImage(Ref ref) async {
       ref.invalidateSelf();
     }
   });
-  final homePageState = ref.read(homePageNotifierProvider);
+  final homePageState = ref.read(homePageProvider);
   return await FormImageGenerator(state: homePageState).generate();
 }

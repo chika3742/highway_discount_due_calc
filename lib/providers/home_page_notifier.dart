@@ -1,14 +1,14 @@
-import 'package:clock/clock.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:highway_discount_due_calc/components/expire_month_input.dart';
-import 'package:highway_discount_due_calc/core/expiration_date_calculator.dart';
-import 'package:highway_discount_due_calc/core/procedure_type.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import "package:clock/clock.dart";
+import "package:freezed_annotation/freezed_annotation.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
-import '../utils.dart';
+import "../components/expire_month_input.dart";
+import "../core/expiration_date_calculator.dart";
+import "../core/procedure_type.dart";
+import "../utils.dart";
 
-part 'home_page_notifier.freezed.dart';
-part 'home_page_notifier.g.dart';
+part "home_page_notifier.freezed.dart";
+part "home_page_notifier.g.dart";
 
 @riverpod
 class HomePageNotifier extends _$HomePageNotifier {
@@ -111,7 +111,7 @@ sealed class HomePageState with _$HomePageState {
     }
     final now = clock.now();
 
-    var adultBorderBirthday = birthDate!.copyWith(year: birthDate!.year + adultAge);
+    final adultBorderBirthday = birthDate!.copyWith(year: birthDate!.year + adultAge);
     return adultBorderBirthday.isAfter(now)
         && adultBorderBirthday.isBefore(expirationDate!);
   }
@@ -129,6 +129,9 @@ sealed class HomePageState with _$HomePageState {
 
   bool get isTodayOver2MonthsBeforeBirthday {
     if (!isInputValid) {
+      return false;
+    }
+    if (procedureType != ProcedureType.update) {
       return false;
     }
     return isMoreThanTwoMonthsAhead(birthDate!.month, birthDate!.day);

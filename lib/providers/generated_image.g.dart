@@ -6,22 +6,38 @@ part of 'generated_image.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$generatedImageHash() => r'8e17c7ee2c9292a45efc392a68a62954a014e018';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [generatedImage].
 @ProviderFor(generatedImage)
-final generatedImageProvider = AutoDisposeFutureProvider<Image>.internal(
-  generatedImage,
-  name: r'generatedImageProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$generatedImageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final generatedImageProvider = GeneratedImageProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GeneratedImageRef = AutoDisposeFutureProviderRef<Image>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class GeneratedImageProvider
+    extends $FunctionalProvider<AsyncValue<Image>, Image, FutureOr<Image>>
+    with $FutureModifier<Image>, $FutureProvider<Image> {
+  GeneratedImageProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'generatedImageProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$generatedImageHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Image> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Image> create(Ref ref) {
+    return generatedImage(ref);
+  }
+}
+
+String _$generatedImageHash() => r'564a7ecf59929b85034ef4918cfd110fff022464';

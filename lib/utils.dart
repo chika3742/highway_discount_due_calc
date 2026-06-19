@@ -1,5 +1,5 @@
-import 'package:clock/clock.dart';
-import 'package:flutter/services.dart';
+import "package:clock/clock.dart";
+import "package:flutter/services.dart";
 
 DateTime earlierDate(DateTime a, DateTime b) {
   return a.isBefore(b) ? a : b;
@@ -23,7 +23,7 @@ final yearInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) 
     return newValue;
   }
 
-  var newValueInt = int.tryParse(newValue.text);
+  final newValueInt = int.tryParse(newValue.text);
   if (newValueInt == null) {
     return oldValue;
   }
@@ -44,4 +44,3 @@ bool isMoreThanTwoMonthsAhead(int month, int day) {
   }
   return target.copyWith(month: target.month - 2).isAfter(now);
 }
-

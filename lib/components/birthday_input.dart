@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:highway_discount_due_calc/components/layout.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import '../core/japanese_calendar.dart';
-import '../utils.dart';
+import "../core/japanese_calendar.dart";
+import "../utils.dart";
+import "layout.dart";
 
 class BirthdayInput extends StatefulWidget {
   final ValueChanged<DateTime?>? onChanged;
@@ -139,7 +139,7 @@ class BirthdayInputState extends State<BirthdayInput> {
       return null;
     }
     if (japaneseCalendarYear != null && _month != null) {
-      var dayLengthOfCurrentMonth = DateTime(japaneseCalendarYear!.adYear, _month! + 1, 0).day;
+      final dayLengthOfCurrentMonth = DateTime(japaneseCalendarYear!.adYear, _month! + 1, 0).day;
       if (dayLengthOfCurrentMonth < day) {
         return dayLengthOfCurrentMonth;
       }

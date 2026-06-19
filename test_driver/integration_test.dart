@@ -1,7 +1,7 @@
-import 'dart:typed_data';
+import "dart:typed_data";
 
-import 'package:image/image.dart' as img;
-import 'package:integration_test/integration_test_driver_extended.dart';
+import "package:image/image.dart" as img;
+import "package:integration_test/integration_test_driver_extended.dart";
 
 void main() async {
   try {
@@ -14,7 +14,7 @@ void main() async {
         final cmd = img.Command()
           ..decodePng(Uint8List.fromList(screenshotBytes))
           ..convert(numChannels: 3)
-          ..writeToFile('$screenshotName.png');
+          ..writeToFile("$screenshotName.png");
         await cmd.execute();
         return true;
       },
