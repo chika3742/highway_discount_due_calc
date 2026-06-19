@@ -254,11 +254,11 @@ void main() {
   group('HomePageNotifier.clear()', () {
     test('setBirthDate 後に clear() で初期状態に戻る', () {
       final container = createContainer();
-      container.read(homePageNotifierProvider.notifier).setBirthDate(DateTime(2000, 1, 1));
-      expect(container.read(homePageNotifierProvider).birthDate, isNotNull);
+      container.read(homePageProvider.notifier).setBirthDate(DateTime(2000, 1, 1));
+      expect(container.read(homePageProvider).birthDate, isNotNull);
 
-      container.read(homePageNotifierProvider.notifier).clear();
-      expect(container.read(homePageNotifierProvider).birthDate, null);
+      container.read(homePageProvider.notifier).clear();
+      expect(container.read(homePageProvider).birthDate, null);
     });
   });
 }

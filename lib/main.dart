@@ -10,7 +10,12 @@ void main() {
     final license = await rootBundle.loadString('assets/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      retry: (count, error) => null,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
