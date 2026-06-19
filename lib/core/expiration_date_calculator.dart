@@ -1,8 +1,8 @@
-import 'package:clock/clock.dart';
+import "package:clock/clock.dart";
 
-import '../components/expire_month_input.dart';
-import '../utils.dart';
-import 'procedure_type.dart';
+import "../components/expire_month_input.dart";
+import "../utils.dart";
+import "procedure_type.dart";
 
 int get adultAge {
   final now = clock.now();

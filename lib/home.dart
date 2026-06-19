@@ -1,17 +1,17 @@
-import 'package:easy_image_viewer/easy_image_viewer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:highway_discount_due_calc/components/bulleted_list_item.dart';
-import 'package:highway_discount_due_calc/components/expire_month_input.dart';
-import 'package:highway_discount_due_calc/components/layout.dart';
-import 'package:highway_discount_due_calc/core/expiration_date_calculator.dart';
-import 'package:highway_discount_due_calc/core/japanese_calendar.dart';
-import 'package:highway_discount_due_calc/core/ui_image_provider.dart';
-import 'package:highway_discount_due_calc/providers/generated_image.dart';
+import "package:easy_image_viewer/easy_image_viewer.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-import 'components/birthday_input.dart';
-import 'core/procedure_type.dart';
-import 'providers/home_page_notifier.dart';
+import "components/birthday_input.dart";
+import "components/bulleted_list_item.dart";
+import "components/expire_month_input.dart";
+import "components/layout.dart";
+import "core/expiration_date_calculator.dart";
+import "core/japanese_calendar.dart";
+import "core/procedure_type.dart";
+import "core/ui_image_provider.dart";
+import "providers/generated_image.dart";
+import "providers/home_page_notifier.dart";
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -356,7 +356,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             },
                           ],
                         ),

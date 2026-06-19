@@ -1,8 +1,8 @@
-import 'dart:ui';
+import "dart:ui";
 
-import 'package:flutter/material.dart' hide Image;
+import "package:flutter/material.dart" hide Image;
 
-import '../providers/home_page_notifier.dart';
+import "../providers/home_page_notifier.dart";
 
 class FormImageGenerator {
   static final List<FormDecoration> decorations = [

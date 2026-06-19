@@ -1,7 +1,7 @@
-import 'dart:ui' as ui;
+import "dart:ui" as ui;
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 
 class UiImageProvider extends ImageProvider<UiImageProvider> {
   const UiImageProvider(this.image, {this.scale = 1.0});
