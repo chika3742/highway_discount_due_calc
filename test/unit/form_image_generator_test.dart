@@ -124,6 +124,20 @@ void main() {
         expect(decoration.drawIf(state), true);
       });
 
+      test("rehabilitationExpire に期限日があるとき true", () {
+        final state = _defaultState.copyWith(
+          rehabilitationExpire: ExpireMonthInputData(date: DateTime(2020, 8, 1)),
+        );
+        expect(decoration.drawIf(state), true);
+      });
+
+      test("rehabilitationExpire のみ無期限（physical null）のとき true", () {
+        final state = _defaultState.copyWith(
+          rehabilitationExpire: const ExpireMonthInputData(noExpirationDate: true),
+        );
+        expect(decoration.drawIf(state), true);
+      });
+
       test("両方とも無期限のとき false", () {
         final state = _defaultState.copyWith(
           physicalExpire: const ExpireMonthInputData(noExpirationDate: true),

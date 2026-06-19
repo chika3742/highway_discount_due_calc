@@ -183,8 +183,8 @@ class FormImageGenerator {
 }
 
 class FormDecoration {
-  /// テストから個々の装飾を一意に識別するための識別子。
-  /// アプリの実行（描画）には影響しない、テスト専用のメタデータ。
+  /// Stable identifier used by tests to look up a decoration without relying on list order.
+  /// Not used at runtime; carrying it on the production class keeps tests in sync with the source list.
   final String testId;
   final bool Function(HomePageState state) drawIf;
   final FormDecorationType type;

@@ -16,10 +16,12 @@ void main() {
       // autoDispose provider を生かし、内部の ref.listen を有効に保つ。
       container.listen(generatedImageProvider, (_, __) {});
       final Image first = await container.read(generatedImageProvider.future);
+      addTearDown(first.dispose);
 
       // registerVehicle は複数の装飾の drawIf に影響する → 再生成されるべき。
       container.read(homePageProvider.notifier).setRegisterVehicle(true);
       final Image second = await container.read(generatedImageProvider.future);
+      addTearDown(second.dispose);
 
       expect(identical(first, second), false);
     });
@@ -29,10 +31,12 @@ void main() {
       // autoDispose provider を生かし、内部の ref.listen を有効に保つ。
       container.listen(generatedImageProvider, (_, __) {});
       final Image first = await container.read(generatedImageProvider.future);
+      addTearDown(first.dispose);
 
       // leaseVehicle はどの装飾の drawIf でも参照されない → 再生成されないべき。
       container.read(homePageProvider.notifier).setLeaseVehicle(true);
       final Image second = await container.read(generatedImageProvider.future);
+      // first と同一インスタンスを返すことが本テストの期待。dispose 重複を避けるため addTearDown は first のみ。
 
       expect(identical(first, second), true);
     });
